@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Terrain\OgreTerrainPrerequisites.h"
-#include "Terrain\OgreTerrainMaterialGenerator.h"
 #include "OgreGpuProgramParams.h"
+#include "OgreTerrainMaterialGenerator.h"
+#include "OgreTerrainPrerequisites.h"
  
 namespace Ogre
 {
@@ -20,11 +20,11 @@ namespace Ogre
 		terrain. 
 		@note Requires the Cg plugin to render correctly
 	*/
-	class TerrainMaterialGeneratorD : public TerrainMaterialGenerator
+	class TerrainMaterialGeneratorC : public TerrainMaterialGenerator
 	{
 	public:
-		TerrainMaterialGeneratorD();
-		~TerrainMaterialGeneratorD();
+		TerrainMaterialGeneratorC();
+		~TerrainMaterialGeneratorC();
  
 		/** Shader model 2 profile target. 
 		*/

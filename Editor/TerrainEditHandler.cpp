@@ -8,7 +8,7 @@
 
 #include "OgreSceneManager.h"
 #include "OgreManualObject.h"
-#include "Terrain\OgreTerrain.h"
+#include "OgreTerrain.h"
 
 #include "OIS\OISKeyboard.h"
 #include "OIS\OISMouse.h"

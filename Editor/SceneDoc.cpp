@@ -25,11 +25,13 @@
 #include "OgreEntity.h"
 #include "OgreSubEntity.h"
 #include "OgreSceneManager.h"
-#include "Terrain\OgreTerrainGroup.h"
+#include "OgreTerrainGroup.h"
 #include "OgreShadowCameraSetupPSSM.h"
 #include "OgreGpuProgramManager.h"
 #include "Overlay\OgreOverlaySystem.h"
-#include "Terrain\OgreTerrainMaterialGeneratorA.h"
+#include "OgreTerrainMaterialGeneratorA.h"
+#include "TerrainMaterialGeneratorB.h"
+#include "TerrainMaterialGeneratorC.h"
 
 #include "tinyxml.h"
 
@@ -68,19 +70,41 @@ SceneDoc::~SceneDoc()
 {
 }
 
-void SceneDoc::initialize(NewSceneDlg *Dlg)
+void SceneDoc::initialize(NewSceneDlg *dlg)
 {
-	sceneName = Dlg->GetProperty(NSD_SCENE_NAME);
+	sceneName = dlg->getProperty(NewSceneDlg::SCENE_NAME);
 	SetTitle(sceneName);
 
 	sceneManager = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC); 
 	sceneManager->addRenderQueueListener(RenderPump::current->getOverlaySystem());
 
-	COLORREF refAmbientLight = Dlg->GetProperty(NSD_AMBIENT_LIGHT);
+	COLORREF refAmbientLight = dlg->getProperty(NewSceneDlg::AMBIENT_LIGHT);
 	sceneManager->setAmbientLight(
 		Ogre::ColourValue(GetRValue(refAmbientLight)/255.0f, GetGValue(refAmbientLight)/255.0f, GetBValue(refAmbientLight)/255.0f));
 	
-	CString strFogMode = Dlg->GetProperty(NSD_FOG_MODE);
+	skyType = dlg->getProperty(NewSceneDlg::SKY_TYPE);
+	if(skyType != "None")
+	{
+		skyMaterial = dlg->getProperty(NewSceneDlg::SKY_MATERIAL);
+		if(skyType == "Box")
+		{
+			sceneManager->setSkyBox(true, Ogre::String(skyMaterial));
+		} else 
+		if(skyType == "Dome")
+		{
+			sceneManager->setSkyDome(true, Ogre::String(skyMaterial), 5, 8, 500);
+		} else 
+		if(skyType == "Plane")
+		{
+			Ogre::Plane Plane;
+			Plane.d=1000;
+			Plane.normal=Ogre::Vector3::NEGATIVE_UNIT_Y;
+
+			sceneManager->setSkyPlane(true, Plane, Ogre::String(skyMaterial));
+		}
+	}
+
+	CString strFogMode = dlg->getProperty(NewSceneDlg::FOG_MODE);
 	if(strFogMode == "None")
 	{
 		sceneManager->setFog();
@@ -101,35 +125,13 @@ void SceneDoc::initialize(NewSceneDlg *Dlg)
 			FogMode = Ogre::FOG_EXP2;
 		}
 
-		COLORREF refFogColour = Dlg->GetProperty(NSD_FOG_COLOUR);
+		COLORREF refFogColour = dlg->getProperty(NewSceneDlg::FOG_COLOUR);
 		Ogre::ColourValue FogColour(GetRValue(refFogColour)/255.0f, GetGValue(refFogColour)/255.0f, GetBValue(refFogColour)/255.0f);
 
-		Ogre::Real FogDensity = Dlg->GetProperty(NSD_FOG_DENSITY);
-		Ogre::Real FogStart = Dlg->GetProperty(NSD_FOG_START);
-		Ogre::Real FogEnd = Dlg->GetProperty(NSD_FOG_END);
+		Ogre::Real FogDensity = dlg->getProperty(NewSceneDlg::FOG_DENSITY);
+		Ogre::Real FogStart = dlg->getProperty(NewSceneDlg::FOG_START);
+		Ogre::Real FogEnd = dlg->getProperty(NewSceneDlg::FOG_END);
 		sceneManager->setFog(FogMode, FogColour, FogDensity, FogStart, FogEnd);
-	}
-
-	skyType = Dlg->GetProperty(NSD_SKY_TYPE);
-	if(skyType != "None")
-	{
-		skyMaterial = Dlg->GetProperty(NSD_SKY_MATERIAL);
-		if(skyType == "Box")
-		{
-			sceneManager->setSkyBox(true, Ogre::String(skyMaterial));
-		} else 
-		if(skyType == "Dome")
-		{
-			sceneManager->setSkyDome(true, Ogre::String(skyMaterial), 5, 8, 500);
-		} else 
-		if(skyType == "Plane")
-		{
-			Ogre::Plane Plane;
-			Plane.d=1000;
-			Plane.normal=Ogre::Vector3::NEGATIVE_UNIT_Y;
-
-			sceneManager->setSkyPlane(true, Plane, Ogre::String(skyMaterial));
-		}
 	}
 
 	camera = sceneManager->createCamera(
@@ -144,48 +146,48 @@ void SceneDoc::initialize(NewSceneDlg *Dlg)
 		camera->setFarClipDistance(0);
 	}
 
+	//////////////////////////////////////////////////
+	// Terrain
+	//////////////////////////////////////////////////
+
 	terrainManagerConfig = new TerrainManagerConfig;
 
-	Ogre::Real LightMapDirectionX = Dlg->GetProperty(NSD_LIGHT_MAP_DIRECTION_X);
-	Ogre::Real LightMapDirectionY = Dlg->GetProperty(NSD_LIGHT_MAP_DIRECTION_Y);
-	Ogre::Real LightMapDirectionZ = Dlg->GetProperty(NSD_LIGHT_MAP_DIRECTION_Z);
+	Ogre::Real LightMapDirectionX = dlg->getProperty(NewSceneDlg::LIGHT_MAP_DIRECTION_X);
+	Ogre::Real LightMapDirectionY = dlg->getProperty(NewSceneDlg::LIGHT_MAP_DIRECTION_Y);
+	Ogre::Real LightMapDirectionZ = dlg->getProperty(NewSceneDlg::LIGHT_MAP_DIRECTION_Z);
 	terrainManagerConfig->LightMapDirection = Ogre::Vector3(LightMapDirectionX, LightMapDirectionY, LightMapDirectionZ);
-	terrainManagerConfig->LightMapSize = Dlg->GetProperty(NSD_LIGHT_MAP_SIZE);
+	terrainManagerConfig->LightMapSize = dlg->getProperty(NewSceneDlg::LIGHT_MAP_SIZE);
 
 	terrainManagerConfig->CompositeMapAmbient = sceneManager->getAmbientLight();
-	COLORREF refCompositeMapDiffuse = Dlg->GetProperty(NSD_COMPOSITE_MAP_DIFFUSE);
+	COLORREF refCompositeMapDiffuse = dlg->getProperty(NewSceneDlg::COMPOSITE_MAP_DIFFUSE);
 	terrainManagerConfig->CompositeMapDiffuse = 
 		Ogre::ColourValue(GetRValue(refCompositeMapDiffuse)/255.0f, GetGValue(refCompositeMapDiffuse)/255.0f, GetBValue(refCompositeMapDiffuse)/255.0f);
-	terrainManagerConfig->CompositeMapDistance = Dlg->GetProperty(NSD_COMPOSITE_MAP_DISTANCE);
-	terrainManagerConfig->CompositeMapSize = Dlg->GetProperty(NSD_COMPOSITE_MAP_SIZE);
+	terrainManagerConfig->CompositeMapDistance = dlg->getProperty(NewSceneDlg::COMPOSITE_MAP_DISTANCE);
+	terrainManagerConfig->CompositeMapSize = dlg->getProperty(NewSceneDlg::COMPOSITE_MAP_SIZE);
 
 	terrainManagerConfig->FilenamePrefix = 
-		Ogre::String((CString)Dlg->GetProperty(NSD_FILENAME_PREFIX));
+		Ogre::String((CString)dlg->getProperty(NewSceneDlg::FILENAME_PREFIX));
 	terrainManagerConfig->FilenameExtension = 
-		Ogre::String((CString)Dlg->GetProperty(NSD_FILENAME_EXTENSION));
+		Ogre::String((CString)dlg->getProperty(NewSceneDlg::FILENAME_EXTENSION));
 
-	terrainManagerConfig->TerrainSize = Dlg->GetProperty(NSD_TERRAIN_SIZE);
-	terrainManagerConfig->WorldSize = Dlg->GetProperty(NSD_WORLD_SIZE);
-	terrainManagerConfig->InputScale = Dlg->GetProperty(NSD_INPUT_SCALE);
-	terrainManagerConfig->MinBatchSize = Dlg->GetProperty(NSD_MIN_BATCH_SIZE);
-	terrainManagerConfig->MaxBatchSize = Dlg->GetProperty(NSD_MAX_BATCH_SIZE);
+	terrainManagerConfig->TerrainSize = dlg->getProperty(NewSceneDlg::TERRAIN_SIZE);
+	terrainManagerConfig->WorldSize = dlg->getProperty(NewSceneDlg::WORLD_SIZE);
+	terrainManagerConfig->InputScale = dlg->getProperty(NewSceneDlg::INPUT_SCALE);
+	terrainManagerConfig->MinBatchSize = dlg->getProperty(NewSceneDlg::MIN_BATCH_SIZE);
+	terrainManagerConfig->MaxBatchSize = dlg->getProperty(NewSceneDlg::MAX_BATCH_SIZE);
 	
 	terrainManagerConfig->LayerCount = 1;
-	terrainManagerConfig->TextureWorldSizes.push_back(Dlg->GetProperty(NSD_TEXTURE_WORLD_SIZE));
+	terrainManagerConfig->TextureWorldSizes.push_back(dlg->getProperty(NewSceneDlg::TEXTURE_WORLD_SIZE));
 	terrainManagerConfig->DiffuseSpeculars.push_back(
-		Ogre::String((CString)Dlg->GetProperty(NSD_DIFFUSE_SPECULAR)));
+		Ogre::String((CString)dlg->getProperty(NewSceneDlg::DIFFUSE_SPECULAR)));
 	terrainManagerConfig->NormalHeights.push_back(
-		Ogre::String((CString)Dlg->GetProperty(NSD_NORMAL_HEIGHT)));
+		Ogre::String((CString)dlg->getProperty(NewSceneDlg::NORMAL_HEIGHT)));
 
 	terrainManagerConfig->LoadFromFile = false;
 	terrainManagerConfig->HeightMap = 
-		Ogre::String((CString)Dlg->GetProperty(NSD_HEIGHT_MAP));
+		Ogre::String((CString)dlg->getProperty(NewSceneDlg::HEIGHT_MAP));
 
 	terrainManager = new TerrainManager(this, terrainManagerConfig);
-
-	CString strShadowTechnique = Dlg->GetProperty(NSD_SHADOW_TECHNIQUE);
-	configureShadows(strShadowTechnique != "None", strShadowTechnique == "Depth Shadows");
-
 	terrainEditHandler = new TerrainEditHandler(this);
 	objectEditHandler = new ObjectEditHandler(this);
 	liquidEditHandler = new LiquidEditHandler(this);
@@ -329,7 +331,7 @@ void SceneDoc::initialize(CString Filename)
 	terrainManagerConfig->LoadFromFile = true;
 	terrainManager = new TerrainManager(this, terrainManagerConfig);
 
-	//CString strShadowTechnique = Dlg->GetProperty(NSD_SHADOW_TECHNIQUE);
+	//CString strShadowTechnique = dlg->getProperty(NSD_SHADOW_TECHNIQUE);
 	//ConfigureShadows(strShadowTechnique != "None", strShadowTechnique == "Depth Shadows");
 
 	terrainEditHandler = new TerrainEditHandler(this);
@@ -454,17 +456,15 @@ void SceneDoc::roaming(CPoint ScreenPoint, float Elapsed)
 		if(!rayResult.hit)
 			return;
 		terrainEditHandler->Roaming(rayResult, Elapsed);
-	}
-	else if(editMode == ID_LIQUID_EDIT)
+	} else 
+	if(editMode == ID_LIQUID_EDIT)
 	{
 		if(!rayResult.hit)
 			return;
 		liquidEditHandler->Roaming(rayResult.position);
 	}
-	else
-	{
-		objectEditHandler->Roaming(ScreenPoint, rayResult, Elapsed);
-	}
+
+	objectEditHandler->Roaming(ScreenPoint, rayResult, Elapsed);
 }
 
 void SceneDoc::leftDown(UINT nFlags, CPoint point)
@@ -635,79 +635,79 @@ void buildDepthShadowMaterial(SceneObject *SceneObject)
 
 void SceneDoc::configureShadows(bool enabled, bool depthShadows)
 {
-	Ogre::TerrainMaterialGeneratorA::SM2Profile* matProfile = 
-		static_cast<Ogre::TerrainMaterialGeneratorA::SM2Profile*>(terrainManager->GetTerrainGlobals()->getDefaultMaterialGenerator()->getActiveProfile());
-	matProfile->setReceiveDynamicShadowsEnabled(enabled);
-#ifdef SHADOWS_IN_LOW_LOD_MATERIAL
-	matProfile->setReceiveDynamicShadowsLowLod(true);
-#else
-	matProfile->setReceiveDynamicShadowsLowLod(false);
-#endif
-
-	if(enabled)
-	{
-		sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE_INTEGRATED);
-		/** 在此距离上，显示Composite map并消除阴影
-		*/
-		sceneManager->setShadowFarDistance(12800.0f);
-
-		sceneManager->setShadowTextureCountPerLightType(Ogre::Light::LT_DIRECTIONAL, 3);
-		if(shadowCameraSetup.isNull())
-		{
-			Ogre::PSSMShadowCameraSetup* pssmSetup = new Ogre::PSSMShadowCameraSetup();
-			pssmSetup->setSplitPadding(camera->getNearClipDistance());
-			pssmSetup->calculateSplitPoints(3, camera->getNearClipDistance(), sceneManager->getShadowFarDistance());
-			pssmSetup->setOptimalAdjustFactor(0, 2);
-			pssmSetup->setOptimalAdjustFactor(1, 1);
-			pssmSetup->setOptimalAdjustFactor(2, 0.5);
-
-			shadowCameraSetup.bind(pssmSetup);
-
-		}
-		sceneManager->setShadowCameraSetup(shadowCameraSetup);
-
-		if(depthShadows)
-		{
-			sceneManager->setShadowTextureCount(3);
-			sceneManager->setShadowTextureConfig(0, 2048, 2048, Ogre::PF_FLOAT32_R);
-			sceneManager->setShadowTextureConfig(1, 1024, 1024, Ogre::PF_FLOAT32_R);
-			sceneManager->setShadowTextureConfig(2, 1024, 1024, Ogre::PF_FLOAT32_R);
-			sceneManager->setShadowTextureSelfShadow(true);
-			sceneManager->setShadowCasterRenderBackFaces(true);
-
-			Ogre::Vector4 splitPoints;
-			const Ogre::PSSMShadowCameraSetup::SplitPointList& splitPointList = 
-				static_cast<Ogre::PSSMShadowCameraSetup*>(shadowCameraSetup.get())->getSplitPoints();
-			for(int i = 0; i < 3; ++i)
-			{
-				splitPoints[i] = splitPointList[i];
-			}
-			Ogre::GpuSharedParametersPtr p = Ogre::GpuProgramManager::getSingleton().getSharedParameters("pssm_params");
-			p->setNamedConstant("pssmSplitPoints", splitPoints);
-
-			for(int i=0; i<objects.size(); i++)
-			{
-				buildDepthShadowMaterial(objects[i]);
-			}
-		}
-		else
-		{
-			sceneManager->setShadowTextureCount(3);
-			sceneManager->setShadowTextureConfig(0, 2048, 2048, Ogre::PF_X8B8G8R8);
-			sceneManager->setShadowTextureConfig(1, 1024, 1024, Ogre::PF_X8B8G8R8);
-			sceneManager->setShadowTextureConfig(2, 1024, 1024, Ogre::PF_X8B8G8R8);
-			sceneManager->setShadowTextureSelfShadow(false);
-			sceneManager->setShadowCasterRenderBackFaces(false);
-			sceneManager->setShadowTextureCasterMaterial(Ogre::StringUtil::BLANK);
-		}
-
-		matProfile->setReceiveDynamicShadowsDepth(depthShadows);
-		matProfile->setReceiveDynamicShadowsPSSM(static_cast<Ogre::PSSMShadowCameraSetup*>(shadowCameraSetup.get()));
-	}
-	else
-	{
-		sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
-	}
+//	Ogre::TerrainMaterialGeneratorC::SM2Profile* matProfile = 
+//		static_cast<Ogre::TerrainMaterialGeneratorC::SM2Profile*>(terrainManager->GetTerrainGlobals()->getDefaultMaterialGenerator()->getActiveProfile());
+//	matProfile->setReceiveDynamicShadowsEnabled(enabled);
+//#ifdef SHADOWS_IN_LOW_LOD_MATERIAL
+//	matProfile->setReceiveDynamicShadowsLowLod(true);
+//#else
+//	matProfile->setReceiveDynamicShadowsLowLod(false);
+//#endif
+//
+//	if(enabled)
+//	{
+//		sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE_INTEGRATED);
+//		/** 在此距离上，显示Composite map并消除阴影
+//		*/
+//		sceneManager->setShadowFarDistance(12800.0f);
+//
+//		sceneManager->setShadowTextureCountPerLightType(Ogre::Light::LT_DIRECTIONAL, 3);
+//		if(shadowCameraSetup.isNull())
+//		{
+//			Ogre::PSSMShadowCameraSetup* pssmSetup = new Ogre::PSSMShadowCameraSetup();
+//			pssmSetup->setSplitPadding(camera->getNearClipDistance());
+//			pssmSetup->calculateSplitPoints(3, camera->getNearClipDistance(), sceneManager->getShadowFarDistance());
+//			pssmSetup->setOptimalAdjustFactor(0, 2);
+//			pssmSetup->setOptimalAdjustFactor(1, 1);
+//			pssmSetup->setOptimalAdjustFactor(2, 0.5);
+//
+//			shadowCameraSetup.bind(pssmSetup);
+//
+//		}
+//		sceneManager->setShadowCameraSetup(shadowCameraSetup);
+//
+//		if(depthShadows)
+//		{
+//			sceneManager->setShadowTextureCount(3);
+//			sceneManager->setShadowTextureConfig(0, 2048, 2048, Ogre::PF_FLOAT32_R);
+//			sceneManager->setShadowTextureConfig(1, 1024, 1024, Ogre::PF_FLOAT32_R);
+//			sceneManager->setShadowTextureConfig(2, 1024, 1024, Ogre::PF_FLOAT32_R);
+//			sceneManager->setShadowTextureSelfShadow(true);
+//			sceneManager->setShadowCasterRenderBackFaces(true);
+//
+//			Ogre::Vector4 splitPoints;
+//			const Ogre::PSSMShadowCameraSetup::SplitPointList& splitPointList = 
+//				static_cast<Ogre::PSSMShadowCameraSetup*>(shadowCameraSetup.get())->getSplitPoints();
+//			for(int i = 0; i < 3; ++i)
+//			{
+//				splitPoints[i] = splitPointList[i];
+//			}
+//			Ogre::GpuSharedParametersPtr p = Ogre::GpuProgramManager::getSingleton().getSharedParameters("pssm_params");
+//			p->setNamedConstant("pssmSplitPoints", splitPoints);
+//
+//			for(int i=0; i<objects.size(); i++)
+//			{
+//				buildDepthShadowMaterial(objects[i]);
+//			}
+//		}
+//		else
+//		{
+//			sceneManager->setShadowTextureCount(3);
+//			sceneManager->setShadowTextureConfig(0, 2048, 2048, Ogre::PF_X8B8G8R8);
+//			sceneManager->setShadowTextureConfig(1, 1024, 1024, Ogre::PF_X8B8G8R8);
+//			sceneManager->setShadowTextureConfig(2, 1024, 1024, Ogre::PF_X8B8G8R8);
+//			sceneManager->setShadowTextureSelfShadow(false);
+//			sceneManager->setShadowCasterRenderBackFaces(false);
+//			sceneManager->setShadowTextureCasterMaterial(Ogre::StringUtil::BLANK);
+//		}
+//
+//		matProfile->setReceiveDynamicShadowsDepth(depthShadows);
+//		matProfile->setReceiveDynamicShadowsPSSM(static_cast<Ogre::PSSMShadowCameraSetup*>(shadowCameraSetup.get()));
+//	}
+//	else
+//	{
+//		sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
+//	}
 }
 
 BEGIN_MESSAGE_MAP(SceneDoc, CDocument)

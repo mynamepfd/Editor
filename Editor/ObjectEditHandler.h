@@ -3,7 +3,7 @@
 #include "resource.h"
 #include "OgreVector3.h"
 #include "OgreMaterial.h"
-#include "Terrain\OgreTerrainGroup.h"
+#include "OgreTerrainGroup.h"
 
 class SceneDoc;
 class SceneObject;

@@ -54,7 +54,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;FREEIMAGE_LIB;TIXML_USE_STL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)TinyXML;$(ProjectDir)OgreXMLConverter;$(SolutionDir)Dependencies\BCG\include;$(SolutionDir)Dependencies\Scintilla\include;$(SolutionDir)Dependencies\OGRE\include;$(SolutionDir)Dependencies\OGRE\include\OGRE;$(SolutionDir)Dependencies\OGRE\boost;$(SolutionDir)Dependencies\OgreOpCode\include;$(SolutionDir)Dependencies\DirectX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)TinyXML;$(ProjectDir)OgreXMLConverter;$(SolutionDir)Dependencies\BCG\include;$(SolutionDir)Dependencies\Scintilla\include;$(SolutionDir)Dependencies\OGRE\include;$(SolutionDir)Dependencies\OGRE\include\OGRE;$(SolutionDir)Dependencies\OGRE\include\OGRE\Terrain;$(SolutionDir)Dependencies\OGRE\boost;$(SolutionDir)Dependencies\OgreOpCode\include;$(SolutionDir)Dependencies\DirectX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -179,7 +179,8 @@
     <ClInclude Include="TerrainEditPage.h" />
     <ClInclude Include="TerrainLayerWidget.h" />
     <ClInclude Include="TerrainManager.h" />
-    <ClInclude Include="TerrainMaterialGeneratorD.h" />
+    <ClInclude Include="TerrainMaterialGeneratorB.h" />
+    <ClInclude Include="TerrainMaterialGeneratorC.h" />
     <ClInclude Include="TexturePopup.h" />
     <ClInclude Include="TexturePreviewPage.h" />
     <ClInclude Include="TextureProp.h" />
@@ -259,7 +260,12 @@
     <ClCompile Include="TerrainEditPage.cpp" />
     <ClCompile Include="TerrainLayerWidget.cpp" />
     <ClCompile Include="TerrainManager.cpp" />
-    <ClCompile Include="TerrainMaterialGeneratorD.cpp" />
+    <ClCompile Include="TerrainMaterialGeneratorB.cpp" />
+    <ClCompile Include="TerrainMaterialGeneratorC.cpp" />
+    <ClCompile Include="TerrainMaterialShaderHelperCg.cpp" />
+    <ClCompile Include="TerrainMaterialShaderHelperGLSL.cpp" />
+    <ClCompile Include="TerrainMaterialShaderHelperGLSLES.cpp" />
+    <ClCompile Include="TerrainMaterialShaderHelperHLSL.cpp" />
     <ClCompile Include="TexturePopup.cpp" />
     <ClCompile Include="TexturePreviewPage.cpp" />
     <ClCompile Include="TextureProp.cpp" />

@@ -16,7 +16,7 @@
 #include "OgreSceneManager.h"
 #include "OgreSceneNode.h"
 #include "OgreTexture.h"
-#include "Terrain\OgreTerrain.h"
+#include "OgreTerrain.h"
 
 #include <vector>
 #include <queue>

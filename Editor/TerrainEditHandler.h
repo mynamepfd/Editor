@@ -1,7 +1,7 @@
 #pragma once
 
 #include "resource.h"
-#include "Terrain\OgreTerrainGroup.h"
+#include "OgreTerrainGroup.h"
 
 class SceneDoc;
 class CTerrainBrush;

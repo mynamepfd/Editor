@@ -106,6 +106,7 @@ GBufferSchemeHandler::PassProperties GBufferSchemeHandler::inspectPass(
 	for (unsigned short i=0; i<pass->getNumTextureUnitStates(); i++) 
 	{
 		Ogre::TextureUnitState* tus = pass->getTextureUnitState(i);
+		Ogre::String texName = tus->getTextureName();
 		if (!checkNormalMap(tus, props))
 		{
 			props.regularTextures.push_back(tus);

@@ -29,6 +29,7 @@ void NewLightDlg::OnBnClickedOk()
 
 LRESULT NewLightDlg::OnPropertyChanged(WPARAM wparam, LPARAM lparam)
 {
+	
 	return 0;
 }
 

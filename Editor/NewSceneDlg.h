@@ -2,56 +2,51 @@
 
 #include "resource.h"
 
-enum KNewSceneDlg
-{
-	NSD_SCENE_NAME,
-	NSD_AMBIENT_LIGHT,
-	NSD_SHADOW_TECHNIQUE,
-	// Terrain global options
-	NSD_LIGHT_MAP_DIRECTION_X,
-	NSD_LIGHT_MAP_DIRECTION_Y,
-	NSD_LIGHT_MAP_DIRECTION_Z,
-	NSD_LIGHT_MAP_SIZE,
-	NSD_COMPOSITE_MAP_DIFFUSE,
-	NSD_COMPOSITE_MAP_DISTANCE,
-	NSD_COMPOSITE_MAP_SIZE,
-	// Default import settings
-	NSD_FILENAME_PREFIX,
-	NSD_FILENAME_EXTENSION,
-	NSD_TERRAIN_SIZE,
-	NSD_WORLD_SIZE,
-	NSD_INPUT_SCALE,
-	NSD_MIN_BATCH_SIZE,
-	NSD_MAX_BATCH_SIZE,
-	NSD_TEXTURE_WORLD_SIZE,
-	NSD_DIFFUSE_SPECULAR,
-	NSD_NORMAL_HEIGHT,
-	NSD_HEIGHT_MAP,
-	// Fog
-	NSD_FOG_MODE,
-	NSD_FOG_COLOUR,
-	NSD_FOG_DENSITY,
-	NSD_FOG_START,
-	NSD_FOG_END,
-	// Sky
-	NSD_SKY_TYPE,
-	NSD_SKY_MATERIAL,
-	_NSD
-};
-
 class NewSceneDlg : public CDialog
 {
 	DECLARE_DYNAMIC(NewSceneDlg)
 public:
-	NewSceneDlg(CWnd* pParent = NULL);   // 标准构造函数
+	NewSceneDlg(CWnd* pParent = NULL);
 	virtual ~NewSceneDlg();
 
-	enum { IDD = IDD_NEW_SCENE };
+	_variant_t getProperty(int type);
 
-	_variant_t GetProperty(KNewSceneDlg Type)
+	enum
 	{
-		return (_variant_t)mValues[Type];
-	}
+		SCENE_NAME,
+		AMBIENT_LIGHT,
+		//SHADOW_TECHNIQUE,
+		// Sky
+		SKY_TYPE,
+		SKY_MATERIAL,
+		// Fog
+		FOG_MODE,
+		FOG_COLOUR,
+		FOG_DENSITY,
+		FOG_START,
+		FOG_END,
+		// Terrain global options
+		LIGHT_MAP_DIRECTION_X,
+		LIGHT_MAP_DIRECTION_Y,
+		LIGHT_MAP_DIRECTION_Z,
+		LIGHT_MAP_SIZE,
+		COMPOSITE_MAP_DIFFUSE,
+		COMPOSITE_MAP_DISTANCE,
+		COMPOSITE_MAP_SIZE,
+		// Default import settings
+		FILENAME_PREFIX,
+		FILENAME_EXTENSION,
+		TERRAIN_SIZE,
+		WORLD_SIZE,
+		INPUT_SCALE,
+		MIN_BATCH_SIZE,
+		MAX_BATCH_SIZE,
+		TEXTURE_WORLD_SIZE,
+		DIFFUSE_SPECULAR,
+		NORMAL_HEIGHT,
+		HEIGHT_MAP,
+		_COUNT
+	};
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnBnClickedOk();
@@ -60,8 +55,6 @@ public:
 	BOOL OnInitDialog();
 	void DoDataExchange(CDataExchange* pDX);
 
-	CStatic mPropListFrame;
-	CBCGPPropList mPropList;
-	CBCGPProp *mProps[_NSD];
-	COleVariant mValues[_NSD];
+	CStatic propListFrame; CBCGPPropList propList;
+	CBCGPProp *props[_COUNT]; COleVariant values[_COUNT];
 };

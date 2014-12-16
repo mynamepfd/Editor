@@ -1,0 +1,17 @@
+material basket_01_mat
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.588 0.588 0.588
+			diffuse 0.588 0.588 0.588
+			specular 0 0 0 0
+			emissive .1 .1 .1
+			texture_unit
+			{
+				texture basket_01.dds
+			}
+		}
+	}
+}

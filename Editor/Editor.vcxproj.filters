@@ -102,6 +102,9 @@
     <Filter Include="Core\DeferredShading">
       <UniqueIdentifier>{2e8ad220-c142-4aa3-8b50-cae5a54284d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\DeferredShading\TerrainMaterialGenerator">
+      <UniqueIdentifier>{a2dee053-e139-48de-8f20-a46cf778cbaa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h">
@@ -350,8 +353,11 @@
     <ClInclude Include="ImageCombinator.h">
       <Filter>Dialog\ImageCombinator</Filter>
     </ClInclude>
-    <ClInclude Include="TerrainMaterialGeneratorD.h">
-      <Filter>Core\DeferredShading</Filter>
+    <ClInclude Include="TerrainMaterialGeneratorB.h">
+      <Filter>Core\DeferredShading\TerrainMaterialGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainMaterialGeneratorC.h">
+      <Filter>Core\DeferredShading\TerrainMaterialGenerator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -592,8 +598,23 @@
     <ClCompile Include="ImageCombinator.cpp">
       <Filter>Dialog\ImageCombinator</Filter>
     </ClCompile>
-    <ClCompile Include="TerrainMaterialGeneratorD.cpp">
-      <Filter>Core\DeferredShading</Filter>
+    <ClCompile Include="TerrainMaterialGeneratorB.cpp">
+      <Filter>Core\DeferredShading\TerrainMaterialGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainMaterialGeneratorC.cpp">
+      <Filter>Core\DeferredShading\TerrainMaterialGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainMaterialShaderHelperCg.cpp">
+      <Filter>Core\DeferredShading\TerrainMaterialGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainMaterialShaderHelperGLSL.cpp">
+      <Filter>Core\DeferredShading\TerrainMaterialGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainMaterialShaderHelperGLSLES.cpp">
+      <Filter>Core\DeferredShading\TerrainMaterialGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainMaterialShaderHelperHLSL.cpp">
+      <Filter>Core\DeferredShading\TerrainMaterialGenerator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

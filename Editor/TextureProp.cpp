@@ -4,8 +4,8 @@
 #include "TexturePopup.h"
 #include "StringUtils.h"
 
-TextureProp::TextureProp(const CString &strName, const CString &strResName, LPCTSTR lpszDesc):
-	CBCGPProp(strName, _variant_t((LPCTSTR)strResName), lpszDesc)
+TextureProp::TextureProp(const CString &strName, const CString &strResName, LPCTSTR lpszDesc, DWORD_PTR dwData):
+	CBCGPProp(strName, _variant_t((LPCTSTR)strResName), lpszDesc, dwData)
 {
 	m_dwFlags = 1;
 }

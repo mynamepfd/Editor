@@ -1,18 +1,19 @@
 #include "stdafx.h"
-#include "TerrainMaterialGeneratorD.h"
-#include "Terrain\OgreTerrain.h"
-#include "OgreMaterialManager.h"
-#include "OgreTechnique.h"
-#include "OgrePass.h"
-#include "OgreTextureUnitState.h"
+#include "TerrainMaterialGeneratorC.h"
+
 #include "OgreGpuProgramManager.h"
-#include "OgreHighLevelGpuProgramManager.h"
 #include "OgreHardwarePixelBuffer.h"
+#include "OgreHighLevelGpuProgramManager.h"
+#include "OgreMaterialManager.h"
+#include "OgrePass.h"
+#include "OgreTechnique.h"
+#include "OgreTerrain.h"
+#include "OgreTextureUnitState.h"
  
 namespace Ogre
 {
 	//---------------------------------------------------------------------
-	TerrainMaterialGeneratorD::TerrainMaterialGeneratorD()
+	TerrainMaterialGeneratorC::TerrainMaterialGeneratorC()
 	{
 		// define the layers
 		// We expect terrain textures to have no alpha, so we use the alpha channel
@@ -37,13 +38,13 @@ namespace Ogre
  
 	}
 	//---------------------------------------------------------------------
-	TerrainMaterialGeneratorD::~TerrainMaterialGeneratorD()
+	TerrainMaterialGeneratorC::~TerrainMaterialGeneratorC()
 	{
  
 	}
 	//---------------------------------------------------------------------
 	//---------------------------------------------------------------------
-	TerrainMaterialGeneratorD::SM2Profile::SM2Profile(TerrainMaterialGenerator* parent, const String& name, const String& desc)
+	TerrainMaterialGeneratorC::SM2Profile::SM2Profile(TerrainMaterialGenerator* parent, const String& name, const String& desc)
 		: Profile(parent, name, desc)
 		, mShaderGen(0)
 		, mGlobalColourMapEnabled(false)
@@ -53,12 +54,12 @@ namespace Ogre
  
 	}
 	//---------------------------------------------------------------------
-	TerrainMaterialGeneratorD::SM2Profile::~SM2Profile()
+	TerrainMaterialGeneratorC::SM2Profile::~SM2Profile()
 	{
 		OGRE_DELETE mShaderGen;
 	}	
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::requestOptions(Terrain* terrain)
+	void TerrainMaterialGeneratorC::SM2Profile::requestOptions(Terrain* terrain)
 	{
 		terrain->_setMorphRequired(true);
 		terrain->_setNormalMapRequired(true);
@@ -66,12 +67,12 @@ namespace Ogre
 		terrain->_setCompositeMapRequired(mCompositeMapEnabled);
 	}
 	//---------------------------------------------------------------------
-	bool TerrainMaterialGeneratorD::SM2Profile::isVertexCompressionSupported() const
+	bool TerrainMaterialGeneratorC::SM2Profile::isVertexCompressionSupported() const
 	{
 		return true;
 	}
 	//---------------------------------------------------------------------
-	void  TerrainMaterialGeneratorD::SM2Profile::setGlobalColourMapEnabled(bool enabled)
+	void  TerrainMaterialGeneratorC::SM2Profile::setGlobalColourMapEnabled(bool enabled)
 	{
 		if (enabled != mGlobalColourMapEnabled)
 		{
@@ -80,7 +81,7 @@ namespace Ogre
 		}
 	}
 	//---------------------------------------------------------------------
-	void  TerrainMaterialGeneratorD::SM2Profile::setLightmapEnabled(bool enabled)
+	void  TerrainMaterialGeneratorC::SM2Profile::setLightmapEnabled(bool enabled)
 	{
 		if (enabled != mLightmapEnabled)
 		{
@@ -89,7 +90,7 @@ namespace Ogre
 		}
 	}
 	//---------------------------------------------------------------------
-	void  TerrainMaterialGeneratorD::SM2Profile::setCompositeMapEnabled(bool enabled)
+	void  TerrainMaterialGeneratorC::SM2Profile::setCompositeMapEnabled(bool enabled)
 	{
 		if (enabled != mCompositeMapEnabled)
 		{
@@ -98,7 +99,7 @@ namespace Ogre
 		}
 	}
 	//---------------------------------------------------------------------
-	uint8 TerrainMaterialGeneratorD::SM2Profile::getMaxLayers(const Terrain* terrain) const
+	uint8 TerrainMaterialGeneratorC::SM2Profile::getMaxLayers(const Terrain* terrain) const
 	{
 		// count the texture units free
 		uint8 freeTextureUnits = 16;
@@ -116,7 +117,7 @@ namespace Ogre
  
 	}
 	//---------------------------------------------------------------------
-	MaterialPtr TerrainMaterialGeneratorD::SM2Profile::generate(const Terrain* terrain)
+	MaterialPtr TerrainMaterialGeneratorC::SM2Profile::generate(const Terrain* terrain)
 	{
 		// re-use old material if exists
 		MaterialPtr mat = terrain->_getMaterial();
@@ -155,7 +156,7 @@ namespace Ogre
  
 	}
 	//---------------------------------------------------------------------
-	MaterialPtr TerrainMaterialGeneratorD::SM2Profile::generateForCompositeMap(const Terrain* terrain)
+	MaterialPtr TerrainMaterialGeneratorC::SM2Profile::generateForCompositeMap(const Terrain* terrain)
 	{
 		// re-use old material if exists
 		MaterialPtr mat = terrain->_getCompositeMapMaterial();
@@ -183,7 +184,7 @@ namespace Ogre
  
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::addTechnique(
+	void TerrainMaterialGeneratorC::SM2Profile::addTechnique(
 		const MaterialPtr& mat, const Terrain* terrain, TechniqueType tt)
 	{
 		Technique* tech = mat->createTechnique();
@@ -270,20 +271,20 @@ namespace Ogre
 		}
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::updateParams(const MaterialPtr& mat, const Terrain* terrain)
+	void TerrainMaterialGeneratorC::SM2Profile::updateParams(const MaterialPtr& mat, const Terrain* terrain)
 	{
 		mShaderGen->updateParams(this, mat, terrain, false);
  
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::updateParamsForCompositeMap(const MaterialPtr& mat, const Terrain* terrain)
+	void TerrainMaterialGeneratorC::SM2Profile::updateParamsForCompositeMap(const MaterialPtr& mat, const Terrain* terrain)
 	{
 		mShaderGen->updateParams(this, mat, terrain, true);
 	}
 	//---------------------------------------------------------------------
 	//---------------------------------------------------------------------
 	HighLevelGpuProgramPtr 
-		TerrainMaterialGeneratorD::SM2Profile::ShaderHelper::generateVertexProgram(
+		TerrainMaterialGeneratorC::SM2Profile::ShaderHelper::generateVertexProgram(
 			const SM2Profile* prof, const Terrain* terrain, TechniqueType tt)
 	{
 		HighLevelGpuProgramPtr ret = createVertexProgram(prof, terrain, tt);
@@ -294,7 +295,7 @@ namespace Ogre
 		ret->load();
 		defaultVpParams(prof, terrain, tt, ret);
 #if OGRE_DEBUG_MODE
-		LogManager::getSingleton().stream(LML_CRITICAL) << "*** Terrain Vertex Program: " 
+		LogManager::getSingleton().stream(LML_TRIVIAL) << "*** Terrain Vertex Program: " 
 			<< ret->getName() << " ***\n" << ret->getSource() << "\n***   ***";
 #endif
  
@@ -303,7 +304,7 @@ namespace Ogre
 	}
 	//---------------------------------------------------------------------
 	HighLevelGpuProgramPtr 
-	TerrainMaterialGeneratorD::SM2Profile::ShaderHelper::generateFragmentProgram(
+	TerrainMaterialGeneratorC::SM2Profile::ShaderHelper::generateFragmentProgram(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt)
 	{
 		HighLevelGpuProgramPtr ret = createFragmentProgram(prof, terrain, tt);
@@ -315,14 +316,14 @@ namespace Ogre
 		defaultFpParams(prof, terrain, tt, ret);
  
 #if 1
-		LogManager::getSingleton().stream(LML_CRITICAL) << "*** Terrain Fragment Program: " 
+		LogManager::getSingleton().stream(LML_TRIVIAL) << "*** Terrain Fragment Program: " 
 			<< ret->getName() << " ***\n" << ret->getSource() << "\n***   ***";
 #endif
  
 		return ret;
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::ShaderHelper::generateVertexProgramSource(
+	void TerrainMaterialGeneratorC::SM2Profile::ShaderHelper::generateVertexProgramSource(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt, StringUtil::StrStreamType& outStream)
 	{
 		generateVpHeader(prof, terrain, tt, outStream);
@@ -340,7 +341,7 @@ namespace Ogre
  
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::ShaderHelper::generateFragmentProgramSource(
+	void TerrainMaterialGeneratorC::SM2Profile::ShaderHelper::generateFragmentProgramSource(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt, StringUtil::StrStreamType& outStream)
 	{
 		generateFpHeader(prof, terrain, tt, outStream);
@@ -357,7 +358,7 @@ namespace Ogre
 		generateFpFooter(prof, terrain, tt, outStream);
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::ShaderHelper::defaultVpParams(
+	void TerrainMaterialGeneratorC::SM2Profile::ShaderHelper::defaultVpParams(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt, const HighLevelGpuProgramPtr& prog)
 	{
 		GpuProgramParametersSharedPtr params = prog->getDefaultParameters();
@@ -380,7 +381,7 @@ namespace Ogre
  
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::ShaderHelper::defaultFpParams(
+	void TerrainMaterialGeneratorC::SM2Profile::ShaderHelper::defaultFpParams(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt, const HighLevelGpuProgramPtr& prog)
 	{
 		GpuProgramParametersSharedPtr params = prog->getDefaultParameters();
@@ -390,7 +391,7 @@ namespace Ogre
 		params->setNamedAutoConstant("viewMatrix", GpuProgramParameters::ACT_WORLDVIEW_MATRIX); // tout sauf Z : VIEW_MATRIX
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::ShaderHelper::updateParams(
+	void TerrainMaterialGeneratorC::SM2Profile::ShaderHelper::updateParams(
 		const SM2Profile* prof, const MaterialPtr& mat, const Terrain* terrain, bool compositeMap)
 	{
 		Pass* p = mat->getTechnique(0)->getPass(0);
@@ -415,7 +416,7 @@ namespace Ogre
 		}
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::ShaderHelper::updateVpParams(
+	void TerrainMaterialGeneratorC::SM2Profile::ShaderHelper::updateVpParams(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt, const GpuProgramParametersSharedPtr& params)
 	{
 		params->setIgnoreMissingParams(true);
@@ -443,7 +444,7 @@ namespace Ogre
  
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::ShaderHelper::updateFpParams(
+	void TerrainMaterialGeneratorC::SM2Profile::ShaderHelper::updateFpParams(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt, const GpuProgramParametersSharedPtr& params)
 	{
 		params->setIgnoreMissingParams(true);
@@ -453,7 +454,7 @@ namespace Ogre
  
 	}
 	//---------------------------------------------------------------------
-	String TerrainMaterialGeneratorD::SM2Profile::ShaderHelper::getChannel(uint idx)
+	String TerrainMaterialGeneratorC::SM2Profile::ShaderHelper::getChannel(uint idx)
 	{
 		uint rem = idx % 4;
 		switch(rem)
@@ -470,7 +471,7 @@ namespace Ogre
 		};
 	}
 	//---------------------------------------------------------------------
-	String TerrainMaterialGeneratorD::SM2Profile::ShaderHelper::getVertexProgramName(
+	String TerrainMaterialGeneratorC::SM2Profile::ShaderHelper::getVertexProgramName(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt)
 	{
 		String progName = terrain->getMaterialName() + "/sm2/vp";
@@ -492,7 +493,7 @@ namespace Ogre
  
 	}
 	//---------------------------------------------------------------------
-	String TerrainMaterialGeneratorD::SM2Profile::ShaderHelper::getFragmentProgramName(
+	String TerrainMaterialGeneratorC::SM2Profile::ShaderHelper::getFragmentProgramName(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt)
 	{
  
@@ -516,7 +517,7 @@ namespace Ogre
 	//---------------------------------------------------------------------
 	//---------------------------------------------------------------------
 	HighLevelGpuProgramPtr
-	TerrainMaterialGeneratorD::SM2Profile::ShaderHelperCg::createVertexProgram(
+	TerrainMaterialGeneratorC::SM2Profile::ShaderHelperCg::createVertexProgram(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt)
 	{
 		HighLevelGpuProgramManager& mgr = HighLevelGpuProgramManager::getSingleton();
@@ -540,7 +541,7 @@ namespace Ogre
 	}
 	//---------------------------------------------------------------------
 	HighLevelGpuProgramPtr
-		TerrainMaterialGeneratorD::SM2Profile::ShaderHelperCg::createFragmentProgram(
+		TerrainMaterialGeneratorC::SM2Profile::ShaderHelperCg::createFragmentProgram(
 			const SM2Profile* prof, const Terrain* terrain, TechniqueType tt)
 	{
 		HighLevelGpuProgramManager& mgr = HighLevelGpuProgramManager::getSingleton();
@@ -564,7 +565,7 @@ namespace Ogre
  
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::ShaderHelperCg::generateVpHeader(
+	void TerrainMaterialGeneratorC::SM2Profile::ShaderHelperCg::generateVpHeader(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt, StringUtil::StrStreamType& outStream)
 	{
 		outStream << 
@@ -721,7 +722,7 @@ namespace Ogre
  
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::ShaderHelperCg::generateFpHeader(
+	void TerrainMaterialGeneratorC::SM2Profile::ShaderHelperCg::generateFpHeader(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt, StringUtil::StrStreamType& outStream)
 	{
  
@@ -890,13 +891,13 @@ namespace Ogre
  
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::ShaderHelperCg::generateVpLayer(
+	void TerrainMaterialGeneratorC::SM2Profile::ShaderHelperCg::generateVpLayer(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt, uint layer, StringUtil::StrStreamType& outStream)
 	{
 		// nothing to do
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::ShaderHelperCg::generateFpLayer(
+	void TerrainMaterialGeneratorC::SM2Profile::ShaderHelperCg::generateFpLayer(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt, uint layer, StringUtil::StrStreamType& outStream)
 	{
 		uint uvIdx = layer / 2;
@@ -952,7 +953,7 @@ namespace Ogre
 		*/
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::ShaderHelperCg::generateVpFooter(
+	void TerrainMaterialGeneratorC::SM2Profile::ShaderHelperCg::generateVpFooter(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt, StringUtil::StrStreamType& outStream)
 	{
  
@@ -982,7 +983,7 @@ namespace Ogre
  
 	}
 	//---------------------------------------------------------------------
-	void TerrainMaterialGeneratorD::SM2Profile::ShaderHelperCg::generateFpFooter(
+	void TerrainMaterialGeneratorC::SM2Profile::ShaderHelperCg::generateFpFooter(
 		const SM2Profile* prof, const Terrain* terrain, TechniqueType tt, StringUtil::StrStreamType& outStream)
 	{
  

@@ -11,8 +11,8 @@
 #include "OgreRibbonTrail.h"
 #include "OgreSceneManager.h"
 #include "OgreSceneNode.h"
-#include "Terrain\OgreTerrain.h"
-#include "Terrain\OgreTerrainGroup.h"
+#include "OgreTerrain.h"
+#include "OgreTerrainGroup.h"
 
 #include "OIS\OISKeyboard.h"
 #include "OIS\OISMouse.h"

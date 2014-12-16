@@ -2,10 +2,11 @@
 #include "TerrainManager.h"
 
 #include "SceneDoc.h"
-#include "TerrainMaterialGeneratorD.h"
+#include "TerrainMaterialGeneratorB.h"
+#include "TerrainMaterialGeneratorC.h"
 
-#include "Terrain\OgreTerrain.h"
-#include "Terrain\OgreTerrainGroup.h"
+#include "OgreTerrain.h"
+#include "OgreTerrainGroup.h"
 
 TerrainManager::TerrainManager(SceneDoc *Owner, TerrainManagerConfig *Config)
 {
@@ -14,7 +15,9 @@ TerrainManager::TerrainManager(SceneDoc *Owner, TerrainManagerConfig *Config)
 	//////////////////////////////////////////////////
 
 	mTerrainGlobals = OGRE_NEW Ogre::TerrainGlobalOptions();
-	// mTerrainGlobals->setDefaultMaterialGenerator(Ogre::TerrainMaterialGeneratorPtr(new Ogre::TerrainMaterialGeneratorD));
+	// mTerrainGlobals->setDefaultMaterialGenerator(Ogre::TerrainMaterialGeneratorPtr(new Ogre::TerrainMaterialGeneratorC));
+	// 开启延迟渲染时前向渲染地形，TerrainManagerShaderHelperCg.cpp 284
+	// mTerrainGlobals->setRenderQueueGroup(1);
 
     mTerrainGlobals->setMaxPixelError(8);
 

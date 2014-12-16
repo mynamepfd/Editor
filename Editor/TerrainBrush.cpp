@@ -9,7 +9,7 @@
 
 #include "OgreManualObject.h"
 #include "OgreSceneManager.h"
-#include "Terrain\OgreTerrain.h"
+#include "OgreTerrain.h"
 
 CTerrainBrush::CTerrainBrush(SceneDoc *Owner)
 {
