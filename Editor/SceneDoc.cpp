@@ -28,7 +28,7 @@
 #include "OgreTerrainGroup.h"
 #include "OgreShadowCameraSetupPSSM.h"
 #include "OgreGpuProgramManager.h"
-#include "Overlay\OgreOverlaySystem.h"
+#include "OgreOverlaySystem.h"
 #include "OgreTerrainMaterialGeneratorA.h"
 #include "TerrainMaterialGeneratorB.h"
 #include "TerrainMaterialGeneratorC.h"

@@ -54,7 +54,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;FREEIMAGE_LIB;TIXML_USE_STL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)TinyXML;$(ProjectDir)OgreXMLConverter;$(SolutionDir)Dependencies\BCG\include;$(SolutionDir)Dependencies\Scintilla\include;$(SolutionDir)Dependencies\OGRE\include;$(SolutionDir)Dependencies\OGRE\include\OGRE;$(SolutionDir)Dependencies\OGRE\include\OGRE\Terrain;$(SolutionDir)Dependencies\OGRE\boost;$(SolutionDir)Dependencies\OgreOpCode\include;$(SolutionDir)Dependencies\DirectX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)TinyXML;$(ProjectDir)OgreXMLConverter;$(SolutionDir)Dependencies\BCG\include;$(SolutionDir)Dependencies\Scintilla\include;$(SolutionDir)Dependencies\OGRE\include;$(SolutionDir)Dependencies\OGRE\include\OGRE;$(SolutionDir)Dependencies\OGRE\include\OGRE\Overlay;$(SolutionDir)Dependencies\OGRE\include\OGRE\Terrain;$(SolutionDir)Dependencies\OGRE\boost;$(SolutionDir)Dependencies\OgreOpCode\include;$(SolutionDir)Dependencies\DirectX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

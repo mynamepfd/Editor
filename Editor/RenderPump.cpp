@@ -16,8 +16,8 @@
 #include "OgreLogManager.h"
 #include "OgreRenderWindow.h"
 #include "OgreRoot.h"
-#include "Overlay\OgreOverlaySystem.h"
-#include "Overlay\OgreOverlayManager.h"
+#include "OgreOverlaySystem.h"
+#include "OgreOverlayManager.h"
 #include "SESkeletonManagerEx.h"
 
 void LogListener::messageLogged( const Ogre::String& message, Ogre::LogMessageLevel lml, bool maskDebug, const Ogre::String &logName, bool& skipThisMessage )

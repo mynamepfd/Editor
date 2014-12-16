@@ -3,6 +3,7 @@
 #include "MiscUtils.h"
 #include "OgreImage.h"
 #include "FreeImage.h"
+#include "d3dx9.h"
 
 HBITMAP MiscUtils::loadBitmap(CString filename, int size)
 {
@@ -29,6 +30,10 @@ HBITMAP MiscUtils::loadBitmap(CString filename, int size)
 	}
 	else
 	{
+		/** 为什么不直接使用DirectX？
+		理由：
+		*/
+
 		FREE_IMAGE_FORMAT imageFormat = FreeImage_GetFileType(filename); // 由文件头分析文件类型
 		if(imageFormat == FIF_UNKNOWN)
 			imageFormat = FreeImage_GetFIFFromFilename(filename);
