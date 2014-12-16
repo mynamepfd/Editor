@@ -3,6 +3,7 @@
 #include "MaterialPreviewPage.h"
 
 #include "RenderView.h"
+#include "ResourceManagerTree.h"
 #include "SceneDoc.h"
 #include "StaticMesh.h"
 #include "StringUtils.h"

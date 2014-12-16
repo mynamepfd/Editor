@@ -40,10 +40,12 @@ public:
 
 	virtual Ogre::Entity *getEntity();
 	virtual float getBoundingRadius();
+	virtual std::map<Ogre::SubEntity*, std::string> &getNativeMaterials();
 
 protected:
 	SceneObject(Ogre::SceneManager *sceneManager, Type type);
 
 	Ogre::SceneManager *sceneManager; Ogre::SceneNode *sceneNode;
 	Type type; std::string name; std::string path;
+	std::map<Ogre::SubEntity*, std::string> nativeMaterials;
 };

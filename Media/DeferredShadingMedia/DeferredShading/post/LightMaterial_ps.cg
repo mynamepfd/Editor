@@ -184,4 +184,5 @@ float4 main(
 #endif
 
 	return float4(total_light_contrib*colour, 0.0);
+	//return float4(1, 0, 0, 0);
 }

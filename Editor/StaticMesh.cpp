@@ -15,6 +15,11 @@ void StaticMesh::create(std::string name, std::string path)
 {
 	SceneObject::create(name, path);
 	entity = sceneManager->createEntity(name, path);
+	for(int i=0; i<entity->getNumSubEntities(); i++)
+	{
+		Ogre::SubEntity *subEntity = entity->getSubEntity(i);
+		nativeMaterials[subEntity] = subEntity->getMaterialName();
+	}
 	entity->setUserAny(Ogre::Any((SceneObject*)this));
 	sceneNode->attachObject(entity);
 }

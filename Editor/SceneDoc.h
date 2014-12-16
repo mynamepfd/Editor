@@ -83,7 +83,28 @@ public:
 	afx_msg void OnShowDebugOverlay();
 	afx_msg void OnUpdateShowDebugOverlay(CCmdUI *pCmdUI);
 	
-	// Technique
+	/** Technique
+	*/
+
+	// Shadow
+	afx_msg void OnShadowTechniqueNone();
+	afx_msg void OnShadowTechniqueStencil();
+	afx_msg void OnShadowTechniqueTexture();
+	afx_msg void OnUpdateShadowTechnique(CCmdUI *pCmdUI);
+	afx_msg void OnShadowLightingAdditive();
+	afx_msg void OnShadowLightingModulative();
+	afx_msg void OnUpdateShadowLighting(CCmdUI *pCmdUI);
+	afx_msg void OnShadowProjectionUniform();
+	afx_msg void OnShadowProjectionUniformfocused();
+	afx_msg void OnShadowProjectionLispsm();
+	afx_msg void OnShadowProjectionPlaneoptimal();
+	afx_msg void OnUpdateShadowProjection(CCmdUI *pCmdUI);
+	afx_msg void OnShadowMaterialStandard();
+	afx_msg void OnShadowMaterialDepthshadowmap();
+	afx_msg void OnShadowMaterialDepthshadowmapPcf();
+	afx_msg void OnUpdateShadowMaterial(CCmdUI *pCmdUI);
+
+	// Deferred Shading
 	afx_msg void OnDeferredshadingActive();
 	afx_msg void OnUpdateDeferredshadingActive(CCmdUI *pCmdUI);
 	afx_msg void OnDeferredshadingRegularview();
@@ -93,11 +114,17 @@ public:
 	afx_msg void OnUpdateDeferredShading(CCmdUI *pCmdUI);
 	afx_msg void OnSsao();
 	afx_msg void OnUpdateSsao(CCmdUI *pCmdUI);
-
+	
+	// ~
 	afx_msg void OnUpdateBrushMenu(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateTextureMenu(CCmdUI* pCmdUI);
 
 	DECLARE_MESSAGE_MAP()
+
+	void handleShadowTypeChanged();
+	void handleProjectionChanged();
+	void handleMaterialChanged();
+	void resetMaterials();
 
 	int editMode;
 	bool paste; bool showDebugOverlay;
@@ -105,14 +132,19 @@ public:
 	bool initialized;
 	CString sceneName;
 	CString skyType; CString skyMaterial;
-	
-	SceneView *activeView;
 
-	// For DeferredShading
+	// Shadow
+	int shadowTechnique;
+	int shadowLighting;
+	int shadowProjection;
+	int shadowMaterial;
+
+	// DeferredShading
 	DeferredShadingSystem *deferredShadingSystem;
 	bool active, ssao;
 	int deferredShadingMode;
 
+	SceneView *activeView;
 	TerrainManager *terrainManager;
 	TerrainManagerConfig *terrainManagerConfig;
 	Ogre::ShadowCameraSetupPtr shadowCameraSetup;

@@ -41,14 +41,20 @@ SceneDoc::SceneDoc()
 	editMode = 0;
 	paste = false;
 	showDebugOverlay = false;
-
 	initialized = false;
-	activeView = NULL;
+	
+	// Shadow
+	shadowTechnique = ID_SHADOW_TECHNIQUE_NONE;
+	shadowLighting = ID_SHADOW_LIGHTING_ADDITIVE;
+	shadowProjection = ID_SHADOW_PROJECTION_UNIFORM;
+	shadowMaterial = ID_SHADOW_MATERIAL_STANDARD;
 
-	active = true;
-	ssao = false;
+	// Deferred Shading
+	deferredShadingSystem = NULL;
+	active = false; ssao = false;
 	deferredShadingMode = ID_DEFERREDSHADING_REGULARVIEW;
 
+	activeView = NULL;
 	terrainManager = NULL;
 	terrainManagerConfig = NULL;
 	terrainEditHandler = NULL;
@@ -131,12 +137,12 @@ void SceneDoc::initialize(NewSceneDlg *Dlg)
 	cameraManager.setCamera(camera);
 	cameraManager.setDragLook(TRUE);
 
-    camera->setNearClipDistance(0.5f);
+	camera->setNearClipDistance(1.0f);
     camera->setFarClipDistance(10000.0f);
 	if(Ogre::Root::getSingleton().getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_INFINITE_FAR_PLANE))
-    {
-        camera->setFarClipDistance(0);
-    }
+	{
+		camera->setFarClipDistance(0);
+	}
 
 	terrainManagerConfig = new TerrainManagerConfig;
 
@@ -263,12 +269,12 @@ void SceneDoc::initialize(CString Filename)
 	cameraManager.setCamera(camera);
 	cameraManager.setDragLook(TRUE);
 
-    camera->setNearClipDistance(0.5f);
+    camera->setNearClipDistance(1.0f);
     camera->setFarClipDistance(10000.0f);
 	if(Ogre::Root::getSingleton().getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_INFINITE_FAR_PLANE))
-    {
-        camera->setFarClipDistance(0);
-    }
+	{
+		camera->setFarClipDistance(0);
+	}
 
 	//////////////////////////////////////////////////
 	// Terrain manager config
@@ -705,6 +711,7 @@ void SceneDoc::configureShadows(bool enabled, bool depthShadows)
 }
 
 BEGIN_MESSAGE_MAP(SceneDoc, CDocument)
+
 	ON_COMMAND(ID_SAVE_SCENE, &SceneDoc::OnSaveScene)
 	ON_COMMAND_RANGE(ID_TRANS_OBJECT, ID_LIQUID_EDIT, OnObjectEdit)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_TRANS_OBJECT, ID_LIQUID_EDIT, OnUpdateObjectEdit)
@@ -715,17 +722,44 @@ BEGIN_MESSAGE_MAP(SceneDoc, CDocument)
 	ON_COMMAND(ID_SHOW_DEBUG_OVERLAY, OnShowDebugOverlay)
 	ON_UPDATE_COMMAND_UI(ID_SHOW_DEBUG_OVERLAY, OnUpdateShowDebugOverlay)
 
-	// Technique
-	ON_COMMAND(ID_DEFERREDSHADING_Active, &SceneDoc::OnDeferredshadingActive)
-	ON_UPDATE_COMMAND_UI(ID_DEFERREDSHADING_Active, &SceneDoc::OnUpdateDeferredshadingActive)
+	/** Technique
+	*/
+
+	// Shadow
+	ON_COMMAND(ID_SHADOW_TECHNIQUE_NONE, &SceneDoc::OnShadowTechniqueNone)
+	ON_COMMAND(ID_SHADOW_TECHNIQUE_STENCIL, &SceneDoc::OnShadowTechniqueStencil)
+	ON_COMMAND(ID_SHADOW_TECHNIQUE_TEXTURE, &SceneDoc::OnShadowTechniqueTexture)
+	ON_UPDATE_COMMAND_UI_RANGE(ID_SHADOW_TECHNIQUE_NONE, ID_SHADOW_TECHNIQUE_TEXTURE, OnUpdateShadowTechnique)
+
+	ON_COMMAND(ID_SHADOW_LIGHTING_ADDITIVE, &SceneDoc::OnShadowLightingAdditive)
+	ON_COMMAND(ID_SHADOW_LIGHTING_MODULATIVE, &SceneDoc::OnShadowLightingModulative)
+	ON_UPDATE_COMMAND_UI_RANGE(ID_SHADOW_LIGHTING_ADDITIVE, ID_SHADOW_LIGHTING_MODULATIVE, OnUpdateShadowLighting)
+
+	ON_COMMAND(ID_SHADOW_PROJECTION_UNIFORM, &SceneDoc::OnShadowProjectionUniform)
+	ON_COMMAND(ID_SHADOW_PROJECTION_UNIFORMFOCUSED, &SceneDoc::OnShadowProjectionUniformfocused)
+	ON_COMMAND(ID_SHADOW_PROJECTION_LISPSM, &SceneDoc::OnShadowProjectionLispsm)
+	ON_COMMAND(ID_SHADOW_PROJECTION_PLANEOPTIMAL, &SceneDoc::OnShadowProjectionPlaneoptimal)
+	ON_UPDATE_COMMAND_UI_RANGE(ID_SHADOW_PROJECTION_UNIFORM, ID_SHADOW_PROJECTION_PLANEOPTIMAL, OnUpdateShadowProjection)
+
+	ON_COMMAND(ID_SHADOW_MATERIAL_STANDARD, &SceneDoc::OnShadowMaterialStandard)
+	ON_COMMAND(ID_SHADOW_MATERIAL_DEPTHSHADOWMAP, &SceneDoc::OnShadowMaterialDepthshadowmap)
+	ON_COMMAND(ID_SHADOW_MATERIAL_DEPTHSHADOWMAP_PCF, &SceneDoc::OnShadowMaterialDepthshadowmapPcf)
+	ON_UPDATE_COMMAND_UI_RANGE(ID_SHADOW_MATERIAL_STANDARD, ID_SHADOW_MATERIAL_DEPTHSHADOWMAP_PCF, OnUpdateShadowMaterial)
+
+	// Deferred Shading
+	ON_COMMAND(ID_DEFERREDSHADING_ACTIVE, &SceneDoc::OnDeferredshadingActive)
+	ON_UPDATE_COMMAND_UI(ID_DEFERREDSHADING_ACTIVE, &SceneDoc::OnUpdateDeferredshadingActive)
+
 	ON_COMMAND(ID_DEFERREDSHADING_REGULARVIEW, &SceneDoc::OnDeferredshadingRegularview)
 	ON_COMMAND(ID_DEFERREDSHADING_DEBUGCOLOURS, &SceneDoc::OnDeferredshadingDebugcolours)
 	ON_COMMAND(ID_DEFERREDSHADING_DEBUGNORMALS, &SceneDoc::OnDeferredshadingDebugnormals)
 	ON_COMMAND(ID_DEFERREDSHADING_DEBUGDEPTH, &SceneDoc::OnDeferredshadingDebugdepth)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_DEFERREDSHADING_REGULARVIEW, ID_DEFERREDSHADING_DEBUGDEPTH, &SceneDoc::OnUpdateDeferredShading)
+	
 	ON_COMMAND(ID_SSAO, &SceneDoc::OnSsao)
 	ON_UPDATE_COMMAND_UI(ID_SSAO, &SceneDoc::OnUpdateSsao)
 
+	// ~
 	ON_UPDATE_COMMAND_UI_RANGE(ID_LOAD_BRUSH, ID_RESIZE_BRUSH, OnUpdateBrushMenu)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_LOAD_TEXTURE, ID_RESIZE_TEXTURE, OnUpdateTextureMenu)
 
@@ -1150,6 +1184,97 @@ void SceneDoc::OnUpdateShowDebugOverlay(CCmdUI *pCmdUI)
 	pCmdUI->SetCheck(showDebugOverlay);
 }
 
+void SceneDoc::OnShadowTechniqueNone()
+{
+	shadowTechnique = ID_SHADOW_TECHNIQUE_NONE;
+	handleShadowTypeChanged();
+}
+
+void SceneDoc::OnShadowTechniqueStencil()
+{
+	shadowTechnique = ID_SHADOW_TECHNIQUE_STENCIL;
+	handleShadowTypeChanged();
+}
+
+
+void SceneDoc::OnShadowTechniqueTexture()
+{
+	shadowTechnique = ID_SHADOW_TECHNIQUE_TEXTURE;
+	handleShadowTypeChanged();
+}
+
+void SceneDoc::OnUpdateShadowTechnique(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetCheck(pCmdUI->m_nID == shadowTechnique);
+}
+
+void SceneDoc::OnShadowLightingAdditive()
+{
+	shadowLighting = ID_SHADOW_LIGHTING_ADDITIVE;
+	handleShadowTypeChanged();
+}
+
+
+void SceneDoc::OnShadowLightingModulative()
+{
+	shadowLighting = ID_SHADOW_LIGHTING_MODULATIVE;
+	handleShadowTypeChanged();
+}
+
+void SceneDoc::OnUpdateShadowLighting(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetCheck(pCmdUI->m_nID == shadowLighting);
+}
+
+void SceneDoc::OnShadowProjectionUniform()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void SceneDoc::OnShadowProjectionUniformfocused()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void SceneDoc::OnShadowProjectionLispsm()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void SceneDoc::OnShadowProjectionPlaneoptimal()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+void SceneDoc::OnUpdateShadowProjection(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetCheck(pCmdUI->m_nID == shadowProjection);
+}
+
+void SceneDoc::OnShadowMaterialStandard()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void SceneDoc::OnShadowMaterialDepthshadowmap()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+void SceneDoc::OnShadowMaterialDepthshadowmapPcf()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+void SceneDoc::OnUpdateShadowMaterial(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetCheck(pCmdUI->m_nID == shadowMaterial);
+}
+
 void SceneDoc::OnDeferredshadingActive()
 {
 	active = !active;
@@ -1209,4 +1334,62 @@ void SceneDoc::OnUpdateBrushMenu(CCmdUI* pCmdUI)
 void SceneDoc::OnUpdateTextureMenu(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(TRUE);
+}
+
+void SceneDoc::handleShadowTypeChanged()
+{
+	bool isStencil = shadowTechnique == ID_SHADOW_TECHNIQUE_STENCIL;
+	bool isAdditive = shadowLighting == ID_SHADOW_LIGHTING_ADDITIVE;
+	Ogre::ShadowTechnique newTech = sceneManager->getShadowTechnique();
+
+	if (isStencil)
+	{
+		newTech = static_cast<Ogre::ShadowTechnique>(
+			(newTech & ~Ogre::SHADOWDETAILTYPE_TEXTURE) | Ogre::SHADOWDETAILTYPE_STENCIL);
+		resetMaterials();
+	}
+	else
+	{
+		newTech = static_cast<Ogre::ShadowTechnique>(
+			(newTech & ~Ogre::SHADOWDETAILTYPE_STENCIL) | Ogre::SHADOWDETAILTYPE_TEXTURE);
+	}
+		
+	if (isAdditive)
+	{
+		newTech = static_cast<Ogre::ShadowTechnique>(
+			(newTech & ~Ogre::SHADOWDETAILTYPE_MODULATIVE) | Ogre::SHADOWDETAILTYPE_ADDITIVE);
+	}
+	else
+	{
+		newTech = static_cast<Ogre::ShadowTechnique>(
+			(newTech & ~Ogre::SHADOWDETAILTYPE_ADDITIVE) | Ogre::SHADOWDETAILTYPE_MODULATIVE);
+	}
+
+	sceneManager->setShadowTechnique(newTech);
+}
+
+void SceneDoc::handleProjectionChanged()
+{
+}
+
+void SceneDoc::handleMaterialChanged()
+{
+}
+
+void SceneDoc::resetMaterials()
+{
+	for(int i=0; i<objects.size(); i++)
+	{
+		Ogre::Entity *entity = objects[i]->getEntity();
+		if(entity != NULL)
+		{
+			std::map<Ogre::SubEntity*, std::string> &nativeMaterials = 
+				objects[i]->getNativeMaterials();
+			for(int j=0; j<entity->getNumSubEntities(); j++)
+			{
+				Ogre::SubEntity *subEntity = entity->getSubEntity(i);
+				subEntity->setMaterialName(nativeMaterials[subEntity]);
+			}
+		}
+	}
 }

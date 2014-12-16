@@ -1,0 +1,29 @@
+struct VertexIn
+{
+	float4 position : POSITION;
+    float2 uv : TEXCOORD0;
+};
+
+struct VertexScreen
+{
+	float4 position : POSITION;
+    float2 uv : TEXCOORD0;
+};
+
+void main_vp(
+	VertexIn input,
+    out VertexScreen output,
+    uniform float4x4 worldViewProj)
+{
+	output.position = mul(worldViewProj, input.position);
+    output.uv = input.uv;
+}
+
+void main_fp(
+	VertexScreen input,
+    out float4 color : COLOR,
+    uniform sampler2D tex0 : register(s0))
+{
+	float4 texColor = tex2D(tex0, input.uv);
+	color = texColor;
+}

@@ -294,7 +294,7 @@ namespace Ogre
 		ret->load();
 		defaultVpParams(prof, terrain, tt, ret);
 #if OGRE_DEBUG_MODE
-		LogManager::getSingleton().stream(LML_TRIVIAL) << "*** Terrain Vertex Program: " 
+		LogManager::getSingleton().stream(LML_CRITICAL) << "*** Terrain Vertex Program: " 
 			<< ret->getName() << " ***\n" << ret->getSource() << "\n***   ***";
 #endif
  

@@ -93,6 +93,11 @@ float SceneObject::getBoundingRadius()
 	return 1.0f;
 }
 
+std::map<Ogre::SubEntity*, std::string> &SceneObject::getNativeMaterials()
+{
+	return nativeMaterials;
+}
+
 SceneObject::SceneObject(Ogre::SceneManager *sceneManager, Type type)
 {
 	this->sceneManager = sceneManager;

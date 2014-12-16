@@ -52,7 +52,7 @@ void DeferredShadingSystem::initialize()
 	
 	mSSAO = false;
 	mCurrentMode = DSM_SHOWLIT;
-	setActive(true);
+	// setActive(true);
 }
 
 DeferredShadingSystem::~DeferredShadingSystem()

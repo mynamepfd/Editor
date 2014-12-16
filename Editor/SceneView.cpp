@@ -95,7 +95,7 @@ void SceneView::OnSetFocus(CWnd* pOldWnd)
 void SceneView::setupView()
 {
 	RenderView::setupView();
-	SceneDoc *Doc = (SceneDoc*)GetDocument();
-	Doc->setDeferredShadingSystem(new DeferredShadingSystem(viewport, Doc->getSceneManager(), Doc->getCamera()));
-	Doc->getDeferredShadingSystem()->initialize();
+	//SceneDoc *Doc = (SceneDoc*)GetDocument();
+	//Doc->setDeferredShadingSystem(new DeferredShadingSystem(viewport, Doc->getSceneManager(), Doc->getCamera()));
+	//Doc->getDeferredShadingSystem()->initialize();
 }

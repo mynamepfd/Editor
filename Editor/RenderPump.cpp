@@ -45,7 +45,7 @@ void RenderPump::initialize()
 	Ogre::LogManager *logManager = new Ogre::LogManager;
 	logManager->createLog("tmp.log", true, false, true);
 	logManager->getLog("tmp.log")->addListener(logListener);
-	logManager->getLog("tmp.log")->setLogDetail(Ogre::LL_NORMAL);
+	logManager->getLog("tmp.log")->setLogDetail(Ogre::LL_BOREME);
 
 	root = OGRE_NEW Ogre::Root("plugins_d.cfg", "ogre.cfg", "tmp.log");
 	overlaySystem = OGRE_NEW Ogre::OverlaySystem();
