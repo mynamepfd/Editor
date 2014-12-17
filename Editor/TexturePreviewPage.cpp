@@ -65,22 +65,24 @@ void CTexturePreviewPage::OnSize(UINT nType, int cx, int cy)
 
 void CTexturePreviewPage::OnTextureBar()
 {
-	mTextureBar.FillPropertyWnd();
-	HBITMAP Bitmap = MiscUtils::loadBitmap(mTextureBar.GetSelectedItem(), 0);
-	if(Bitmap != NULL)
-		mImage.SetImage(Bitmap, NULL, TRUE);
+	if(!mTextureBar.GetSelectedItem().IsEmpty())
+	{
+		mTextureBar.FillPropertyWnd();
+		HBITMAP Bitmap = MiscUtils::loadBitmap(mTextureBar.GetSelectedItem(), 0);
+		if(Bitmap != NULL)
+			mImage.SetImage(Bitmap, NULL, TRUE);
+	}
 }
 
 void CTexturePreviewPage::OnLoadTexture()
 {
-	CFileDialog dlg( TRUE, NULL, NULL, OFN_NOCHANGEDIR|OFN_ALLOWMULTISELECT,
+	CFileDialog dlg(TRUE, NULL, NULL, OFN_ALLOWMULTISELECT,
 		"All Image Files (*.bmp;*.dds;*.jpg;*.jpeg;*.png;*.tga)|*.bmp;*.dds;*.jpg;*.jpeg;*.png;*.tga|\
 		Windows BMP (*.bmp)|*.bmp|\
 		DirectDraw Surface Bitmaps (*.dds)|*.dds|\
 		JPEG Images (*.jpg;*.jpeg)|*.jpg;*.jpeg|\
 		Portable Network Graphic (*.png)|*.png|\
-		TARGA Images (*.tga;*.targa)|*.tga;*.targa|\
-		All Files (*.*)|*.*||", NULL);
+		TARGA Images (*.tga;*.targa)|*.tga;*.targa|", NULL);
 	
 	const int MIN_FILE_NUMBER = 100;
 	dlg.m_ofn.lpstrFile = new TCHAR[_MAX_PATH * MIN_FILE_NUMBER];         

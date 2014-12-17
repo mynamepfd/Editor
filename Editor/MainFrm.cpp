@@ -3,8 +3,6 @@
 #include "MainFrm.h"
 #include "RenderPump.h"
 
-#include "FreeImage.h"
-
 IMPLEMENT_DYNAMIC(CMainFrame, CBCGPMDIFrameWnd)
 
 CMainFrame::CMainFrame()
@@ -55,7 +53,6 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	//////////////////////////////////////////////////
 
 	InitScintilla();
-	InitFreeImage();
 	InitOGRE();
 
 	CreateToolBar();
@@ -170,11 +167,6 @@ void CMainFrame::CreateDockingWindows()
 void CMainFrame::InitScintilla()
 {
 	LoadLibrary("SciLexer.dll");
-}
-
-void CMainFrame::InitFreeImage()
-{
-	FreeImage_Initialise();
 }
 
 void CMainFrame::InitOGRE()

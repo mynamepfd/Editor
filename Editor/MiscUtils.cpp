@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "Editor.h"
 #include "MiscUtils.h"
-#include "OgreImage.h"
-#include "FreeImage.h"
 #include "d3dx9.h"
 
 HBITMAP MiscUtils::loadBitmap(CString filename, int size)
@@ -30,50 +28,34 @@ HBITMAP MiscUtils::loadBitmap(CString filename, int size)
 	}
 	else
 	{
-		/** 为什么不直接使用DirectX？
-		理由：
-		*/
-
-		FREE_IMAGE_FORMAT imageFormat = FreeImage_GetFileType(filename); // 由文件头分析文件类型
-		if(imageFormat == FIF_UNKNOWN)
-			imageFormat = FreeImage_GetFIFFromFilename(filename);
-
-		FIBITMAP *image = FreeImage_Load(imageFormat, filename);
-		if(imageFormat != FIF_BMP)
-		{
-			image = FreeImage_ConvertTo24Bits(image);
-		}
-
-		unsigned int imageWidth = FreeImage_GetWidth(image);
-		unsigned int imageHeight = FreeImage_GetHeight(image);
-		if(size != 0 && (imageWidth != size || imageHeight != size))
-		{
-			image = FreeImage_Rescale(image, size, size, FILTER_BOX);
-		}
+		IDirect3DDevice9 *device = theApp.getDevice();
+		
+		IDirect3DTexture9 *texture = NULL; 
+		D3DSURFACE_DESC d3dsd; D3DLOCKED_RECT d3dlr;
+		D3DXCreateTextureFromFileEx(device, filename, size != 0 ? size : D3DX_DEFAULT, size != 0 ? size : D3DX_DEFAULT, D3DX_DEFAULT, 0, D3DFMT_R8G8B8, D3DPOOL_MANAGED, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &texture);
+		texture->GetLevelDesc(0, &d3dsd);
 
 		BITMAPINFO bitmapInfo;
  		bitmapInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
- 		bitmapInfo.bmiHeader.biBitCount = 24;
+ 		bitmapInfo.bmiHeader.biBitCount = 32;
  		bitmapInfo.bmiHeader.biPlanes = 1;
  		bitmapInfo.bmiHeader.biSizeImage = 0;
  		bitmapInfo.bmiHeader.biCompression = BI_RGB;
-		bitmapInfo.bmiHeader.biWidth = imageWidth;
-		bitmapInfo.bmiHeader.biHeight = imageHeight;
+		bitmapInfo.bmiHeader.biWidth = size != 0 ? size : d3dsd.Width;
+		bitmapInfo.bmiHeader.biHeight = size != 0 ? size : d3dsd.Height;
  		bitmapInfo.bmiHeader.biXPelsPerMeter = 0;
  		bitmapInfo.bmiHeader.biYPelsPerMeter = 0;
  		bitmapInfo.bmiHeader.biClrUsed = 0;
  		bitmapInfo.bmiHeader.biClrImportant = 0;
 
-		if(size != 0)
-		{
-			bitmapInfo.bmiHeader.biWidth = size;
-			bitmapInfo.bmiHeader.biHeight = size;
-		}
-
 		unsigned char *bitmapData = NULL;
  		HBITMAP bitmap = ::CreateDIBSection(0, &bitmapInfo, DIB_RGB_COLORS, (void**)&bitmapData, 0, 0);
-		memcpy(bitmapData, FreeImage_GetBits(image), bitmapInfo.bmiHeader.biWidth * bitmapInfo.bmiHeader.biHeight * 3);
-		FreeImage_Unload(image);
+
+		texture->LockRect(0, &d3dlr, NULL, D3DLOCK_READONLY);
+			memcpy(bitmapData, d3dlr.pBits, bitmapInfo.bmiHeader.biWidth * bitmapInfo.bmiHeader.biHeight * bitmapInfo.bmiHeader.biBitCount/8);
+		texture->UnlockRect(0);
+		texture->Release();
+
 		return bitmap;
 	}
 	return NULL;

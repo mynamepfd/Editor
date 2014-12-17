@@ -7,8 +7,6 @@
 #include "MiscUtils.h"
 #include "StringUtils.h"
 
-#include "FreeImage.h"
-
 CRibbonBarEx::CRibbonBarEx(void):
 	mPaletteButton(NULL),
 	mPaletteIcon(NULL)
@@ -96,25 +94,25 @@ void CRibbonBarEx::ClearImages()
 	GetParent()->SendMessage(WM_COMMAND, mPaletteButton->GetID());	
 }
 
-char *GetFormatString(FREE_IMAGE_FORMAT Format)
-{
-	switch(Format)
-	{
-	case FIF_UNKNOWN:
-		return "FIF_UNKNOWN";
-	case FIF_BMP:
-		return "FIF_BMP";
-	case FIF_JPEG:
-		return "FIF_JPEG";
-	case FIF_PNG:
-		return "FIF_PNG";
-	case FIF_TARGA:
-		return "FIF_TARGA";
-	case FIF_DDS:
-		return "FIF_DDS";
-	}
-	return "FIF_UNKNOWN";
-}
+//char *GetFormatString(FREE_IMAGE_FORMAT Format)
+//{
+//	switch(Format)
+//	{
+//	case FIF_UNKNOWN:
+//		return "FIF_UNKNOWN";
+//	case FIF_BMP:
+//		return "FIF_BMP";
+//	case FIF_JPEG:
+//		return "FIF_JPEG";
+//	case FIF_PNG:
+//		return "FIF_PNG";
+//	case FIF_TARGA:
+//		return "FIF_TARGA";
+//	case FIF_DDS:
+//		return "FIF_DDS";
+//	}
+//	return "FIF_UNKNOWN";
+//}
 
 void CRibbonBarEx::FillPropertyWnd()
 {
@@ -124,32 +122,32 @@ void CRibbonBarEx::FillPropertyWnd()
 	const CString &Filename = mPaletteButton->m_arToolTips.GetAt(mPaletteButton->GetSelectedItem());
 	if(!Filename.IsEmpty())
 	{
-		FREE_IMAGE_FORMAT ImageFormat = FreeImage_GetFileType(Filename); // 由文件头分析文件类型
-		if(ImageFormat == FIF_UNKNOWN)
-			ImageFormat = FreeImage_GetFIFFromFilename(Filename);
+		//FREE_IMAGE_FORMAT ImageFormat = FreeImage_GetFileType(Filename); // 由文件头分析文件类型
+		//if(ImageFormat == FIF_UNKNOWN)
+		//	ImageFormat = FreeImage_GetFIFFromFilename(Filename);
 
-		FIBITMAP *Image = FreeImage_Load(ImageFormat, Filename);
+		//FIBITMAP *Image = FreeImage_Load(ImageFormat, Filename);
 
-		CBCGPProp *Prop = NULL;
-		CBCGPProp *SubProp = NULL;
+		//CBCGPProp *Prop = NULL;
+		//CBCGPProp *SubProp = NULL;
 
-		Prop = new CBCGPProp("File name", Filename.GetString(), "");
-		PropList->AddProperty(Prop);
+		//Prop = new CBCGPProp("File name", Filename.GetString(), "");
+		//PropList->AddProperty(Prop);
 
-		Prop = new CBCGPProp("Size");
-		unsigned int ImageWidth = FreeImage_GetWidth(Image);
-		SubProp = new CBCGPProp("Width", (_variant_t)ImageWidth, "");
-		Prop->AddSubItem(SubProp);
+		//Prop = new CBCGPProp("Size");
+		//unsigned int ImageWidth = FreeImage_GetWidth(Image);
+		//SubProp = new CBCGPProp("Width", (_variant_t)ImageWidth, "");
+		//Prop->AddSubItem(SubProp);
 
-		unsigned int ImageHeight = FreeImage_GetWidth(Image);
-		SubProp = new CBCGPProp("Height", (_variant_t)ImageHeight, "");
-		Prop->AddSubItem(SubProp);
-		PropList->AddProperty(Prop);
+		//unsigned int ImageHeight = FreeImage_GetWidth(Image);
+		//SubProp = new CBCGPProp("Height", (_variant_t)ImageHeight, "");
+		//Prop->AddSubItem(SubProp);
+		//PropList->AddProperty(Prop);
 
-		Prop = new CBCGPProp("Format", GetFormatString(ImageFormat), "");
-		PropList->AddProperty(Prop);
+		//Prop = new CBCGPProp("Format", GetFormatString(ImageFormat), "");
+		//PropList->AddProperty(Prop);
 
-		FreeImage_Unload(Image);
+		//FreeImage_Unload(Image);
 	}
 }
 
