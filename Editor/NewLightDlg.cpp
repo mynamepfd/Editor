@@ -76,7 +76,7 @@ BOOL NewLightDlg::OnInitDialog()
 	prop->AddSubItem(props[DIRECTION_X]);
 	props[DIRECTION_Y] = new CBCGPProp("Y", (_variant_t)-1.0f, "", DIRECTION_Y);
 	prop->AddSubItem(props[DIRECTION_Y]);
-	props[DIRECTION_Z] = new CBCGPProp("X", (_variant_t)-1.0f, "", DIRECTION_Z);
+	props[DIRECTION_Z] = new CBCGPProp("Z", (_variant_t)1.0f, "", DIRECTION_Z);
 	prop->AddSubItem(props[DIRECTION_Z]);
 	propList.AddProperty(prop);
 

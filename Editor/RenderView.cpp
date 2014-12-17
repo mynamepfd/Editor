@@ -135,6 +135,8 @@ void RenderView::setupView()
 	Ogre::NameValuePairList miscParams;
 	miscParams["externalWindowHandle"] = 
 		Ogre::StringConverter::toString((size_t)m_hWnd);
+	// miscParams["useNVPerfHUD"] = true;
+
 	CRect Client;
 	GetClientRect(Client);
 	renderWindow = Ogre::Root::getSingleton().createRenderWindow(

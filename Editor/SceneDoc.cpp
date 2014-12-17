@@ -568,7 +568,6 @@ Light *SceneDoc::addLight()
 		Name, SRTI_LIGHT, SRTI_LIGHT, 0, 0, LPARAM(light), 
 		CSceneResourceTree::Current->GetTreeItem(SRTI_LIGHT_SET), TVI_LAST);
 	light->setUserAny(Ogre::Any(hItem));
-	light->showIndicator();
 	if(hItem != NULL)
 	{
 		CSceneResourceTree::Current->SelectItem(hItem);
@@ -1156,6 +1155,8 @@ void SceneDoc::OnAddLight()
 		float SpotlightOuterAngle = Dlg.getProperty(NewLightDlg::SPOTLIGHT_RANGE_OUTER_ANGLE);
 		float SpotlightFalloff = Dlg.getProperty(NewLightDlg::SPOTLIGHT_RANGE_FALLOFF);
 		light->getLight()->setSpotlightRange(Ogre::Radian(SpotlightInnerAngle), Ogre::Radian(SpotlightOuterAngle), SpotlightFalloff);
+
+		light->showIndicator();
 	}
 }
 

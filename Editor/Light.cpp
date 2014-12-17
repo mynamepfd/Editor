@@ -15,7 +15,7 @@ void Light::create(std::string name, std::string path)
 	SceneObject::create(name, path);
 	light = sceneManager->createLight(name);
 	light->setUserAny(Ogre::Any((SceneObject*)this));
-	sceneNode->attachObject(light);
+	sceneNode->createChildSceneNode()->attachObject(light);
 }
 
 void Light::destroy()
@@ -36,5 +36,10 @@ void Light::showIndicator()
 	arrow->setCastShadows(false);
 	arrow->setMaterialName("BaseWhite");
 	arrow->setUserAny(Ogre::Any((SceneObject*)this));
-	sceneNode->attachObject(arrow);
+	sceneNode->createChildSceneNode()->attachObject(arrow);
+	if(light->getType() == Ogre::Light::LT_DIRECTIONAL)
+	{
+		const Ogre::Vector3 &direction = light->getDirection();
+		arrow->getParentSceneNode()->setDirection(direction, Ogre::Node::TS_LOCAL, Ogre::Vector3::UNIT_Y);
+	}
 }
