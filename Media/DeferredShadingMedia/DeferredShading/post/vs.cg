@@ -40,7 +40,6 @@ void main(
 	
 	oPos = float4(Pos.xy, 0, 1);
 	oPos.y *= flip;
-	// oPos = mul(worldViewProj, Pos);
 	
 	// Image-space
 	oTexCoord.x = 0.5 * (1 + Pos.x);

@@ -322,15 +322,17 @@ void DLight::updateFromCamera(Ogre::Camera* camera)
 		Ogre::SceneManager* sm = mParentLight->_getManager();
 		sm->getShadowCameraSetup()->getShadowCamera(sm, 
 			camera, camera->getViewport(), mParentLight, &shadowCam, 0);
-			
+
 		//Get the shadow camera position
 		if (params->_findNamedConstantDefinition("shadowCamPos")) 
 		{
-			params->setNamedConstant("shadowCamPos", shadowCam.getPosition());
+			const Ogre::Vector3 position = shadowCam.getPosition();
+			params->setNamedConstant("shadowCamPos", position);
 		}
 		if (params->_findNamedConstantDefinition("shadowFarClip"))
 		{
-			params->setNamedConstant("shadowFarClip", shadowCam.getFarClipDistance());
+			Ogre::Real farClipDistance = shadowCam.getFarClipDistance();
+			params->setNamedConstant("shadowFarClip", farClipDistance);
 		}
 
 	}

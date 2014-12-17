@@ -116,7 +116,6 @@ float4 main(
 	uniform float3 lightPos
 	) : COLOR 
 {
-
 	//None directional lights have some calculations to do in the beginning of the pixel shader
 #if LIGHT_TYPE != LIGHT_DIRECTIONAL
 	projPos /= projPos.w;
@@ -156,7 +155,7 @@ float4 main(
 		checkShadow(ShadowTex, viewPos, invView, shadowViewProjMat, shadowFarClip, len);
 	#endif
 #endif
-	
+
 	// Calculate diffuse colour
 	float3 total_light_contrib;
 	total_light_contrib = max(0.0,dot(objToLightDir, normal)) * lightDiffuseColor.rgb;
@@ -184,5 +183,4 @@ float4 main(
 #endif
 
 	return float4(total_light_contrib*colour, 0.0);
-	//return float4(1, 0, 0, 0);
 }

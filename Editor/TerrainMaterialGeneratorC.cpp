@@ -739,7 +739,7 @@ namespace Ogre
 			"float4 position : TEXCOORD0,\n"
 			" out float4 oColor0 : COLOR0,\n"
 			" out float4 oColor1 : COLOR1,\n"
-			" out float4 oColor2 : COLOR2,\n"
+			// " out float4 oColor2 : COLOR2,\n"
 			"uniform float cFarDistance,\n"
 			"uniform float4x4 viewMatrix,\n";
  
@@ -828,8 +828,9 @@ namespace Ogre
 			"	float2 uv = uvMisc.xy;\n"
 			// base colour
 			"	oColor0 = float4(0,0,0,0);\n"
-			"   oColor1 = oColor2 = float4(1,1,1,1);\n";
- 
+			// "   oColor1 = oColor2 = float4(1,1,1,1);\n";
+			"   oColor1 = float4(1,1,1,1);\n";
+
 		if (tt != LOW_LOD)
 		{
 			outStream << 

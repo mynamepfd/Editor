@@ -15,9 +15,7 @@ TerrainManager::TerrainManager(SceneDoc *Owner, TerrainManagerConfig *Config)
 	//////////////////////////////////////////////////
 
 	mTerrainGlobals = OGRE_NEW Ogre::TerrainGlobalOptions();
-	// mTerrainGlobals->setDefaultMaterialGenerator(Ogre::TerrainMaterialGeneratorPtr(new Ogre::TerrainMaterialGeneratorC));
-	// 开启延迟渲染时前向渲染地形，TerrainManagerShaderHelperCg.cpp 284
-	// mTerrainGlobals->setRenderQueueGroup(1);
+	mTerrainGlobals->setDefaultMaterialGenerator(Ogre::TerrainMaterialGeneratorPtr(new Ogre::TerrainMaterialGeneratorC));
 
     mTerrainGlobals->setMaxPixelError(8);
 

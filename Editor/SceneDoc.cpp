@@ -53,7 +53,7 @@ SceneDoc::SceneDoc()
 
 	// Deferred Shading
 	deferredShadingSystem = NULL;
-	active = false; ssao = false;
+	active = true; ssao = false;
 	deferredShadingMode = ID_DEFERREDSHADING_REGULARVIEW;
 
 	activeView = NULL;

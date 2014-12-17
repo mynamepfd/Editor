@@ -1,15 +1,9 @@
-﻿  TexturePreviewPage.cpp
-  TexturePopup.cpp
-  TerrainLayerWidget.cpp
-  TerrainEditPage.cpp
-d:\neweditor\editor\terraineditpage.cpp(56): warning C4244: “参数”: 从“Ogre::Real”转换到“int”，可能丢失数据
-d:\neweditor\editor\terraineditpage.cpp(70): warning C4244: “参数”: 从“Ogre::Real”转换到“int”，可能丢失数据
-d:\neweditor\editor\terraineditpage.cpp(71): warning C4244: “参数”: 从“Ogre::Real”转换到“int”，可能丢失数据
-d:\neweditor\editor\terraineditpage.cpp(634): warning C4244: “参数”: 从“int”转换到“Ogre::Real”，可能丢失数据
-d:\neweditor\editor\terraineditpage.cpp(659): warning C4244: “参数”: 从“int”转换到“Ogre::Real”，可能丢失数据
-  RibbonBarEx.cpp
-  ResourceLayerWidget.cpp
-  MiscUtils.cpp
-  MainFrm.cpp
+﻿  SceneDoc.cpp
+d:\neweditor\editor\scenedoc.cpp(507): warning C4018: “<”: 有符号/无符号不匹配
+d:\neweditor\editor\scenedoc.cpp(599): warning C4018: “<”: 有符号/无符号不匹配
+d:\neweditor\editor\scenedoc.cpp(616): warning C4018: “<”: 有符号/无符号不匹配
+d:\neweditor\editor\scenedoc.cpp(916): warning C4018: “<”: 有符号/无符号不匹配
+d:\neweditor\editor\scenedoc.cpp(1381): warning C4018: “<”: 有符号/无符号不匹配
+d:\neweditor\editor\scenedoc.cpp(1388): warning C4018: “<”: 有符号/无符号不匹配
 Action.obj : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/OPT:LBR”规范)
   Editor.vcxproj -> D:\NewEditor\Debug\Editor.exe
