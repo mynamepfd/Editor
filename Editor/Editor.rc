@@ -149,34 +149,6 @@ BEGIN
     END
     POPUP "ºº ı"
     BEGIN
-        POPUP "Shadow"
-        BEGIN
-            POPUP "Technique"
-            BEGIN
-                MENUITEM "None",                        ID_SHADOW_TECHNIQUE_NONE
-                MENUITEM "Stencil",                     ID_SHADOW_TECHNIQUE_STENCIL
-                MENUITEM "Texture",                     ID_SHADOW_TECHNIQUE_TEXTURE
-            END
-            POPUP "Lighting"
-            BEGIN
-                MENUITEM "Additive",                    ID_SHADOW_LIGHTING_ADDITIVE
-                MENUITEM "Modulative",                  ID_SHADOW_LIGHTING_MODULATIVE
-            END
-            POPUP "Projection"
-            BEGIN
-                MENUITEM "Uniform",                     ID_SHADOW_PROJECTION_UNIFORM
-                MENUITEM "Uniform Focused",             ID_SHADOW_PROJECTION_UNIFORMFOCUSED
-                MENUITEM "LiSPSM",                      ID_SHADOW_PROJECTION_LISPSM
-                MENUITEM "Plane Optimal",               ID_SHADOW_PROJECTION_PLANEOPTIMAL
-            END
-            POPUP "Material"
-            BEGIN
-                MENUITEM "Standard",                    ID_SHADOW_MATERIAL_STANDARD
-                MENUITEM "Depth Shadowmap",             ID_SHADOW_MATERIAL_DEPTHSHADOWMAP
-                MENUITEM "Depth Shadowmap(PCF)",        ID_SHADOW_MATERIAL_DEPTHSHADOWMAP_PCF
-            END
-        END
-        MENUITEM SEPARATOR
         POPUP "Deferred Shading"
         BEGIN
             MENUITEM "Active",                      ID_DEFERREDSHADING_ACTIVE
@@ -185,6 +157,8 @@ BEGIN
             MENUITEM "Debug colours",               ID_DEFERREDSHADING_DEBUGCOLOURS
             MENUITEM "Debug normals",               ID_DEFERREDSHADING_DEBUGNORMALS
             MENUITEM "Debug depth/specular",        ID_DEFERREDSHADING_DEBUGDEPTH
+            MENUITEM SEPARATOR
+            MENUITEM "Shadow",                      ID_DEFERREDSHADING_SHADOW
         END
         MENUITEM "SSAO",                        ID_SSAO
     END

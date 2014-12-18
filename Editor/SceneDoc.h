@@ -141,7 +141,7 @@ public:
 
 	// DeferredShading
 	DeferredShadingSystem *deferredShadingSystem;
-	bool active, ssao;
+	bool active, shadow, ssao;
 	int deferredShadingMode;
 
 	SceneView *activeView;
@@ -155,4 +155,6 @@ public:
 
 	int nameID;
 	std::vector<SceneObject*> objects;
+	afx_msg void OnDeferredshadingShadow();
+	afx_msg void OnUpdateDeferredshadingShadow(CCmdUI *pCmdUI);
 };

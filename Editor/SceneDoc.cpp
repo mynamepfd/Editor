@@ -53,7 +53,7 @@ SceneDoc::SceneDoc()
 
 	// Deferred Shading
 	deferredShadingSystem = NULL;
-	active = true; ssao = false;
+	active = true; shadow = true; ssao = false;
 	deferredShadingMode = ID_DEFERREDSHADING_REGULARVIEW;
 
 	activeView = NULL;
@@ -88,20 +88,21 @@ void SceneDoc::initialize(NewSceneDlg *dlg)
 	sceneManager = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC); 
 	sceneManager->addRenderQueueListener(RenderPump::current->getOverlaySystem());
 
+	// 目前仅支持聚光灯
 	// Create main, static light
-	Ogre::Light* l1 = sceneManager->createLight();
-    l1->setType(Ogre::Light::LT_DIRECTIONAL);
-    l1->setDiffuseColour(0.5f, 0.45f, 0.1f);
-	l1->setDirection(1, -0.5, -0.2);
-	l1->setShadowFarClipDistance(3000);
-	l1->setShadowFarDistance(75);
-	//Turn this on to have the directional light cast shadows
-	l1->setCastShadows(false);
+	//Ogre::Light* l1 = sceneManager->createLight();
+	//l1->setType(Ogre::Light::LT_DIRECTIONAL);
+	//l1->setDiffuseColour(0.5f, 0.45f, 0.1f);
+	//l1->setDirection(1, -0.5, -0.2);
+	//l1->setShadowFarClipDistance(3000);
+	//l1->setShadowFarDistance(75);
+	////Turn this on to have the directional light cast shadows
+	//l1->setCastShadows(false);
 
-	//COLORREF refAmbientLight = dlg->getProperty(NewSceneDlg::AMBIENT_LIGHT);
-	//sceneManager->setAmbientLight(
-	//	Ogre::ColourValue(GetRValue(refAmbientLight)/255.0f, GetGValue(refAmbientLight)/255.0f, GetBValue(refAmbientLight)/255.0f));
-	//
+	COLORREF refAmbientLight = dlg->getProperty(NewSceneDlg::AMBIENT_LIGHT);
+	sceneManager->setAmbientLight(
+		Ogre::ColourValue(GetRValue(refAmbientLight)/255.0f, GetGValue(refAmbientLight)/255.0f, GetBValue(refAmbientLight)/255.0f));
+	
 	skyType = dlg->getProperty(NewSceneDlg::SKY_TYPE);
 	if(skyType != "None")
 	{
@@ -154,26 +155,17 @@ void SceneDoc::initialize(NewSceneDlg *dlg)
 		sceneManager->setFog(FogMode, FogColour, FogDensity, FogStart, FogEnd);
 	}
 
-	//camera = sceneManager->createCamera(
-	//	Ogre::StringConverter::toString(Ogre::Math::RangeRandom(0, 1000)) + ".Camera");
-	//cameraManager.setCamera(camera);
-	//cameraManager.setDragLook(TRUE);
-
-	//camera->setNearClipDistance(1.0f);
- //   camera->setFarClipDistance(10000.0f);
-	//if(Ogre::Root::getSingleton().getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_INFINITE_FAR_PLANE))
-	//{
-	//	camera->setFarClipDistance(0);
-	//}
 	camera = sceneManager->createCamera(
 		Ogre::StringConverter::toString(Ogre::Math::RangeRandom(0, 1000)) + ".Camera");
 	cameraManager.setCamera(camera);
 	cameraManager.setDragLook(TRUE);
 
-	camera->setPosition(25, 5, 0);
-    camera->lookAt(0,0,0);
-	camera->setFarClipDistance(3000.0);
-    camera->setNearClipDistance(0.5);
+	camera->setNearClipDistance(0.5f);
+	camera->setFarClipDistance(10000.0f);
+	//if(Ogre::Root::getSingleton().getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_INFINITE_FAR_PLANE))
+	//{
+	//	camera->setFarClipDistance(0);
+	//}
 
 	//////////////////////////////////////////////////
 	// Terrain
@@ -221,21 +213,21 @@ void SceneDoc::initialize(NewSceneDlg *dlg)
 	objectEditHandler = new ObjectEditHandler(this);
 	liquidEditHandler = new LiquidEditHandler(this);
 
-	Ogre::Entity* knotEnt = sceneManager->createEntity("Knot", "knot.mesh");
-	knotEnt->setMaterialName("DeferredDemo/RockWall");
-	Ogre::SceneNode *knotNode = sceneManager->getRootSceneNode()->createChildSceneNode();
-	knotNode->setPosition(0, 2, 0);
-	knotNode->attachObject(knotEnt);
-	setEntityHeight(knotEnt, 3);
+	//Ogre::Entity* knotEnt = sceneManager->createEntity("Knot", "knot.mesh");
+	//knotEnt->setMaterialName("DeferredDemo/RockWall");
+	//Ogre::SceneNode *knotNode = sceneManager->getRootSceneNode()->createChildSceneNode();
+	//knotNode->setPosition(0, 2, 0);
+	//knotNode->attachObject(knotEnt);
+	//setEntityHeight(knotEnt, 3);
 
-	Ogre::Light* knotLight = sceneManager->createLight("KnotLight1");
-    knotLight->setType(Ogre::Light::LT_SPOTLIGHT);
-    knotLight->setDiffuseColour(Ogre::ColourValue::Red);
-    knotLight->setSpecularColour(Ogre::ColourValue::White);
-    knotLight->setPosition(knotNode->getPosition() + Ogre::Vector3(0,3,0));
-    knotLight->setDirection(Ogre::Vector3::NEGATIVE_UNIT_Y);
-    knotLight->setSpotlightRange(Ogre::Degree(25), Ogre::Degree(45), 1);
-    knotLight->setAttenuation(6, 1, 0.2, 0);
+	//Ogre::Light* knotLight = sceneManager->createLight("KnotLight1");
+	//knotLight->setType(Ogre::Light::LT_SPOTLIGHT);
+	//knotLight->setDiffuseColour(Ogre::ColourValue::Red);
+	//knotLight->setSpecularColour(Ogre::ColourValue::White);
+	//knotLight->setPosition(knotNode->getPosition() + Ogre::Vector3(0,3,0));
+	//knotLight->setDirection(Ogre::Vector3::NEGATIVE_UNIT_Y);
+	//knotLight->setSpotlightRange(Ogre::Degree(25), Ogre::Degree(45), 1);
+	//knotLight->setAttenuation(6, 1, 0.2, 0);
 
 	initialized = TRUE;
 }
@@ -807,6 +799,8 @@ BEGIN_MESSAGE_MAP(SceneDoc, CDocument)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_LOAD_BRUSH, ID_RESIZE_BRUSH, OnUpdateBrushMenu)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_LOAD_TEXTURE, ID_RESIZE_TEXTURE, OnUpdateTextureMenu)
 
+	ON_COMMAND(ID_DEFERREDSHADING_SHADOW, &SceneDoc::OnDeferredshadingShadow)
+	ON_UPDATE_COMMAND_UI(ID_DEFERREDSHADING_SHADOW, &SceneDoc::OnUpdateDeferredshadingShadow)
 END_MESSAGE_MAP()
 
 void SceneDoc::OnSaveScene()
@@ -1438,4 +1432,17 @@ void SceneDoc::resetMaterials()
 			}
 		}
 	}
+}
+
+
+void SceneDoc::OnDeferredshadingShadow()
+{
+	shadow = !shadow;
+	sceneManager->setShadowTechnique(shadow ? Ogre::SHADOWTYPE_TEXTURE_ADDITIVE : Ogre::SHADOWTYPE_NONE);
+}
+
+
+void SceneDoc::OnUpdateDeferredshadingShadow(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetCheck(shadow);
 }
