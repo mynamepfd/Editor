@@ -23,17 +23,22 @@ void COutputWnd::Flush()
 {
 	if(!mCache.empty())
 	{
-		CString Tmp;
-		mMessageList.GetWindowText(Tmp);
+		CString text;
+		mMessageList.GetWindowText(text);
 
 		for(int i=0; i<mCache.size(); i++)
 		{
-			Tmp += "1>" + mCache[i] + "\n";
+			text += "1>" + mCache[i] + "\n";
 		}
-		Tmp.Replace("\n", "\r\n");
+		text.Replace("\n", "\r\n");
 
 		mCache.clear();
-		mMessageList.SetWindowText(Tmp);
+		mMessageList.SetWindowText(text);
+
+		// 自动滚动到底部
+		int length = mMessageList.GetWindowTextLength();
+		mMessageList.SetSel(length, length);
+		mMessageList.ScrollWindow(0,0);
 	}
 }
 

@@ -2,26 +2,25 @@
 
 #include "RenderScene.h"
 
-namespace Ogre
-{
-	class SceneManager;
-	class Camera;
-	class SceneNode;
-}
+class DeferredShadingSystem;
 
-class CGameDoc : public RenderScene
+class GameDoc : public RenderScene
 {
-	DECLARE_DYNCREATE(CGameDoc)
+	DECLARE_DYNCREATE(GameDoc)
 public:
-	CGameDoc();
-	virtual ~CGameDoc();
+	GameDoc();
+	virtual ~GameDoc();
+
+	DeferredShadingSystem *getDeferredShadingSystem() { return deferredShadingSystem; }
+	void setDeferredShadingSystem(DeferredShadingSystem *deferredShadingSystem) { this->deferredShadingSystem = deferredShadingSystem; }
 
 	void Initialize();
 	void Destroy();
 
 	void update(float Elapsed);
 
-	static CGameDoc *Current;
+	static GameDoc *current;
 
 	DECLARE_MESSAGE_MAP()
+	DeferredShadingSystem *deferredShadingSystem;
 };

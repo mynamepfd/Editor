@@ -25,7 +25,7 @@ material DeferredDemo/Ground
         {
             texture_unit
             {
-                texture grass_1024.jpg
+                texture GreenSkin.jpg
             }
         }
     }

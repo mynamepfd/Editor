@@ -1,46 +1,47 @@
 #include "stdafx.h"
 #include "GameView.h"
 #include "GameDoc.h"
+#include "DeferredShading.h"
 #include "OgreRenderWindow.h"
 
-IMPLEMENT_DYNCREATE(CGameView, RenderView)
+IMPLEMENT_DYNCREATE(GameView, RenderView)
 
-CGameView *CGameView::Current = NULL;
-CGameView::CGameView()
+GameView *GameView::current = NULL;
+GameView::GameView()
 {
-	Current = this;
+	current = this;
 }
 
-CGameView::~CGameView()
+GameView::~GameView()
 {
 }
 
-int CGameView::GetWidth()
+int GameView::getWidth()
 {
 	return renderWindow->getWidth();
 }
 
-int CGameView::GetHeight()
+int GameView::getHeight()
 {
 	return renderWindow->getHeight();
 }
 
-void CGameView::Roaming(OIS::Keyboard *Keyboard, OIS::Mouse *Mouse, float Elapsed)
+void GameView::roaming(OIS::Keyboard *Keyboard, OIS::Mouse *Mouse, float Elapsed)
 {
-	CGameDoc* GameDoc = (CGameDoc*)GetDocument();
+	GameDoc* gameDoc = (GameDoc*)GetDocument();
 	if(!cameraManager)
 	{
 		//IDirect3DDevice9 *Device = NULL;
 		//mRenderWindow->getCustomAttribute("D3DDEVICE", (void*)&Device);
-		setCameraManager(GameDoc->getCameraManager());
+		setCameraManager(gameDoc->getCameraManager());
 	}
 
 	CPoint screenPoint;
 	GetCursorPos(&screenPoint);
 	ScreenToClient(&screenPoint);
 
-	if(	screenPoint.x < 0 || screenPoint.x > GetWidth() || 
-		screenPoint.y < 0 || screenPoint.y > GetHeight())
+	if(	screenPoint.x < 0 || screenPoint.x > getWidth() || 
+		screenPoint.y < 0 || screenPoint.y > getHeight())
 	{
 		return;
 	}
@@ -48,15 +49,33 @@ void CGameView::Roaming(OIS::Keyboard *Keyboard, OIS::Mouse *Mouse, float Elapse
 	RenderView::roaming(Keyboard, Mouse, Elapsed);
 }
 
-BEGIN_MESSAGE_MAP(CGameView, RenderView)
+BEGIN_MESSAGE_MAP(GameView, RenderView)
 	ON_WM_DESTROY()
+	ON_WM_SETFOCUS()
 END_MESSAGE_MAP()
 
-void CGameView::OnDestroy()
+void GameView::OnDestroy()
 {
 	RenderView::OnDestroy();
-	CGameView::Current = NULL;
+	GameView::current = NULL;
 
-	((CGameDoc*)GetDocument())->Destroy();
-	CGameDoc::Current = NULL;
+	((GameDoc*)GetDocument())->Destroy();
+	GameDoc::current = NULL;
+}
+
+void GameView::OnSetFocus(CWnd* pOldWnd)
+{
+	RenderView::OnSetFocus(pOldWnd);
+	GameView::current = this;
+
+	// ((GameDoc*)GetDocument())->setActiveView(this);
+	GameDoc::current = (GameDoc*)GetDocument();
+}
+
+void GameView::setupView()
+{
+	RenderView::setupView();
+	GameDoc *Doc = (GameDoc*)GetDocument();
+	Doc->setDeferredShadingSystem(new DeferredShadingSystem(viewport, Doc->getSceneManager(), Doc->getCamera()));
+	Doc->getDeferredShadingSystem()->initialize();
 }

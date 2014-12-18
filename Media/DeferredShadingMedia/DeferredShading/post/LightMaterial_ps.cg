@@ -66,8 +66,7 @@ void checkShadow(
 	float2 shadowSampleTexCoord = shadowProjPos.xy;
 	float shadowDepth = tex2D(shadowMap, shadowSampleTexCoord).r;
 	float shadowDistance = shadowDepth * shadowFarClip;
-	// clip(shadowDistance - distanceFromLight + 0.1);
-	clip(distanceFromLight - shadowDistance + 0.1);
+	clip(shadowDistance - distanceFromLight + 0.1);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -117,6 +116,7 @@ float4 main(
 	uniform float3 lightPos
 	) : COLOR 
 {
+
 	//None directional lights have some calculations to do in the beginning of the pixel shader
 #if LIGHT_TYPE != LIGHT_DIRECTIONAL
 	projPos /= projPos.w;
@@ -152,17 +152,11 @@ float4 main(
 #ifdef IS_SHADOW_CASTER
 	#if LIGHT_TYPE == LIGHT_DIRECTIONAL
 		checkShadow(ShadowTex, viewPos, invView, shadowViewProjMat, shadowFarClip, shadowCamPos);
-	
-		//float3 worldPos = mul(invView, float4(viewPos, 1)).xyz;
-		//float4 shadowProjPos = mul(shadowViewProjMat, float4(worldPos,1));
-		//float shadowDepth = tex2D(ShadowTex, shadowProjPos.xy).r;
-		//return float4(shadowDepth, shadowDepth, shadowDepth, 0);
-
 	#else
 		checkShadow(ShadowTex, viewPos, invView, shadowViewProjMat, shadowFarClip, len);
 	#endif
 #endif
-
+	
 	// Calculate diffuse colour
 	float3 total_light_contrib;
 	total_light_contrib = max(0.0,dot(objToLightDir, normal)) * lightDiffuseColor.rgb;

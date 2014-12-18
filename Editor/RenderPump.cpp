@@ -124,8 +124,8 @@ void RenderPump::renderOneFrame()
 		}
 		SceneDoc::current->update(Elapsed);
 	}
-	if(CGameDoc::Current != NULL)
-		CGameDoc::Current->update(Elapsed);
+	if(GameDoc::current != NULL)
+		GameDoc::current->update(Elapsed);
 }
 
 void RenderPump::showDebugOverlay(bool show)

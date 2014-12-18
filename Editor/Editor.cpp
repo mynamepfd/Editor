@@ -37,9 +37,9 @@ BOOL CEditorApp::InitInstance()
 	AddDocTemplate(docTemplates["Scene"]);
 
 	docTemplates["Game"] = new CMultiDocTemplate(IDR_MAINFRAME,
-		RUNTIME_CLASS(CGameDoc),
+		RUNTIME_CLASS(GameDoc),
 		RUNTIME_CLASS(CChildFrame),
-		RUNTIME_CLASS(CGameView));
+		RUNTIME_CLASS(GameView));
 	if (!docTemplates["Game"])
 		return FALSE;
 	AddDocTemplate(docTemplates["Game"]);
@@ -137,7 +137,7 @@ void CEditorApp::OnOpenScene()
 void CEditorApp::OnNewGame()
 {
 	docTemplates["Game"]->OpenDocumentFile(NULL);
-	CGameDoc::Current->Initialize();
+	GameDoc::current->Initialize();
 }
 
 void CEditorApp::OnOgreXmlConverter()

@@ -22,6 +22,4 @@ void ShadowCasterFP(
 {
 	float depth = length(iViewPos) / cFarDistance;
     oColor.rgba = float4(depth, depth, depth, 1);
-    //float depth = iViewPos.z / iViewPos.w;
-    //oColor.rgba = float4(depth, depth, depth, 0);
 }

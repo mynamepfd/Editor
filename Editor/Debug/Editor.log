@@ -1,3 +1,6 @@
-﻿  Light.cpp
+﻿  GameDoc.cpp
+d:\neweditor\editor\gamedoc.cpp(45): warning C4305: “参数”: 从“double”到“float”截断
+d:\neweditor\editor\gamedoc.cpp(51): warning C4305: “参数”: 从“double”到“Ogre::Real”截断
+d:\neweditor\editor\gamedoc.cpp(89): warning C4305: “参数”: 从“double”到“Ogre::Real”截断
 Action.obj : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/OPT:LBR”规范)
   Editor.vcxproj -> D:\NewEditor\Debug\Editor.exe

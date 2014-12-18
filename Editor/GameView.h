@@ -2,20 +2,23 @@
 
 #include "RenderView.h"
 
-class CGameView : public RenderView
+class GameView : public RenderView
 {
-	DECLARE_DYNCREATE(CGameView)
+	DECLARE_DYNCREATE(GameView)
 public:
-	CGameView();
-	~CGameView();
+	GameView();
+	~GameView();
 
-	int GetWidth();
-	int GetHeight();
+	int getWidth();
+	int getHeight();
 
-	void Roaming(OIS::Keyboard *Keyboard, OIS::Mouse *Mouse, float Elapsed);
+	void roaming(OIS::Keyboard *Keyboard, OIS::Mouse *Mouse, float Elapsed);
 
-	static CGameView *Current;
+	static GameView *current;
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnDestroy();
+	afx_msg void OnSetFocus(CWnd* pOldWnd);
+
+	void setupView();
 };
