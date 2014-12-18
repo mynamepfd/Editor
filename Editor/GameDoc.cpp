@@ -28,7 +28,7 @@ GameDoc::~GameDoc()
 }
 
 //Utility function to help set scene up
-void setEntityHeight(Ogre::Entity* ent, Ogre::Real newHeight)
+static void setEntityHeight(Ogre::Entity* ent, Ogre::Real newHeight)
 {
     Ogre::Real curHeight = ent->getMesh()->getBounds().getSize().y;
     Ogre::Real scaleFactor = newHeight / curHeight;
