@@ -13,18 +13,18 @@ public:
 	virtual void OnPropertyChanged(CBCGPProp *Prop) = 0;
 };
 
-class CPropertyWnd : public CBCGPDockingControlBar
+class PropertyWnd : public CBCGPDockingControlBar
 {
-	DECLARE_DYNAMIC(CPropertyWnd)
+	DECLARE_DYNAMIC(PropertyWnd)
 public:
-	CPropertyWnd();
-	virtual ~CPropertyWnd();
+	PropertyWnd();
+	virtual ~PropertyWnd();
 
 	CBCGPPropList *GetPropList() { return &mPropList; }
 	void SetListener(CPropertyListener *Listener) { mListener = Listener; }
 	void FirePropertyChanged();
 
-	static CPropertyWnd *Current;
+	static PropertyWnd *Current;
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);

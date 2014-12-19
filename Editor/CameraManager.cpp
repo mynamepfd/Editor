@@ -161,5 +161,5 @@ void CameraManager::roaming(OIS::Keyboard *keyboard, OIS::Mouse *mouse, float el
 		}
 	}
 
-	CCameraWnd::Current->update(this);
+	CameraWnd::current->update(this);
 }

@@ -261,7 +261,7 @@ void ObjectEditHandler::SetMode(KObjectEditMode Mode)
 		{
 			//if(mTarget)
 			//	mTarget->getSceneNode()->showBoundingBox(false);
-			CSceneResourceTree::Current->SelectItem(NULL);
+			SceneResourceTree::Current->SelectItem(NULL);
 			if(mTransScaleNode->getParentSceneNode())
 				mObjectEditNode->removeChild(mTransScaleNode);
 			if(mRotateNode->getParentSceneNode())
@@ -314,7 +314,7 @@ void ObjectEditHandler::SetMode(KObjectEditMode Mode)
 		}
 	}
 	SceneDoc::current->OnObjectEdit(mMode);
-	CBCGPToolBar *ToolBar = &((CMainFrame*)AfxGetMainWnd())->mObjectEditToolBar;
+	CBCGPToolBar *ToolBar = ((MainFrame*)AfxGetMainWnd())->getObjectEditToolBar();
 	ToolBar->OnUpdateCmdUI((CFrameWnd*)ToolBar->GetOwner(), FALSE);
 }
 
@@ -382,14 +382,14 @@ void ObjectEditHandler::OnLButtonUp(CPoint point)
 			HTREEITEM hItem = Object->getUserAny().operator()<HTREEITEM>();
 			if(mMode == OEM_DELETE)
 			{
-				CSceneResourceTree::Current->DeleteItem(hItem);
-				CSceneResourceTree::Current->SelectItem(NULL);
+				SceneResourceTree::Current->DeleteItem(hItem);
+				SceneResourceTree::Current->SelectItem(NULL);
 				SceneDoc::current->removeObject(Object);
 			} else 
 			if(mTarget != Object)
 			{
-				CSceneResourceTree::Current->SelectItem(NULL);
-				CSceneResourceTree::Current->SelectItem(hItem);
+				SceneResourceTree::Current->SelectItem(NULL);
+				SceneResourceTree::Current->SelectItem(hItem);
 			}
 			break;
 		}
@@ -410,7 +410,7 @@ void ObjectEditHandler::Roaming(CPoint Point, Ogre::TerrainGroup::RayResult rayR
 			if(mOwner->isPaste())
 				newPosition.y = rayResult.position.y;
 			mTarget->getSceneNode()->setPosition(newPosition);
-			CPropertyWnd::Current->FirePropertyChanged();
+			PropertyWnd::Current->FirePropertyChanged();
 		}
 		mObjectEditNode->setPosition(newPosition);
 	} else
@@ -463,7 +463,7 @@ void ObjectEditHandler::Roaming(CPoint Point, Ogre::TerrainGroup::RayResult rayR
 			if(!(GetKeyState(VK_LCONTROL) & 0x8000))
 			{
 				mTarget->getSceneNode()->translate(vTrans);
-				CPropertyWnd::Current->FirePropertyChanged();
+				PropertyWnd::Current->FirePropertyChanged();
 			}
 			mObjectEditNode->translate(vTrans);
 		} else 
@@ -506,7 +506,7 @@ void ObjectEditHandler::Roaming(CPoint Point, Ogre::TerrainGroup::RayResult rayR
 				}
 				mTarget->getSceneNode()->setScale(
 					mTarget->getSceneNode()->getScale() + vScaleInc);
-				CPropertyWnd::Current->FirePropertyChanged();
+				PropertyWnd::Current->FirePropertyChanged();
 			}
 		} else
 
@@ -528,7 +528,7 @@ void ObjectEditHandler::Roaming(CPoint Point, Ogre::TerrainGroup::RayResult rayR
 			if (!(GetKeyState(VK_LCONTROL) & 0x8000))
 			{
 				mTarget->getSceneNode()->rotate(qRotate, Ogre::Node::TS_PARENT);
-				CPropertyWnd::Current->FirePropertyChanged();
+				PropertyWnd::Current->FirePropertyChanged();
 			}
 			mRotateNode->rotate(qRotate, Ogre::Node::TS_PARENT);
 		}

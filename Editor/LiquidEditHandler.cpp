@@ -197,10 +197,10 @@ void LiquidEditHandler::OnLButtonDown(Ogre::TerrainGroup::RayResult rayResult)
 	mOwner->getSceneManager()->destroyManualObject(LiquidObject);
 	mOwner->setNameID(mOwner->getNameID()+1);
 
-	HTREEITEM hItem = CSceneResourceTree::Current->InsertItem(
+	HTREEITEM hItem = SceneResourceTree::Current->InsertItem(
 		TVIF_IMAGE|TVIF_SELECTEDIMAGE|TVIF_TEXT|TVIF_PARAM, 
 		LiquidName.c_str(), SRTI_LIQUID, SRTI_LIQUID, 0, 0, LPARAM(liquid), 
-		CSceneResourceTree::Current->GetTreeItem(SRTI_LIQUID_SET), TVI_LAST);
+		SceneResourceTree::Current->GetTreeItem(SRTI_LIQUID_SET), TVI_LAST);
 	liquid->setUserAny(Ogre::Any(hItem));
 }
 

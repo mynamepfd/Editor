@@ -2,14 +2,14 @@
 
 #include "ResourceManagerTree.h"
 
-class CResourceManager : public CBCGPDockingControlBar
+class ResourceManager : public CBCGPDockingControlBar
 {
-	DECLARE_DYNAMIC(CResourceManager)
+	DECLARE_DYNAMIC(ResourceManager)
 public:
-	CResourceManager();
-	virtual ~CResourceManager();
+	ResourceManager();
+	virtual ~ResourceManager();
 
-	static CResourceManager *Current;
+	static ResourceManager *current;
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
@@ -18,5 +18,5 @@ public:
 	BOOL OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult);
 	void AdjustLayout();
 
-	CResourceManagerTree mResourceManagerTree;
+	ResourceManagerTree mResourceManagerTree;
 };

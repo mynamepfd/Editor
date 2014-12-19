@@ -2,24 +2,24 @@
 #include "Editor.h"
 #include "MiscEditWnd.h"
 
-IMPLEMENT_DYNAMIC(CMiscEditWnd, CBCGPDockingControlBar)
+IMPLEMENT_DYNAMIC(MiscEditWnd, CBCGPDockingControlBar)
 
-CMiscEditWnd *CMiscEditWnd::Current = NULL;
-CMiscEditWnd::CMiscEditWnd()
+MiscEditWnd *MiscEditWnd::Current = NULL;
+MiscEditWnd::MiscEditWnd()
 {
 	Current = this;
 }
 
-CMiscEditWnd::~CMiscEditWnd()
+MiscEditWnd::~MiscEditWnd()
 {
 }
 
-BEGIN_MESSAGE_MAP(CMiscEditWnd, CBCGPDockingControlBar)
+BEGIN_MESSAGE_MAP(MiscEditWnd, CBCGPDockingControlBar)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
-int CMiscEditWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
+int MiscEditWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if(CBCGPDockingControlBar::OnCreate(lpCreateStruct) == -1)
 		return -1;
@@ -35,13 +35,13 @@ int CMiscEditWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 }
 
 
-void CMiscEditWnd::OnSize(UINT nType, int cx, int cy)
+void MiscEditWnd::OnSize(UINT nType, int cx, int cy)
 {
 	CBCGPDockingControlBar::OnSize(nType, cx, cy);
 	AdjustLayout();
 }
 
-void CMiscEditWnd::AdjustLayout()
+void MiscEditWnd::AdjustLayout()
 {
 	if (GetSafeHwnd () == NULL || (AfxGetMainWnd() != NULL && AfxGetMainWnd()->IsIconic()))
 	{

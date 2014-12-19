@@ -5,24 +5,24 @@
 #include "MaterialPreviewPage.h"
 #include "ResourcePreview.h"
 
-IMPLEMENT_DYNAMIC(CResourceManager, CBCGPDockingControlBar)
+IMPLEMENT_DYNAMIC(ResourceManager, CBCGPDockingControlBar)
 
-CResourceManager *CResourceManager::Current = NULL;
-CResourceManager::CResourceManager()
+ResourceManager *ResourceManager::current = NULL;
+ResourceManager::ResourceManager()
 {
-	Current = this;
+	current = this;
 }
 
-CResourceManager::~CResourceManager()
+ResourceManager::~ResourceManager()
 {
 }
 
-BEGIN_MESSAGE_MAP(CResourceManager, CBCGPDockingControlBar)
+BEGIN_MESSAGE_MAP(ResourceManager, CBCGPDockingControlBar)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
-int CResourceManager::OnCreate(LPCREATESTRUCT lpCreateStruct)
+int ResourceManager::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CBCGPDockingControlBar::OnCreate(lpCreateStruct) == -1)
 		return -1;
@@ -40,13 +40,13 @@ int CResourceManager::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-void CResourceManager::OnSize(UINT nType, int cx, int cy)
+void ResourceManager::OnSize(UINT nType, int cx, int cy)
 {
 	CBCGPDockingControlBar::OnSize(nType, cx, cy);
 	AdjustLayout();
 }
 
-BOOL CResourceManager::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
+BOOL ResourceManager::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 {
 	*pResult = 0;
 	NMHDR* pNMHDR = (NMHDR*)lParam;
@@ -65,7 +65,7 @@ BOOL CResourceManager::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 				if(treeNodeInfo != NULL)
 				{
 					CMaterialPreviewPage::Current->AfterSelectResource(treeNodeInfo);
-					CResourcePreview::Current->AfterSelectResource(treeNodeInfo);
+					ResourcePreview::Current->AfterSelectResource(treeNodeInfo);
 				}
 				return FALSE;
   			}
@@ -74,7 +74,7 @@ BOOL CResourceManager::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 	return CBCGPDockingControlBar::OnNotify(wParam, lParam, pResult);
 }
 
-void CResourceManager::AdjustLayout()
+void ResourceManager::AdjustLayout()
 {
 	CRect rectClient;
 	GetClientRect(rectClient);

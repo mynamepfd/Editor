@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "resource.h"
+
+#include "MainFrm.h"
 #include "SceneDoc.h"
 #include "SceneView.h"
 #include "RenderPump.h"
@@ -559,13 +561,13 @@ StaticMesh *SceneDoc::addStaticMesh(CString Path)
 	staticMesh->create(Name.GetString(), Path.GetString());
 	objects.push_back(staticMesh);
 
-	HTREEITEM hItem = CSceneResourceTree::Current->InsertItem(
+	HTREEITEM hItem = SceneResourceTree::Current->InsertItem(
 		TVIF_IMAGE|TVIF_SELECTEDIMAGE|TVIF_TEXT|TVIF_PARAM, 
 		Name, SRTI_MESH, SRTI_MESH, 0, 0, LPARAM(staticMesh), 
-		CSceneResourceTree::Current->GetTreeItem(SRTI_MESH_SET), TVI_LAST);
+		SceneResourceTree::Current->GetTreeItem(SRTI_MESH_SET), TVI_LAST);
 	staticMesh->setUserAny(Ogre::Any(hItem));
 
-	CSceneResourceTree::Current->SelectItem(hItem);
+	SceneResourceTree::Current->SelectItem(hItem);
 	objectEditHandler->SetFreeTransform(TRUE);
 
 	return staticMesh;
@@ -579,13 +581,13 @@ DynamicModel *SceneDoc::addDynamicModel(CString Path)
 	dynamicModel->create(Name.GetString(), Path.GetString());
 	objects.push_back(dynamicModel);
 	
-	HTREEITEM hItem = CSceneResourceTree::Current->InsertItem(
+	HTREEITEM hItem = SceneResourceTree::Current->InsertItem(
 		TVIF_IMAGE|TVIF_SELECTEDIMAGE|TVIF_TEXT|TVIF_PARAM, 
 		Name, SRTI_MODEL, SRTI_MODEL, 0, 0, LPARAM(dynamicModel), 
-		CSceneResourceTree::Current->GetTreeItem(SRTI_MESH_SET), TVI_LAST);
+		SceneResourceTree::Current->GetTreeItem(SRTI_MESH_SET), TVI_LAST);
 	dynamicModel->setUserAny(Ogre::Any(hItem));
 
-	CSceneResourceTree::Current->SelectItem(hItem);
+	SceneResourceTree::Current->SelectItem(hItem);
 	objectEditHandler->SetFreeTransform(TRUE);
 
 	return dynamicModel;
@@ -600,14 +602,14 @@ Light *SceneDoc::addLight()
 	light->create(Name.GetString(), "");
 	objects.push_back(light);
 
-	HTREEITEM hItem = CSceneResourceTree::Current->InsertItem(
+	HTREEITEM hItem = SceneResourceTree::Current->InsertItem(
 		TVIF_IMAGE|TVIF_SELECTEDIMAGE|TVIF_TEXT|TVIF_PARAM, 
 		Name, SRTI_LIGHT, SRTI_LIGHT, 0, 0, LPARAM(light), 
-		CSceneResourceTree::Current->GetTreeItem(SRTI_LIGHT_SET), TVI_LAST);
+		SceneResourceTree::Current->GetTreeItem(SRTI_LIGHT_SET), TVI_LAST);
 	light->setUserAny(Ogre::Any(hItem));
 	if(hItem != NULL)
 	{
-		CSceneResourceTree::Current->SelectItem(hItem);
+		SceneResourceTree::Current->SelectItem(hItem);
 		objectEditHandler->SetFreeTransform(TRUE);
 	}
 
@@ -801,6 +803,7 @@ BEGIN_MESSAGE_MAP(SceneDoc, CDocument)
 
 	ON_COMMAND(ID_DEFERREDSHADING_SHADOW, &SceneDoc::OnDeferredshadingShadow)
 	ON_UPDATE_COMMAND_UI(ID_DEFERREDSHADING_SHADOW, &SceneDoc::OnUpdateDeferredshadingShadow)
+	ON_COMMAND(ID_STATUSBAR_CAMERA_SPEED_SLIDER, &SceneDoc::OnStatusBarCameraSpeedSlider)
 END_MESSAGE_MAP()
 
 void SceneDoc::OnSaveScene()
@@ -1445,4 +1448,11 @@ void SceneDoc::OnDeferredshadingShadow()
 void SceneDoc::OnUpdateDeferredshadingShadow(CCmdUI *pCmdUI)
 {
 	pCmdUI->SetCheck(shadow);
+}
+
+void SceneDoc::OnStatusBarCameraSpeedSlider()
+{
+	CBCGPRibbonSlider *cameraSpeedSlider =
+		(CBCGPRibbonSlider*)(((MainFrame*)AfxGetMainWnd())->getStatusBar()->FindElement(ID_STATUSBAR_CAMERA_SPEED_SLIDER));
+	cameraManager.setSpeed(cameraSpeedSlider->GetPos() * 10.0f);
 }

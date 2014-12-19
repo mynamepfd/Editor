@@ -10,19 +10,19 @@
 
 #include "OgreSceneManager.h"
 
-IMPLEMENT_DYNAMIC(CSceneResourceTree, CTreeCtrl)
+IMPLEMENT_DYNAMIC(SceneResourceTree, CTreeCtrl)
 
-CSceneResourceTree *CSceneResourceTree::Current = NULL;
-CSceneResourceTree::CSceneResourceTree()
+SceneResourceTree *SceneResourceTree::Current = NULL;
+SceneResourceTree::SceneResourceTree()
 {
 	Current = this;
 }
 
-CSceneResourceTree::~CSceneResourceTree()
+SceneResourceTree::~SceneResourceTree()
 {
 }
 
-void CSceneResourceTree::ResetImageList()
+void SceneResourceTree::ResetImageList()
 {
 	CBitmap Bmp;
 	if (!Bmp.LoadBitmap(IDB_SCENE_RESOURCE_TREE))
@@ -41,31 +41,31 @@ void CSceneResourceTree::ResetImageList()
 	SetImageList(&mImageList, TVSIL_NORMAL);
 }
 
-void CSceneResourceTree::RebuildTree()
+void SceneResourceTree::RebuildTree()
 {
-	mTreeItems[SRTI_SCENE]			= InsertItem("场景",			SRTI_SCENE,			SRTI_SCENE);
-	mTreeItems[SRTI_SKY]			= InsertItem("天空",			SRTI_SKY,			SRTI_SKY,			mTreeItems[SRTI_SCENE]);
-	mTreeItems[SRTI_TERRAIN]		= InsertItem("地形",			SRTI_TERRAIN,		SRTI_TERRAIN,		mTreeItems[SRTI_SCENE]);
-	mTreeItems[SRTI_LIGHT_SET]		= InsertItem("光源集",		SRTI_LIGHT_SET,		SRTI_LIGHT_SET,		mTreeItems[SRTI_SCENE]);
-	mTreeItems[SRTI_MODEL_SET]		= InsertItem("动态实体集",	SRTI_MODEL_SET,		SRTI_MODEL_SET,		mTreeItems[SRTI_SCENE]);
-	mTreeItems[SRTI_MESH_SET]		= InsertItem("静态实体集",	SRTI_MESH_SET,		SRTI_MESH_SET,		mTreeItems[SRTI_SCENE]);
-	mTreeItems[SRTI_LIQUID_SET]		= InsertItem("流体集",		SRTI_LIQUID_SET,	SRTI_LIQUID_SET,	mTreeItems[SRTI_SCENE]);
-	mTreeItems[SRTI_PARTICLE_SET]	= InsertItem("粒子集",		SRTI_PARTICLE_SET,	SRTI_PARTICLE_SET,	mTreeItems[SRTI_SCENE]);
+	mTreeItems[SRTI_SCENE]			= InsertItem("Scene",			SRTI_SCENE,			SRTI_SCENE);
+	mTreeItems[SRTI_SKY]			= InsertItem("Sky",			SRTI_SKY,			SRTI_SKY,			mTreeItems[SRTI_SCENE]);
+	mTreeItems[SRTI_TERRAIN]		= InsertItem("Terrain",			SRTI_TERRAIN,		SRTI_TERRAIN,		mTreeItems[SRTI_SCENE]);
+	mTreeItems[SRTI_LIGHT_SET]		= InsertItem("Lights",		SRTI_LIGHT_SET,		SRTI_LIGHT_SET,		mTreeItems[SRTI_SCENE]);
+	mTreeItems[SRTI_MODEL_SET]		= InsertItem("Models",	SRTI_MODEL_SET,		SRTI_MODEL_SET,		mTreeItems[SRTI_SCENE]);
+	mTreeItems[SRTI_MESH_SET]		= InsertItem("Meshs",	SRTI_MESH_SET,		SRTI_MESH_SET,		mTreeItems[SRTI_SCENE]);
+	mTreeItems[SRTI_LIQUID_SET]		= InsertItem("Liquids",		SRTI_LIQUID_SET,	SRTI_LIQUID_SET,	mTreeItems[SRTI_SCENE]);
+	mTreeItems[SRTI_PARTICLE_SET]	= InsertItem("Particles",		SRTI_PARTICLE_SET,	SRTI_PARTICLE_SET,	mTreeItems[SRTI_SCENE]);
 }
 
-void CSceneResourceTree::FirePropertyChanged()
+void SceneResourceTree::FirePropertyChanged()
 {
 	HTREEITEM SelectedItem = GetSelectedItem();
 
 	KSceneResourceTreeImages nImage; int nSelectedImage;
-	CSceneResourceTree::Current->GetItemImage(SelectedItem, (int&)nImage, nSelectedImage);
+	SceneResourceTree::Current->GetItemImage(SelectedItem, (int&)nImage, nSelectedImage);
 
-	CBCGPPropList *PropList = CPropertyWnd::Current->GetPropList(); CBCGPProp *Prop = NULL;
+	CBCGPPropList *PropList = PropertyWnd::Current->GetPropList(); CBCGPProp *Prop = NULL;
 	switch(nImage)
 	{
 	case SRTI_LIGHT:
 		{
-			Light *Object = (Light*)CSceneResourceTree::Current->GetItemData(SelectedItem);
+			Light *Object = (Light*)SceneResourceTree::Current->GetItemData(SelectedItem);
 
 			//////////////////////////////////////////////////
 			// Position
@@ -102,7 +102,7 @@ void CSceneResourceTree::FirePropertyChanged()
 	case SRTI_MODEL:
 	case SRTI_MESH:
 		{
-			SceneObject *Object = (SceneObject*)CSceneResourceTree::Current->GetItemData(SelectedItem);
+			SceneObject *Object = (SceneObject*)SceneResourceTree::Current->GetItemData(SelectedItem);
 
 			//////////////////////////////////////////////////
 			// Position
@@ -153,7 +153,7 @@ void CSceneResourceTree::FirePropertyChanged()
 
 	case SRTI_LIQUID:
 		{
-			SceneObject *Object = (SceneObject*)CSceneResourceTree::Current->GetItemData(SelectedItem);
+			SceneObject *Object = (SceneObject*)SceneResourceTree::Current->GetItemData(SelectedItem);
 
 			//////////////////////////////////////////////////
 			// Position
@@ -173,11 +173,11 @@ void CSceneResourceTree::FirePropertyChanged()
 	}
 }
 
-void CSceneResourceTree::OnPropertyChanged(CBCGPProp *Prop)
+void SceneResourceTree::OnPropertyChanged(CBCGPProp *Prop)
 {
 	if(!SceneDoc::current)
 		return;
-	CBCGPPropList *PropList = CPropertyWnd::Current->GetPropList();
+	CBCGPPropList *PropList = PropertyWnd::Current->GetPropList();
 	switch(Prop->GetData())
 	{
 	case SRTI_SCENE_NAME:
@@ -254,7 +254,7 @@ void CSceneResourceTree::OnPropertyChanged(CBCGPProp *Prop)
 	case SRTI_LIGHT_SPOTLIGHT_RANGE_OUTER_ANGLE:
 	case SRTI_LIGHT_SPOTLIGHT_RANGE_FALLOFF:
 		{
-			Light *light = (Light*)CSceneResourceTree::Current->GetItemData(GetSelectedItem());
+			Light *light = (Light*)SceneResourceTree::Current->GetItemData(GetSelectedItem());
 			
 			CString Type = PropList->FindItemByData(SRTI_LIGHT_TYPE)->GetValue();
 			if(Type == "Point")
@@ -302,11 +302,11 @@ void CSceneResourceTree::OnPropertyChanged(CBCGPProp *Prop)
 	}
 }
 
-BEGIN_MESSAGE_MAP(CSceneResourceTree, CTreeCtrl)
+BEGIN_MESSAGE_MAP(SceneResourceTree, CTreeCtrl)
 	ON_NOTIFY_REFLECT(TVN_SELCHANGED, OnTvnSelchanged)
 END_MESSAGE_MAP()
 
-void CSceneResourceTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
+void SceneResourceTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	*pResult = 0;
 
@@ -327,15 +327,15 @@ void CSceneResourceTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 	SceneDoc::current->selectObject(Object);
 }
 
-void CSceneResourceTree::AfterSelectTreeItem(HTREEITEM hItem)
+void SceneResourceTree::AfterSelectTreeItem(HTREEITEM hItem)
 {
-	CBCGPPropList *PropList = CPropertyWnd::Current->GetPropList();
+	CBCGPPropList *PropList = PropertyWnd::Current->GetPropList();
 	PropList->RemoveAll();
 
 	if(!SceneDoc::current || !SceneDoc::current->isInitialized())
 		return;
 
-	CPropertyWnd::Current->SetListener(this);
+	PropertyWnd::Current->SetListener(this);
 
 	KSceneResourceTreeImages nImage; int nSelectedImage;
 	GetItemImage(hItem, (int&)nImage, nSelectedImage);

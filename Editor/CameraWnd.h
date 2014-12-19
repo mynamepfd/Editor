@@ -2,29 +2,28 @@
 
 class CameraManager;
 
-enum KCameraWnd
+class CameraWnd : public CBCGPDockingControlBar
 {
-	CW_SPEED,
-	CW_POLYGON_MODE,
-	CW_XPOS,
-	CW_YPOS,
-	CW_ZPOS,
-	CW_XDIR,
-	CW_YDIR,
-	CW_ZDIR,
-	_CW
-};
-
-class CCameraWnd : public CBCGPDockingControlBar
-{
-	DECLARE_DYNAMIC(CCameraWnd)
+	DECLARE_DYNAMIC(CameraWnd)
 public:
-	CCameraWnd();
-	virtual ~CCameraWnd();
+	CameraWnd();
+	virtual ~CameraWnd();
 
 	void update(CameraManager *CameraManager);
 
-	static CCameraWnd *Current;
+	enum KCameraWnd
+	{
+		POLYGON_MODE,
+		XPOS,
+		YPOS,
+		ZPOS,
+		XDIR,
+		YDIR,
+		ZDIR,
+		COUNT
+	};
+
+	static CameraWnd *current;
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
@@ -33,7 +32,6 @@ public:
 
 	void AdjustLayout();
 
-	CBCGPPropList mPropList;
-	CBCGPProp *mProps[_CW];
-	CameraManager *mCameraManager;
+	CBCGPPropList propList; CBCGPProp *props[COUNT];
+	CameraManager *cameraManager;
 };

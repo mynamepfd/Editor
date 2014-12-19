@@ -16,10 +16,10 @@ CTerrainEditPage *CTerrainEditPage::Current = NULL;
 CTerrainEditPage::CTerrainEditPage(CWnd* pParent /*=NULL*/)
 	: CBCGPDialog(CTerrainEditPage::IDD, pParent)
 	,mTerrain(NULL)
-	,mBrushText("ª≠À¢")
-	,mSizeText("≥ﬂ¥Á: 8")
-	,mPowerText("«ø∂»: 8")
-	,mTextureText("Œ∆¿Ì: 0")
+	,mBrushText("Brush")
+	,mSizeText("Size : 8")
+	,mPowerText("Power : 8")
+	,mTextureText("Texture : 0")
 	,mEditLayer(0)
 {
 	Current = this;
@@ -152,9 +152,9 @@ int CTerrainEditPage::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	rect.SetRectEmpty();
 
 	mBrushBar.Create(rect, this, ID_BRUSH_BAR);
-	mBrushBar.AddMenuItem(ID_LOAD_BRUSH, "‘ÿ»Îª≠À¢");
-	mBrushBar.AddMenuItem(ID_CLEAR_BRUSH, "«Â≥˝ª≠À¢");
-	mBrushBar.AddMenuItem(ID_RESIZE_BRUSH, "«–ªªÕº±Í≥ﬂ¥Á");
+	mBrushBar.AddMenuItem(ID_LOAD_BRUSH, "Load brushes");
+	mBrushBar.AddMenuItem(ID_CLEAR_BRUSH, "Clear brushes");
+	mBrushBar.AddMenuItem(ID_RESIZE_BRUSH, "Resize brushes");
 	mBrushBar.EnableWindow(FALSE);
 
 	mSizeSlider.Create(WS_CHILD | WS_VISIBLE, rect, this, ID_SIZE_SLIDER);
@@ -195,21 +195,21 @@ void CTerrainEditPage::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar
 	case ID_SIZE_SLIDER:
 		{ 
 			SceneDoc::current->getTerrainEditHandler()->GetBrush()->SetSize(mSizeSlider.GetPos());
-			mSizeText.Format("≥ﬂ¥Á£∫%d", mSizeSlider.GetPos());
+			mSizeText.Format("Size£∫%d", mSizeSlider.GetPos());
 			InvalidateRect(&mSizeBox.ConvertToRect());
 		} 
 		break;
 	case ID_POWER_SLIDER:
 		{
 			SceneDoc::current->getTerrainEditHandler()->GetBrush()->SetPower(mPowerSlider.GetPos());
-			mPowerText.Format("«ø∂»£∫%d", mPowerSlider.GetPos());
+			mPowerText.Format("Power£∫%d", mPowerSlider.GetPos());
 			InvalidateRect(&mPowerBox.ConvertToRect());
 		}
 		break;
 
 	case ID_TEXTURE_SLIDER:
 		{
-			mTextureText.Format("Œ∆¿Ì:%d", mTextureSlider.GetPos());
+			mTextureText.Format("Texture:%d", mTextureSlider.GetPos());
 			InvalidateRect(&mTextureBox.ConvertToRect());
 		}
 	}

@@ -2,18 +2,18 @@
 
 #include <vector>
 
-class COutputWnd : public CBCGPDockingControlBar
+class OutputWnd : public CBCGPDockingControlBar
 {
-	DECLARE_DYNAMIC(COutputWnd)
+	DECLARE_DYNAMIC(OutputWnd)
 public:
-	COutputWnd();
-	virtual ~COutputWnd();
+	OutputWnd();
+	virtual ~OutputWnd();
 
 	void Cache(CString Str);
 	void Flush();
 	void Clear();
 
-	static COutputWnd *Current;
+	static OutputWnd *Current;
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);

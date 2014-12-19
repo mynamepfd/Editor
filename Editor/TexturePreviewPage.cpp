@@ -35,8 +35,8 @@ int CTexturePreviewPage::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	rect.SetRectEmpty();
 
 	mTextureBar.Create(rect, this, ID_TEXTURE_BAR);
-	mTextureBar.AddMenuItem(ID_LOAD_TEXTURE, "载入纹理");
-	mTextureBar.AddMenuItem(ID_CLEAR_TEXTURE, "清空纹理"); // 纹理散落在不同的文件夹中，因此不能每次载入的时候就清空
+	mTextureBar.AddMenuItem(ID_LOAD_TEXTURE, "Load textures");
+	mTextureBar.AddMenuItem(ID_CLEAR_TEXTURE, "Clear textures"); // 纹理散落在不同的文件夹中，因此不能每次载入的时候就清空
 
 	mImage.Create(rect, this, ID_TEXTURE_PREVIEW);
 	return 0;

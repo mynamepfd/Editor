@@ -2,24 +2,24 @@
 #include "Editor.h"
 #include "OutputWnd.h"
 
-IMPLEMENT_DYNAMIC(COutputWnd, CBCGPDockingControlBar)
+IMPLEMENT_DYNAMIC(OutputWnd, CBCGPDockingControlBar)
 
-COutputWnd *COutputWnd::Current = NULL;
-COutputWnd::COutputWnd()
+OutputWnd *OutputWnd::Current = NULL;
+OutputWnd::OutputWnd()
 {
 	Current = this;
 }
 
-COutputWnd::~COutputWnd()
+OutputWnd::~OutputWnd()
 {
 }
 
-void COutputWnd::Cache(CString Str)
+void OutputWnd::Cache(CString Str)
 {
 	mCache.push_back(Str);
 }
 
-void COutputWnd::Flush()
+void OutputWnd::Flush()
 {
 	if(!mCache.empty())
 	{
@@ -42,19 +42,19 @@ void COutputWnd::Flush()
 	}
 }
 
-void COutputWnd::Clear()
+void OutputWnd::Clear()
 {
 	mCache.clear();
 	mMessageList.SetWindowText("");
 }
 
-BEGIN_MESSAGE_MAP(COutputWnd, CBCGPDockingControlBar)
+BEGIN_MESSAGE_MAP(OutputWnd, CBCGPDockingControlBar)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
-int COutputWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
+int OutputWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CBCGPDockingControlBar::OnCreate(lpCreateStruct) == -1)
 		return -1;
@@ -77,7 +77,7 @@ int COutputWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-void COutputWnd::OnSize(UINT nType, int cx, int cy)
+void OutputWnd::OnSize(UINT nType, int cx, int cy)
 {
 	CBCGPDockingControlBar::OnSize(nType, cx, cy);
 
@@ -87,7 +87,7 @@ void COutputWnd::OnSize(UINT nType, int cx, int cy)
 	mMessageList.SetWindowPos(NULL, 0, 0, rectClient.Width(), rectClient.Height(), SWP_NOZORDER|SWP_NOACTIVATE);
 }
 
-void COutputWnd::OnTimer(UINT_PTR nIDEvent)
+void OutputWnd::OnTimer(UINT_PTR nIDEvent)
 {
 	if(nIDEvent == 1)
 	{

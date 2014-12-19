@@ -2,24 +2,24 @@
 #include "Editor.h"
 #include "SceneResource.h"
 
-IMPLEMENT_DYNAMIC(CSceneResource, CBCGPDockingControlBar)
+IMPLEMENT_DYNAMIC(SceneResource, CBCGPDockingControlBar)
 
-CSceneResource *CSceneResource::Current = NULL;
-CSceneResource::CSceneResource()
+SceneResource *SceneResource::Current = NULL;
+SceneResource::SceneResource()
 {
 	Current = this;
 }
 
-CSceneResource::~CSceneResource()
+SceneResource::~SceneResource()
 {
 }
 
-BEGIN_MESSAGE_MAP(CSceneResource, CBCGPDockingControlBar)
+BEGIN_MESSAGE_MAP(SceneResource, CBCGPDockingControlBar)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
-int CSceneResource::OnCreate(LPCREATESTRUCT lpCreateStruct)
+int SceneResource::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CBCGPDockingControlBar::OnCreate(lpCreateStruct) == -1)
 		return -1;
@@ -37,13 +37,13 @@ int CSceneResource::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-void CSceneResource::OnSize(UINT nType, int cx, int cy)
+void SceneResource::OnSize(UINT nType, int cx, int cy)
 {
 	CBCGPDockingControlBar::OnSize(nType, cx, cy);
 	AdjustLayout();
 }
 
-void CSceneResource::AdjustLayout()
+void SceneResource::AdjustLayout()
 {
 	CRect rectClient;
 	GetClientRect(rectClient);

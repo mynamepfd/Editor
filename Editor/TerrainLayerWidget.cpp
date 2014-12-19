@@ -24,10 +24,10 @@ void CTerrainLayerWidget::Create(CWnd *pParentWnd, UINT nRadio, BOOL InGroup, UI
 	mDiffuseSpecular.Create("", WS_VISIBLE|WS_CHILD|SS_BITMAP, rectDummy, pParentWnd);
 	HBITMAP WhiteBmp = MiscUtils::loadBitmap(NULL, 64);
 	mDiffuseSpecular.SetBitmap(WhiteBmp);
-	mLoadDiffuseSpecular.Create("Ìæ»»", WS_CHILD|WS_VISIBLE, rectDummy, pParentWnd, nLoadDS);
+	mLoadDiffuseSpecular.Create("Replace", WS_CHILD|WS_VISIBLE, rectDummy, pParentWnd, nLoadDS);
 	mNormalHeight.Create("", WS_VISIBLE|WS_CHILD|SS_BITMAP, rectDummy, pParentWnd);
 	mNormalHeight.SetBitmap(WhiteBmp);
-	mLoadNormalHeight.Create("Ìæ»»", WS_CHILD|WS_VISIBLE, rectDummy, pParentWnd, nLoadNH);
+	mLoadNormalHeight.Create("Replace", WS_CHILD|WS_VISIBLE, rectDummy, pParentWnd, nLoadNH);
 	mAddLayerPrev.Create("<", WS_CHILD|WS_VISIBLE, rectDummy, pParentWnd, nALPrev);
 	mAddLayerNext.Create(">", WS_CHILD|WS_VISIBLE, rectDummy, pParentWnd, nALNext);
 	mDelLayer.Create("X", WS_CHILD|WS_VISIBLE, rectDummy, pParentWnd, nDL);

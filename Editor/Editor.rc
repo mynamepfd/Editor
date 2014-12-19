@@ -134,20 +134,19 @@ END
 
 IDR_MAINFRAME MENU
 BEGIN
-    POPUP "场景"
+    POPUP "Scene"
     BEGIN
-        MENUITEM "新建",                          ID_NEW_SCENE
-        MENUITEM "打开",                          ID_OPEN_SCENE
-        MENUITEM "保存",                          ID_SAVE_SCENE
+        MENUITEM "New",                         ID_NEW_SCENE
+        MENUITEM "Open",                        ID_OPEN_SCENE
         MENUITEM SEPARATOR
-        MENUITEM "退出",                          ID_APP_EXIT
+        MENUITEM "Exit",                        ID_APP_EXIT
     END
-    POPUP "视图"
+    POPUP "View"
     BEGIN
-        MENUITEM "工具栏",                         ID_VIEW_TOOLBAR
-        MENUITEM "状态栏",                         ID_VIEW_STATUS_BAR
+        MENUITEM "Tools Bar",                   ID_VIEW_TOOLBAR
+        MENUITEM "Status Bar",                  ID_VIEW_STATUS_BAR
     END
-    POPUP "技术"
+    POPUP "Technique"
     BEGIN
         POPUP "Deferred Shading"
         BEGIN
@@ -162,51 +161,52 @@ BEGIN
         END
         MENUITEM "SSAO",                        ID_SSAO
     END
-    POPUP "测试"
+    POPUP "Test"
     BEGIN
-        MENUITEM "新建游戏",                        ID_NEW_GAME
-        MENUITEM "游戏模式",                        ID_GAME_MODE
+        MENUITEM "New Game",                    ID_NEW_GAME
+        MENUITEM "Game Mode",                   ID_GAME_MODE
     END
-    POPUP "工具"
+    POPUP "Tools"
     BEGIN
-        MENUITEM "生成地形纹理",                      ID_IMAGE_COMBINATOR
-        MENUITEM "XMLConverter",                ID_XML_CONVERTER
-        MENUITEM "脚本编辑器",                       ID_SCRIPT_EDITOR
+        MENUITEM "Terrain Texture Generator",   ID_IMAGE_COMBINATOR
+        MENUITEM "OGRE XML Converter",          ID_XML_CONVERTER
+        MENUITEM "Script Editor",               ID_SCRIPT_EDITOR
     END
-    POPUP "帮助"
+    POPUP "Help"
     BEGIN
-        MENUITEM "清空Log",                       ID_CLEAR_LOG
+        MENUITEM "Clear Log",                   ID_CLEAR_LOG
         MENUITEM SEPARATOR
-        MENUITEM "关于 Editor...",                ID_APP_ABOUT
+        MENUITEM "About Editor",                ID_APP_ABOUT
     END
 END
 
 IDR_MATERIAL MENU
 BEGIN
-    POPUP "场景(&F)"
+    POPUP "Scene"
     BEGIN
-        MENUITEM "新建(&N)",                      ID_FILE_NEW
-        MENUITEM "保存(&S)",                      ID_SAVE_SCENE
-        MENUITEM "打开(&O)",                      ID_OPEN_SCENE
-        MENUITEM "关闭(&C)",                      ID_FILE_CLOSE
+        MENUITEM "New",                         ID_FILE_NEW
+        MENUITEM "Open",                        ID_OPEN_SCENE
+        MENUITEM "Save",                        ID_SAVE_SCENE
+        MENUITEM "Close",                       ID_FILE_CLOSE
         MENUITEM SEPARATOR
-        MENUITEM "退出(&X)",                      ID_APP_EXIT
+        MENUITEM "Exit",                        ID_APP_EXIT
     END
-    POPUP "视图(&V)"
+    POPUP "View"
     BEGIN
-        MENUITEM "工具栏(&T)",                     ID_VIEW_TOOLBAR
-        MENUITEM "状态栏(&S)",                     ID_VIEW_STATUS_BAR
+        MENUITEM "Tools Bar",                   ID_VIEW_TOOLBAR
+        MENUITEM "Status Bar",                  ID_VIEW_STATUS_BAR
     END
-    POPUP "工具(&T)"
+    POPUP "Tools"
     BEGIN
-        MENUITEM "OgreXMLConverter",            ID_XML_CONVERTER
-        MENUITEM "脚本编辑器(&S)",                   ID_SCRIPT_EDITOR
+        MENUITEM "Terrain Texture Generator",   ID_IMAGE_COMBINATOR
+        MENUITEM "OGRE XML Converter",          ID_XML_CONVERTER
+        MENUITEM "Script Editor",               ID_SCRIPT_EDITOR
     END
-    POPUP "帮助(&H)"
+    POPUP "Help"
     BEGIN
-        MENUITEM "清空Log(&R)",                   ID_CLEAR_LOG
+        MENUITEM "Clear Log",                   ID_CLEAR_LOG
         MENUITEM SEPARATOR
-        MENUITEM "关于 Editor(&A)...",            ID_APP_ABOUT
+        MENUITEM "About Editor",                ID_APP_ABOUT
     END
 END
 
@@ -316,24 +316,24 @@ FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     CONTROL         "",IDC_MATERIAL_FRAME,"Static",SS_BLACKFRAME,6,30,222,144
     LISTBOX         IDC_MATERIAL_LIST,12,265,193,42,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        IDC_ANIM_LIST,46,7,114,173,CBS_DROPDOWN | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    CTEXT           "动画：",IDC_STATIC,6,6,37,12,SS_CENTERIMAGE
-    GROUPBOX        "材质",IDC_STATIC,6,252,222,60
-    GROUPBOX        "组合器",IDC_STATIC,6,324,222,66
+    COMBOBOX        IDC_ANIM_LIST,54,7,106,173,CBS_DROPDOWN | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CTEXT           "Animations：",IDC_STATIC,6,6,48,12,SS_CENTERIMAGE
+    GROUPBOX        "Materials",IDC_STATIC,6,252,222,60
+    GROUPBOX        "Compositors",IDC_STATIC,6,324,222,66
     LISTBOX         IDC_COMPOSITOR_LIST,132,335,90,48,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "编辑",IDC_EDIT_PROGRAM,198,6,30,14
+    PUSHBUTTON      "Edit",IDC_EDIT_PROGRAM,198,6,30,14
     PUSHBUTTON      "/\\",IDC_APPLY_MATERIAL,210,264,12,18
     LISTBOX         IDC_CURRENT_COMPOSITORS,12,335,90,48,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      ">",IDC_DEL_COMPOSITOR,110,347,12,12
     PUSHBUTTON      "<",IDC_ADD_COMPOSITOR,110,335,12,12
     PUSHBUTTON      "+",IDC_ENABLE_COMPOSITOR,110,360,12,12
     PUSHBUTTON      "-",IDC_DISABLE_COMPOSITOR,110,372,12,12
-    GROUPBOX        "光源",IDC_STATIC,6,180,222,67
+    GROUPBOX        "Lights",IDC_STATIC,6,180,222,67
     LISTBOX         IDC_LIGHTS,11,193,193,48,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "+",IDC_ADD_LIGHT,210,193,12,18
     PUSHBUTTON      "X",IDC_DEL_LIGHT,210,222,12,18
     PUSHBUTTON      "X",IDC_CLEAR_MATERIAL,210,288,12,18
-    PUSHBUTTON      "四边形",IDC_QUAD,162,6,36,14
+    PUSHBUTTON      "Quad",IDC_QUAD,162,6,36,14
 END
 
 IDD_NEW_LIGHT DIALOGEX 0, 0, 325, 320

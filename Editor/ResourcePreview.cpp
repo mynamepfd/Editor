@@ -17,10 +17,10 @@
 
 #include "tinyxml.h"
 
-IMPLEMENT_DYNAMIC(CResourcePreview, CBCGPDockingControlBar)
+IMPLEMENT_DYNAMIC(ResourcePreview, CBCGPDockingControlBar)
 
-CResourcePreview *CResourcePreview::Current = NULL;
-CResourcePreview::CResourcePreview():
+ResourcePreview *ResourcePreview::Current = NULL;
+ResourcePreview::ResourcePreview():
 	mView(NULL),
 	mShowGrid(false),
 	mSceneManager(NULL),
@@ -31,11 +31,11 @@ CResourcePreview::CResourcePreview():
 	Current = this;
 }
 
-CResourcePreview::~CResourcePreview()
+ResourcePreview::~ResourcePreview()
 {
 }
 
-void CResourcePreview::AfterSelectResource(TiXmlElement *Elmt)
+void ResourcePreview::AfterSelectResource(TiXmlElement *Elmt)
 {
 	if(mSceneManager == NULL)
 	{
@@ -89,21 +89,21 @@ void CResourcePreview::AfterSelectResource(TiXmlElement *Elmt)
 	mCameraManager.setTarget(mSceneObject);
 }
 
-void CResourcePreview::update(float Elapsed)
+void ResourcePreview::update(float Elapsed)
 {
 	if(mSceneObject != NULL)
 		mSceneObject->update(Elapsed);
 	mView->Invalidate(FALSE);
 }
 
-BEGIN_MESSAGE_MAP(CResourcePreview, CBCGPDockingControlBar)
+BEGIN_MESSAGE_MAP(ResourcePreview, CBCGPDockingControlBar)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_COMMAND(ID_SHOW_GRID, OnShowGrid)
     ON_UPDATE_COMMAND_UI(ID_SHOW_GRID, OnUpdateShowGrid)
 END_MESSAGE_MAP()
 
-int CResourcePreview::OnCreate(LPCREATESTRUCT lpCreateStruct)
+int ResourcePreview::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CBCGPDockingControlBar::OnCreate(lpCreateStruct) == -1)
 		return -1;
@@ -122,7 +122,7 @@ int CResourcePreview::OnCreate(LPCREATESTRUCT lpCreateStruct)
 }
 
 
-void CResourcePreview::OnSize(UINT nType, int cx, int cy)
+void ResourcePreview::OnSize(UINT nType, int cx, int cy)
 {
 	CBCGPDockingControlBar::OnSize(nType, cx, cy);
 
@@ -141,18 +141,18 @@ void CResourcePreview::OnSize(UINT nType, int cx, int cy)
 
 }
 
-void CResourcePreview::OnShowGrid()
+void ResourcePreview::OnShowGrid()
 {
 	mShowGrid = !mShowGrid;
 	ShowGrid();
 }
 
-void CResourcePreview::OnUpdateShowGrid(CCmdUI *pCmdUI)
+void ResourcePreview::OnUpdateShowGrid(CCmdUI *pCmdUI)
 {
 	pCmdUI->SetCheck(mShowGrid);
 }
 
-BOOL CResourcePreview::PreTranslateMessage(MSG* pMsg)
+BOOL ResourcePreview::PreTranslateMessage(MSG* pMsg)
 {
  	if (pMsg->message == WM_CHAR) // ½â¾ö¶£¶£Ïì
  	{
@@ -163,7 +163,7 @@ BOOL CResourcePreview::PreTranslateMessage(MSG* pMsg)
 	return CBCGPDockingControlBar::PreTranslateMessage(pMsg);
 }
 
-void CResourcePreview::ClearSceneObject()
+void ResourcePreview::ClearSceneObject()
 {
 	if(mSceneObject != NULL)
 	{
@@ -175,12 +175,12 @@ void CResourcePreview::ClearSceneObject()
 	}
 }
 
-void CResourcePreview::AdjustCamera()
+void ResourcePreview::AdjustCamera()
 {
 	mCameraManager.faceTo(mSceneObject);
 }
 
-void CResourcePreview::ShowGrid()
+void ResourcePreview::ShowGrid()
 {
 	if(mGrid == NULL)
 	{

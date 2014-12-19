@@ -22,7 +22,7 @@
 
 void LogListener::messageLogged( const Ogre::String& message, Ogre::LogMessageLevel lml, bool maskDebug, const Ogre::String &logName, bool& skipThisMessage )
 {
-	COutputWnd::Current->Cache(message.c_str());
+	OutputWnd::Current->Cache(message.c_str());
 }
 
 RenderPump *RenderPump::current = NULL;
@@ -91,7 +91,7 @@ void RenderPump::renderOneFrame()
 	root->renderOneFrame();
 
 	CMaterialPreviewPage::Current->update(Elapsed);
-	CResourcePreview::Current->update(Elapsed);
+	ResourcePreview::Current->update(Elapsed);
 	if(SceneDoc::current != NULL)
 	{
 		if(debugOverlay && debugOverlay->isVisible())

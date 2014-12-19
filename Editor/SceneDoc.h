@@ -118,6 +118,7 @@ public:
 	// ~
 	afx_msg void OnUpdateBrushMenu(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateTextureMenu(CCmdUI* pCmdUI);
+	afx_msg void OnStatusBarCameraSpeedSlider();
 
 	DECLARE_MESSAGE_MAP()
 

@@ -71,13 +71,13 @@ enum // 需动态更新的域
 	SRTI_LIQUID_POSITION_Z,
 };
 
-class CSceneResourceTree : public CTreeCtrl, public CPropertyListener
+class SceneResourceTree : public CTreeCtrl, public CPropertyListener
 {
-	DECLARE_DYNAMIC(CSceneResourceTree)
+	DECLARE_DYNAMIC(SceneResourceTree)
 
 public:
-	CSceneResourceTree();
-	virtual ~CSceneResourceTree();
+	SceneResourceTree();
+	virtual ~SceneResourceTree();
 
 	void ResetImageList();
 	void RebuildTree();
@@ -86,7 +86,7 @@ public:
 	void FirePropertyChanged();
 	void OnPropertyChanged(CBCGPProp *Prop);
 
-	static CSceneResourceTree *Current;
+	static SceneResourceTree *Current;
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult);

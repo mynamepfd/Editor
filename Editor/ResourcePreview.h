@@ -13,7 +13,7 @@ namespace Ogre
 	class ManualObject;
 }
 
-class CResourcePreviewToolBar : public CBCGPToolBar
+class ResourcePreviewToolBar : public CBCGPToolBar
 {
 public:    
     virtual void OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL bDisableIfNoHndler)    
@@ -24,17 +24,17 @@ public:
     virtual BOOL AllowShowOnList () const{ return FALSE; }
 };
 
-class CResourcePreview : public CBCGPDockingControlBar
+class ResourcePreview : public CBCGPDockingControlBar
 {
-	DECLARE_DYNAMIC(CResourcePreview)
+	DECLARE_DYNAMIC(ResourcePreview)
 public:
-	CResourcePreview();
-	virtual ~CResourcePreview();
+	ResourcePreview();
+	virtual ~ResourcePreview();
 
 	void AfterSelectResource(TiXmlElement *Elmt);
 	void update(float Elapsed);
 
-	static CResourcePreview *Current;
+	static ResourcePreview *Current;
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
@@ -49,7 +49,7 @@ public:
 	void ShowGrid();
 
 	RenderView *mView;
-	CResourcePreviewToolBar mToolbar;
+	ResourcePreviewToolBar mToolbar;
 	bool mShowGrid;
 
 	Ogre::SceneManager *mSceneManager;

@@ -56,7 +56,7 @@ BOOL CEditorApp::InitInstance()
 	// MFC
 	//////////////////////////////////////////////////
 
-	CMainFrame* pMainFrame = new CMainFrame;
+	MainFrame* pMainFrame = new MainFrame;
 	if (!pMainFrame || !pMainFrame->LoadFrame(IDR_MAINFRAME))
 	{
 		delete pMainFrame;
@@ -154,7 +154,7 @@ void CEditorApp::OnScriptEditor()
 
 void CEditorApp::OnClearLog()
 {
-	COutputWnd::Current->Clear();
+	OutputWnd::Current->Clear();
 }
 
 void CEditorApp::OnAppAbout()

@@ -6,7 +6,7 @@ History: PJN / 19-03-2004 1. Initial implementation synchronized to the v1.59 re
          PJN / 19-03-2004 1. Updated the sample app's Find Next and Find Previous marker functions. Now correctly
                           goes to the next and previous markers when a marker is on the current line.
                           2. Updated the sample app's passing of messages to Scintilla from the top level
-                          CMainFrame window
+                          MainFrame window
          PJN / 06-06-2004 1. Updated class to work with Scintilla v1.61
          PJN / 20-12-2004 1. Updated class to work with Scintilla v1.62.
                           2. Sample app now includes a common control 6 manifest

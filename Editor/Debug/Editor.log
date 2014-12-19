@@ -1,3 +1,24 @@
-﻿  DeferredShading.cpp
+﻿  SceneDoc.cpp
+d:\neweditor\editor\scenedoc.cpp(546): warning C4018: “<”: 有符号/无符号不匹配
+d:\neweditor\editor\scenedoc.cpp(637): warning C4018: “<”: 有符号/无符号不匹配
+d:\neweditor\editor\scenedoc.cpp(654): warning C4018: “<”: 有符号/无符号不匹配
+d:\neweditor\editor\scenedoc.cpp(957): warning C4018: “<”: 有符号/无符号不匹配
+d:\neweditor\editor\scenedoc.cpp(1424): warning C4018: “<”: 有符号/无符号不匹配
+d:\neweditor\editor\scenedoc.cpp(1431): warning C4018: “<”: 有符号/无符号不匹配
+  RenderPump.cpp
+  OutputWnd.cpp
+d:\neweditor\editor\outputwnd.cpp(29): warning C4018: “<”: 有符号/无符号不匹配
+  ObjectEditHandler.cpp
+d:\neweditor\dependencies\ogreopcode\include\opcode\ice\icefpu.h(103): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+d:\neweditor\dependencies\ogreopcode\include\ogreopcodecharactercontroller.h(39): warning C4305: “参数”: 从“double”到“const Ogre::Real”截断
+d:\neweditor\editor\objectedithandler.cpp(435): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+d:\neweditor\editor\objectedithandler.cpp(436): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+d:\neweditor\editor\objectedithandler.cpp(443): warning C4244: “=”: 从“LONG”转换到“Ogre::Real”，可能丢失数据
+d:\neweditor\editor\objectedithandler.cpp(449): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+d:\neweditor\editor\objectedithandler.cpp(456): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+d:\neweditor\editor\objectedithandler.cpp(457): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+d:\neweditor\editor\objectedithandler.cpp(460): warning C4244: “=”: 从“LONG”转换到“Ogre::Real”，可能丢失数据
+  MainFrm.cpp
+  Editor.cpp
 Action.obj : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/OPT:LBR”规范)
   Editor.vcxproj -> D:\NewEditor\Debug\Editor.exe

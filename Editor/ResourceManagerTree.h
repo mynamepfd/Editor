@@ -15,12 +15,12 @@ enum KResourceManagerTreeImages
 	RMTI_LIGHT
 };
 
-class CResourceManagerTree : public CTreeCtrl
+class ResourceManagerTree : public CTreeCtrl
 {
-	DECLARE_DYNAMIC(CResourceManagerTree)
+	DECLARE_DYNAMIC(ResourceManagerTree)
 public:
-	CResourceManagerTree();
-	virtual ~CResourceManagerTree();
+	ResourceManagerTree();
+	virtual ~ResourceManagerTree();
 
 	void ResetImageList();
 	void RebuildTree();

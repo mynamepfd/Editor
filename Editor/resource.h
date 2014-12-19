@@ -42,8 +42,10 @@
 #define ID_RESOURCE_PREVIEW             315
 #define ID_MESSAGE_LIST                 315
 #define ID_SIZE_SLIDER                  316
+#define ID_STATUSBAR_CAMERA_SPEED       316
 #define IDB_DOCKING_PANE                317
 #define ID_POWER_SLIDER                 317
+#define ID_STATUSBAR_CAMERA_SPEED_SLIDER 331
 #define ID_MISC_EDIT_TAB                318
 #define ID_MISC_EDIT_WND                319
 #define IDD_TERRAIN_EDIT                319
@@ -274,6 +276,6 @@
 #define _APS_NEXT_RESOURCE_VALUE        337
 #define _APS_NEXT_COMMAND_VALUE         32850
 #define _APS_NEXT_CONTROL_VALUE         1100
-#define _APS_NEXT_SYMED_VALUE           316
+#define _APS_NEXT_SYMED_VALUE           318
 #endif
 #endif

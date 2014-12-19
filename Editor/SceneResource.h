@@ -2,19 +2,19 @@
 
 #include "SceneResourceTree.h"
 
-class CSceneResource : public CBCGPDockingControlBar
+class SceneResource : public CBCGPDockingControlBar
 {
-	DECLARE_DYNAMIC(CSceneResource)
+	DECLARE_DYNAMIC(SceneResource)
 public:
-	CSceneResource();
-	virtual ~CSceneResource();
+	SceneResource();
+	virtual ~SceneResource();
 
-	static CSceneResource *Current;
+	static SceneResource *Current;
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 
 	void AdjustLayout();
-	CSceneResourceTree mSceneResourceTree;
+	SceneResourceTree mSceneResourceTree;
 };

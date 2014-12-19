@@ -11,19 +11,19 @@
 
 #include "tinyxml.h"
 
-IMPLEMENT_DYNAMIC(CResourceManagerTree, CTreeCtrl)
+IMPLEMENT_DYNAMIC(ResourceManagerTree, CTreeCtrl)
 
-CResourceManagerTree::CResourceManagerTree():
+ResourceManagerTree::ResourceManagerTree():
 	mDragging(FALSE)
 {
 
 }
 
-CResourceManagerTree::~CResourceManagerTree()
+ResourceManagerTree::~ResourceManagerTree()
 {
 }
 
-void CResourceManagerTree::ResetImageList()
+void ResourceManagerTree::ResetImageList()
 {
 	CBitmap Bmp;
 	if (!Bmp.LoadBitmap(IDB_RESOURCE_MANAGER_TREE))
@@ -42,12 +42,12 @@ void CResourceManagerTree::ResetImageList()
 	SetImageList(&mImageList, TVSIL_NORMAL);
 }
 
-void CResourceManagerTree::RebuildTree()
+void ResourceManagerTree::RebuildTree()
 {
-	HTREEITEM Root = InsertItem("资源管理树", RMTI_SCENE, RMTI_SCENE);
-	HTREEITEM StaticMesh = InsertItem("静态实体", RMTI_PACKAGE, RMTI_PACKAGE_OPEN, Root);
-	HTREEITEM DynamicMesh = InsertItem("动态实体", RMTI_PACKAGE, RMTI_PACKAGE_OPEN, Root);
-	HTREEITEM Particle = InsertItem("粒子", RMTI_PACKAGE, RMTI_PACKAGE_OPEN, Root);
+	HTREEITEM Root = InsertItem("Resource Manager", RMTI_SCENE, RMTI_SCENE);
+	HTREEITEM StaticMesh = InsertItem("Meshs", RMTI_PACKAGE, RMTI_PACKAGE_OPEN, Root);
+	HTREEITEM DynamicMesh = InsertItem("Models", RMTI_PACKAGE, RMTI_PACKAGE_OPEN, Root);
+	HTREEITEM Particle = InsertItem("Particles", RMTI_PACKAGE, RMTI_PACKAGE_OPEN, Root);
 
 	Ogre::StringVector ResGrps = Ogre::ResourceGroupManager::getSingleton().getResourceGroups();
 	Ogre::StringVector::iterator ResGrpIter = ResGrps.begin();
@@ -72,12 +72,12 @@ void CResourceManagerTree::RebuildTree()
 	
 }
 
-BEGIN_MESSAGE_MAP(CResourceManagerTree, CTreeCtrl)
+BEGIN_MESSAGE_MAP(ResourceManagerTree, CTreeCtrl)
 	ON_WM_LBUTTONUP()
 	ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 
-void CResourceManagerTree::OnLButtonUp(UINT nFlags, CPoint point)
+void ResourceManagerTree::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	if(mDragging)
 	{	
@@ -119,7 +119,7 @@ void CResourceManagerTree::OnLButtonUp(UINT nFlags, CPoint point)
 	CTreeCtrl::OnLButtonUp(nFlags, point);
 }
 
-void CResourceManagerTree::OnMouseMove(UINT nFlags, CPoint point)
+void ResourceManagerTree::OnMouseMove(UINT nFlags, CPoint point)
 {
 	if(mDragging)
 	{	
@@ -160,7 +160,7 @@ void CResourceManagerTree::OnMouseMove(UINT nFlags, CPoint point)
 	CTreeCtrl::OnMouseMove(nFlags, point);
 }
 
-TiXmlElement *CResourceManagerTree::MakeElement(
+TiXmlElement *ResourceManagerTree::MakeElement(
 	const char *Name, KResourceManagerTreeImages Type, const char *Path)
 {
 	TiXmlElement *Elmt = new TiXmlElement(Name);
@@ -169,7 +169,7 @@ TiXmlElement *CResourceManagerTree::MakeElement(
 	return Elmt;
 }
 
-void CResourceManagerTree::ListAllResource(Ogre::String ResGrp, Ogre::String Ext, Ogre::String Folder, HTREEITEM Parent)
+void ResourceManagerTree::ListAllResource(Ogre::String ResGrp, Ogre::String Ext, Ogre::String Folder, HTREEITEM Parent)
 {
 	// 资源
 	Ogre::String ResPattern = "*."+Ext;

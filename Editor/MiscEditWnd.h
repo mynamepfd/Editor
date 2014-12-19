@@ -2,14 +2,14 @@
 
 #include "MiscEditSheet.h"
 
-class CMiscEditWnd : public CBCGPDockingControlBar
+class MiscEditWnd : public CBCGPDockingControlBar
 {
-	DECLARE_DYNAMIC(CMiscEditWnd)
+	DECLARE_DYNAMIC(MiscEditWnd)
 public:
-	CMiscEditWnd();
-	virtual ~CMiscEditWnd();
+	MiscEditWnd();
+	virtual ~MiscEditWnd();
 
-	static CMiscEditWnd *Current;
+	static MiscEditWnd *Current;
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);

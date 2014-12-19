@@ -9,41 +9,37 @@
 #include "OutputWnd.h"
 #include "RenderPump.h"
 
-class CMainFrame : public CBCGPMDIFrameWnd
+class MainFrame : public CBCGPMDIFrameWnd
 {
-	DECLARE_DYNAMIC(CMainFrame)
+	DECLARE_DYNAMIC(MainFrame)
 public:
-	CMainFrame();
-	virtual ~CMainFrame();
+	MainFrame();
+	virtual ~MainFrame();
 
-	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-#ifdef _DEBUG
-	virtual void AssertValid() const;
-	virtual void Dump(CDumpContext& dc) const;
-#endif
-
-	CBCGPToolBar          mObjectEditToolBar;
-	CBCGPStatusBar        mStatusBar;
+	CBCGPToolBar *getObjectEditToolBar();
+	CBCGPRibbonStatusBar *getStatusBar();
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 
-	void CreateToolBar();
-	void CreateStatusBar();
-	void CreateDockingWindows();
+	void createToolBar();
+	void createStatusBar();
+	void createDockingWindows();
 
-	void InitScintilla();
-	void InitFreeImage();
-	void InitOGRE();
+	void initScintilla();
+	void initOGRE();
 
-	CResourceManager	mResourceManager;
-	CSceneResource		mSceneResource;
-	CMiscEditWnd		mMiscEditWnd;
-	CResourcePreview	mResourcePreview;
-	CPropertyWnd		mPropertyWnd;
-	CCameraWnd			mCameraWnd;
-	COutputWnd			mOutputWnd;
+	CBCGPToolBar objectEditToolBar;
+	CBCGPRibbonStatusBar statusBar;
 
-	RenderPump mRenderPump;
+	ResourceManager	resourceManager;
+	SceneResource sceneResource;
+	MiscEditWnd miscEditWnd;
+	ResourcePreview	resourcePreview;
+	PropertyWnd	propertyWnd;
+	CameraWnd cameraWnd;
+	OutputWnd outputWnd;
+
+	RenderPump renderPump;
 };
