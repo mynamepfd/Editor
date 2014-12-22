@@ -68,7 +68,7 @@ int RenderView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if(CView::OnCreate(lpCreateStruct) == -1)
 		return -1;
-	// PostMessage(WM_CUSTOM_AFTER_CREATE, 0, 0);
+	PostMessage(WM_CUSTOM_AFTER_CREATE, 0, 0); // Consider Resource Preview...
 	return 0;
 }
 

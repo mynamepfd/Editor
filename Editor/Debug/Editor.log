@@ -1,9 +1,8 @@
-﻿生成启动时间为 2014/12/21 23:56:15。
+﻿生成启动时间为 2014/12/22 21:24:27。
      1>项目“C:\Projects\Editor\Editor\Editor.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         C:\Software\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\Projects\Editor\Editor\ /IC:\Projects\Editor\Editor\TinyXML /IC:\Projects\Editor\Editor\OgreXMLConverter /IC:\Projects\Editor\Dependencies\BCG\include /IC:\Projects\Editor\Dependencies\Scintilla\include /IC:\Projects\Editor\Dependencies\OGRE\include /IC:\Projects\Editor\Dependencies\OGRE\include\OGRE /IC:\Projects\Editor\Dependencies\OGRE\include\OGRE\Overlay /IC:\Projects\Editor\Dependencies\OGRE\include\OGRE\Terrain /IC:\Projects\Editor\Dependencies\OGRE\boost /IC:\Projects\Editor\Dependencies\OgreOpCode\include /IC:\Projects\Editor\Dependencies\DirectX\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D FREEIMAGE_LIB /D TIXML_USE_STL /D _MBCS /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\Editor.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ParticlePreviewPage.cpp RenderView.cpp
+         C:\Software\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\Projects\Editor\Editor\ /IC:\Projects\Editor\Editor\TinyXML /IC:\Projects\Editor\Editor\OgreXMLConverter /IC:\Projects\Editor\Dependencies\BCG\include /IC:\Projects\Editor\Dependencies\Scintilla\include /IC:\Projects\Editor\Dependencies\OGRE\include /IC:\Projects\Editor\Dependencies\OGRE\include\OGRE /IC:\Projects\Editor\Dependencies\OGRE\include\OGRE\Overlay /IC:\Projects\Editor\Dependencies\OGRE\include\OGRE\Terrain /IC:\Projects\Editor\Dependencies\OGRE\boost /IC:\Projects\Editor\Dependencies\OgreOpCode\include /IC:\Projects\Editor\Dependencies\DirectX\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D FREEIMAGE_LIB /D TIXML_USE_STL /D _MBCS /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\Editor.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt RenderView.cpp
          RenderView.cpp
-         ParticlePreviewPage.cpp
        Link:
          C:\Software\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Projects\Editor\Debug\Editor.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:C:\Projects\Editor\Dependencies\BCG\lib /LIBPATH:C:\Projects\Editor\Dependencies\OGRE\lib\Debug /LIBPATH:C:\Projects\Editor\Dependencies\OGRE\boost\lib /LIBPATH:C:\Projects\Editor\Dependencies\OgreOpcode\lib /LIBPATH:C:\Projects\Editor\Dependencies\DirectX\lib\x86 OgreMain_d.lib OgreOverlay_d.lib OgreTerrain_d.lib OgreOpcode_d.lib OIS_d.lib d3dx9.lib /NODEFAULTLIB:libcmtd.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Software\Microsoft Visual Studio 11.0\VC\Include\Manifest\dpiaware.manifest" /DEBUG /PDB:"C:\Projects\Editor\Debug\Editor.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Projects\Editor\Debug\Editor.lib" /MACHINE:X86 Debug\Editor.res
          Debug\Action.obj
@@ -100,4 +99,4 @@
 
 生成成功。
 
-已用时间 00:00:44.79
+已用时间 00:00:29.54
