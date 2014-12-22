@@ -1,0 +1,20 @@
+material Droplet
+{
+	technique
+	{
+		pass
+		{
+			emissive 0.3 0.3 0.3
+			scene_blend colour_blend
+			depth_write off
+			diffuse vertexcolour
+			lighting off
+
+			texture_unit
+			{
+				texture basic_droplet.png
+				// texture checker.png
+			}
+		}
+	}
+}

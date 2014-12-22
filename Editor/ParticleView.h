@@ -4,15 +4,12 @@
 #include <string>
 #include <vector>
 
-class MaterialView : public Scintilla::CScintillaView
+class ParticleView : public Scintilla::CScintillaView
 {
-	DECLARE_DYNCREATE(MaterialView)
+	DECLARE_DYNCREATE(ParticleView)
 public:
-	MaterialView();
-	virtual ~MaterialView();
-
-	//BOOL IsEdited() { return mEdited; }
-	//void SetEdited(BOOL Edited) { mEdited = Edited; }
+	ParticleView();
+	virtual ~ParticleView();
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnDestroy();
@@ -24,10 +21,9 @@ public:
 	void OnUpdateUI(Scintilla::SCNotification* pSCNotification);
 
 	void parseFile();
-	void parseMaterialFile();
-	void parseCompositorFile();
+	void parseParticleFile();
 	void setAStyle(int style, COLORREF fore, COLORREF back=RGB(0xff, 0xff, 0xff), int size=-1, const char *face=0);
 
-	int lastChar;
+	bool timer; int lastChar;
 	std::vector<std::string> materials;
 };

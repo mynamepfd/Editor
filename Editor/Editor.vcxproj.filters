@@ -105,6 +105,9 @@
     <Filter Include="Core\DeferredShading\TerrainMaterialGenerator">
       <UniqueIdentifier>{a2dee053-e139-48de-8f20-a46cf778cbaa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DockingWindow\MiscEditWnd\ParticlePreviewPage">
+      <UniqueIdentifier>{92060067-dfe6-4075-9aab-30e73e57b42c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h">
@@ -358,6 +361,15 @@
     </ClInclude>
     <ClInclude Include="TerrainMaterialGeneratorC.h">
       <Filter>Core\DeferredShading\TerrainMaterialGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticlePreviewPage.h">
+      <Filter>DockingWindow\MiscEditWnd\ParticlePreviewPage</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleDoc.h">
+      <Filter>DockingWindow\MiscEditWnd\ParticlePreviewPage</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleView.h">
+      <Filter>DockingWindow\MiscEditWnd\ParticlePreviewPage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -615,6 +627,15 @@
     </ClCompile>
     <ClCompile Include="TerrainMaterialShaderHelperHLSL.cpp">
       <Filter>Core\DeferredShading\TerrainMaterialGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticlePreviewPage.cpp">
+      <Filter>DockingWindow\MiscEditWnd\ParticlePreviewPage</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleDoc.cpp">
+      <Filter>DockingWindow\MiscEditWnd\ParticlePreviewPage</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleView.cpp">
+      <Filter>DockingWindow\MiscEditWnd\ParticlePreviewPage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

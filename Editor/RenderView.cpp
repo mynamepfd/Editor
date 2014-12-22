@@ -23,27 +23,18 @@ RenderView::~RenderView()
 {
 }
 
-CameraManager *RenderView::getCameraManager()
-{
-	return cameraManager;
-}
-
 void RenderView::setCameraManager(CameraManager *cameraManager)
 {
-	if(!renderWindow)
-		setupView();
-	renderWindow->getViewport(0)->setCamera(cameraManager->getCamera());
+	_setCamera(cameraManager->getCamera());
 	this->cameraManager = cameraManager;
 }
 
-Ogre::RenderWindow *RenderView::getRenderWindow()
+void RenderView::_setCamera(Ogre::Camera *camera)
 {
-	return renderWindow;
-}
-
-Ogre::Viewport *RenderView::getViewport()
-{
-	return viewport;
+	if(!renderWindow)
+		setupView();
+	renderWindow->getViewport(0)->setCamera(camera);
+	this->camera = camera;
 }
 
 void RenderView::roaming(OIS::Keyboard *keyboard, OIS::Mouse *mouse, float elapsed)
@@ -77,7 +68,7 @@ int RenderView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if(CView::OnCreate(lpCreateStruct) == -1)
 		return -1;
-	PostMessage(WM_CUSTOM_AFTER_CREATE, 0, 0);
+	// PostMessage(WM_CUSTOM_AFTER_CREATE, 0, 0);
 	return 0;
 }
 
@@ -100,11 +91,11 @@ void RenderView::OnDestroy()
 void RenderView::OnSize(UINT nType, int cx, int cy)
 {
 	CView::OnSize(nType, cx, cy);
-	if(cameraManager)
+	if(camera)
 	{
 		renderWindow->resize(cx, cy);
 		renderWindow->windowMovedOrResized();
-		cameraManager->getCamera()->setAspectRatio(Ogre::Real(cx)/Ogre::Real(cy));
+		camera->setAspectRatio(Ogre::Real(cx)/Ogre::Real(cy));
 	}
 }
 

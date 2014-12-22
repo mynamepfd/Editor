@@ -4,6 +4,7 @@
 
 #include "TexturePreviewPage.h"
 #include "MaterialPreviewPage.h"
+#include "ParticlePreviewPage.h"
 #include "TerrainEditPage.h"
 
 IMPLEMENT_DYNAMIC(CMiscEditSheet, CBCGPTabWnd)
@@ -26,17 +27,21 @@ int CMiscEditSheet::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if(CBCGPTabWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-	mTabs[MES_TEXTURE_PREVIEW] = new CTexturePreviewPage;
-	mTabs[MES_TEXTURE_PREVIEW]->Create(IDD_TEXTURE_PREVIEW, this);
-	InsertTab(mTabs[MES_TEXTURE_PREVIEW], "Texture Preview", MES_TEXTURE_PREVIEW);
+	tabs[TEXTURE_PREVIEW] = new CTexturePreviewPage;
+	tabs[TEXTURE_PREVIEW]->Create(IDD_TEXTURE_PREVIEW, this);
+	InsertTab(tabs[TEXTURE_PREVIEW], "Texture Preview", TEXTURE_PREVIEW);
 
-	mTabs[MES_MATERIAL_PREVIEW] = new CMaterialPreviewPage;
-	mTabs[MES_MATERIAL_PREVIEW]->Create(IDD_MATERIAL_PREVIEW, this);
-	InsertTab(mTabs[MES_MATERIAL_PREVIEW], "Material Preview", MES_MATERIAL_PREVIEW);
+	tabs[MATERIAL_PREVIEW] = new CMaterialPreviewPage;
+	tabs[MATERIAL_PREVIEW]->Create(IDD_MATERIAL_PREVIEW, this);
+	InsertTab(tabs[MATERIAL_PREVIEW], "Material Preview", MATERIAL_PREVIEW);
 
-	mTabs[MES_TERRAIN_EDIT] = new CTerrainEditPage;
-	mTabs[MES_TERRAIN_EDIT]->Create(IDD_TERRAIN_EDIT, this);
-	InsertTab(mTabs[MES_TERRAIN_EDIT], "Terrain Edit", MES_TERRAIN_EDIT);
+	tabs[PARTICLE_PREVIEW] = new ParticlePreviewPage;
+	tabs[PARTICLE_PREVIEW]->Create(IDD_PARTICLE_PREVIEW, this);
+	InsertTab(tabs[PARTICLE_PREVIEW], "Particle Preview", PARTICLE_PREVIEW);
+
+	tabs[TERRAIN_EDIT] = new CTerrainEditPage;
+	tabs[TERRAIN_EDIT]->Create(IDD_TERRAIN_EDIT, this);
+	InsertTab(tabs[TERRAIN_EDIT], "Terrain Edit", TERRAIN_EDIT);
 
 	return 0;
 }

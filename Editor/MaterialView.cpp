@@ -32,9 +32,6 @@ IMPLEMENT_DYNCREATE(MaterialView, Scintilla::CScintillaView)
 
 MaterialView::MaterialView()
 {
-	// mEdited = FALSE;
-	// mTimer = FALSE;
-	timer = false;
 }
 
 MaterialView::~MaterialView()
@@ -63,7 +60,7 @@ void MaterialView::OnDestroy()
 		CMaterialPreviewPage::Current->ClearCompositorList();
 	}
 
-	CMaterialPreviewPage::Current->SetCurrentFile(NULL);
+	// CMaterialPreviewPage::Current->SetCurrentFile(NULL);
 }
 
 void MaterialView::OnSetFocus(CWnd* pOldWnd)
@@ -77,9 +74,7 @@ void MaterialView::OnTimer(UINT_PTR nIDEvent)
 {
 	if(nIDEvent == 1)
 	{
-		timer = false;
 		KillTimer(1);
-
 		parseFile();
 	}
 }
@@ -164,18 +159,10 @@ void MaterialView::OnUpdateUI(Scintilla::SCNotification* pSCNotification)
 {
 	Scintilla::CScintillaCtrl &rCtrl = GetCtrl();
 
-	/** 在一段时间（30ms）内无动作则解析文件。
+	/** 确保每次击键将引起30ms之后解析的调度
 	*/
-	if(!timer)
-	{
-		timer = true;
-		SetTimer(1, 30, NULL);
-	}
-	else
-	{
-		timer = false;
-		KillTimer(1);
-	}
+	KillTimer(1);
+	SetTimer(1, 30, NULL);
 
 	//////////////////////////////////////////////////
 	// 自动缩进
@@ -229,23 +216,14 @@ void MaterialView::OnUpdateUI(Scintilla::SCNotification* pSCNotification)
 
 void MaterialView::parseFile()
 {
-	CString PathName = GetDocument()->GetPathName();
-	CString Extension;
-
-	BOOL Flag = FALSE;
-	for(int i=0; i<PathName.GetLength(); i++)
-	{
-		if(Flag)
-			Extension += PathName[i];
-		if(PathName[i] == '.')
-			Flag = TRUE;
-	}
-
-	if(Extension == "material")
+	CString pathName = GetDocument()->GetPathName();
+	
+	std::string extension = StringUtils::extension(std::string(pathName));
+	if(extension == "material")
 	{
 		parseMaterialFile();
 	}
-	else if(Extension == "compositor")
+	else if(extension == "compositor")
 	{
 		parseCompositorFile();
 	}

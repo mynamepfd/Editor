@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "MainFrm.h"
 
 #include "SceneDoc.h"
 #include "TerrainBrush.h"
@@ -40,6 +41,9 @@ void TerrainEditHandler::Roaming(Ogre::TerrainGroup::RayResult rayResult, float 
 	if(mMode == TEM_SELECT && GetKeyState(VK_LBUTTON) & 0x8000)
 	{
 		CTerrainEditPage::Current->SetTerrain(rayResult.terrain);
+		mOwner->OnObjectEdit(mMode);
+		CBCGPToolBar *ToolBar = ((MainFrame*)AfxGetMainWnd())->getObjectEditToolBar();
+		ToolBar->OnUpdateCmdUI((CFrameWnd*)ToolBar->GetOwner(), FALSE);
 		return;
 	}
 

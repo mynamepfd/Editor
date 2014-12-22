@@ -1,19 +1,24 @@
 #include "stdafx.h"
 #include "Editor.h"
 
-#include "ChildFrm.h"
-#include "GameDoc.h"
-#include "GameView.h"
 #include "MainFrm.h"
-#include "MaterialDoc.h"
-#include "MaterialView.h"
-#include "NewSceneDlg.h"
-#include "OgreXMLConverterDlg.h"
-#include "OutputWnd.h"
+#include "ChildFrm.h"
+
 #include "SceneDoc.h"
 #include "SceneView.h"
-#include "ScriptEditorDlg.h"
+#include "GameDoc.h"
+#include "GameView.h"
+#include "MaterialDoc.h"
+#include "MaterialView.h"
+#include "ParticleDoc.h"
+#include "ParticleView.h"
+
+#include "NewSceneDlg.h"
 #include "ImageCombinator.h"
+#include "OgreXMLConverterDlg.h"
+#include "ScriptEditorDlg.h"
+
+#include "OutputWnd.h"
 
 CEditorApp theApp;
 
@@ -51,6 +56,12 @@ BOOL CEditorApp::InitInstance()
 	if (!docTemplates["Material"])
 		return FALSE;
 	AddDocTemplate(docTemplates["Material"]);
+
+	docTemplates["Particle"] = new CMultiDocTemplate(IDR_MATERIAL,
+		RUNTIME_CLASS(ParticleDoc),
+		RUNTIME_CLASS(CChildFrame),
+		RUNTIME_CLASS(ParticleView));
+	AddDocTemplate(docTemplates["Particle"]);
 
 	//////////////////////////////////////////////////
 	// MFC

@@ -143,6 +143,9 @@
     <ClInclude Include="OgreXMLConverter\OgreXMLSkeletonSerializer.h" />
     <ClInclude Include="OutputWnd.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleDoc.h" />
+    <ClInclude Include="ParticlePreviewPage.h" />
+    <ClInclude Include="ParticleView.h" />
     <ClInclude Include="PropertyWnd.h" />
     <ClInclude Include="RenderPump.h" />
     <ClInclude Include="RenderScene.h" />
@@ -227,6 +230,9 @@
     <ClCompile Include="OgreXMLConverter\OgreXMLSkeletonSerializer.cpp" />
     <ClCompile Include="OutputWnd.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleDoc.cpp" />
+    <ClCompile Include="ParticlePreviewPage.cpp" />
+    <ClCompile Include="ParticleView.cpp" />
     <ClCompile Include="PropertyWnd.cpp" />
     <ClCompile Include="RenderPump.cpp" />
     <ClCompile Include="RenderScene.cpp" />

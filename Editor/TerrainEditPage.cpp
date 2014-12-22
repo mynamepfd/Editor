@@ -195,21 +195,21 @@ void CTerrainEditPage::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar
 	case ID_SIZE_SLIDER:
 		{ 
 			SceneDoc::current->getTerrainEditHandler()->GetBrush()->SetSize(mSizeSlider.GetPos());
-			mSizeText.Format("Size£º%d", mSizeSlider.GetPos());
+			mSizeText.Format("Size : %d", mSizeSlider.GetPos());
 			InvalidateRect(&mSizeBox.ConvertToRect());
 		} 
 		break;
 	case ID_POWER_SLIDER:
 		{
 			SceneDoc::current->getTerrainEditHandler()->GetBrush()->SetPower(mPowerSlider.GetPos());
-			mPowerText.Format("Power£º%d", mPowerSlider.GetPos());
+			mPowerText.Format("Power : %d", mPowerSlider.GetPos());
 			InvalidateRect(&mPowerBox.ConvertToRect());
 		}
 		break;
 
 	case ID_TEXTURE_SLIDER:
 		{
-			mTextureText.Format("Texture:%d", mTextureSlider.GetPos());
+			mTextureText.Format("Texture : %d", mTextureSlider.GetPos());
 			InvalidateRect(&mTextureBox.ConvertToRect());
 		}
 	}
@@ -259,7 +259,7 @@ void CTerrainEditPage::OnSize(UINT nType, int cx, int cy)
 
 	mSizeBox.left = 5;
 	mSizeBox.top = BrushBarBox.bottom()+3;
-	mSizeBox.width = 55;
+	mSizeBox.width = 100;
 	mSizeBox.height = 20;
 
 	CBox SizeSliderBox;
@@ -271,7 +271,7 @@ void CTerrainEditPage::OnSize(UINT nType, int cx, int cy)
 
 	mPowerBox.left = 5;
 	mPowerBox.top = SizeSliderBox.bottom()+3;
-	mPowerBox.width = 55;
+	mPowerBox.width = 100;
 	mPowerBox.height = 20;
 
 	CBox PowerSliderBox;
@@ -283,7 +283,7 @@ void CTerrainEditPage::OnSize(UINT nType, int cx, int cy)
 		
 	mTextureBox.left = 5;
 	mTextureBox.top = PowerSliderBox.bottom()+3;
-	mTextureBox.width = 55;
+	mTextureBox.width = 100;
 	mTextureBox.height = 20;
 
 	CBox TextureSliderBox;

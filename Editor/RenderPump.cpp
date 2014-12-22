@@ -6,6 +6,7 @@
 #include "GameView.h"
 #include "MaterialPreviewPage.h"
 #include "OutputWnd.h"
+#include "ParticlePreviewPage.h"
 #include "RenderView.h"
 #include "ResourcePreview.h"
 #include "Roaming.h"
@@ -91,6 +92,7 @@ void RenderPump::renderOneFrame()
 	root->renderOneFrame();
 
 	CMaterialPreviewPage::Current->update(Elapsed);
+	ParticlePreviewPage::current->update(Elapsed);
 	ResourcePreview::Current->update(Elapsed);
 	if(SceneDoc::current != NULL)
 	{

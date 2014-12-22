@@ -33,7 +33,6 @@ TerrainManager::TerrainManager(SceneDoc *Owner, TerrainManagerConfig *Config)
 
 	mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(
 		Owner->getSceneManager(), Ogre::Terrain::ALIGN_X_Z, Config->TerrainSize, Config->WorldSize);
-
 	mTerrainGroup->setResourceGroup("Scene");
     mTerrainGroup->setFilenameConvention(Config->FilenamePrefix, Config->FilenameExtension);
     mTerrainGroup->setOrigin(Ogre::Vector3::ZERO);

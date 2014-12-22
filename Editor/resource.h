@@ -45,7 +45,6 @@
 #define ID_STATUSBAR_CAMERA_SPEED       316
 #define IDB_DOCKING_PANE                317
 #define ID_POWER_SLIDER                 317
-#define ID_STATUSBAR_CAMERA_SPEED_SLIDER 331
 #define ID_MISC_EDIT_TAB                318
 #define ID_MISC_EDIT_WND                319
 #define IDD_TERRAIN_EDIT                319
@@ -65,6 +64,7 @@
 #define IDB_BITMAP1                     328
 #define IDB_OBJECT_EDIT                 328
 #define IDD_NEW_LIGHT                   329
+#define ID_STATUSBAR_CAMERA_SPEED_SLIDER 331
 #define ID_LOAD_DIFFUSESPECULAR         332
 #define IDD_SCRIPT_EDITOR               332
 #define ID_LOAD_NORMALHEIGHT            333
@@ -76,6 +76,7 @@
 #define ID_LAYER1_LOAD_NORMAL_HEIGHT    336
 #define IDD_IMAGE_COMBINATOR            336
 #define ID_LAYER1_ADD_LAYER_PREV        337
+#define IDD_PARTICLE_PREVIEW            337
 #define ID_LAYER1_DEL_LAYER             338
 #define ID_LAYER2                       339
 #define ID_LAYER2_LOAD_DIFFUSE_SPECULAR 340
@@ -196,6 +197,12 @@
 #define IDC_SAVE_DIFFUSE_SPECULAR       1097
 #define IDC_LOAD_NORMAL                 1098
 #define IDC_LOAD_HEIGHT                 1099
+#define IDC_PARTICLE_FRAME              1100
+#define IDC_PARTICLE_LIST               1101
+#define IDC_EDIT_PARTICLE               1102
+#define IDC_CLEAR_PARTICLE              1103
+#define IDC_APPLY_PARTICLE2             1104
+#define IDC_APPLY_PARTICLE              1104
 #define ID_BRUSH_BAR                    10000
 #define ID_LOAD_BRUSH                   10001
 #define ID_CLEAR_BRUSH                  10002
@@ -273,9 +280,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        337
+#define _APS_NEXT_RESOURCE_VALUE        338
 #define _APS_NEXT_COMMAND_VALUE         32850
-#define _APS_NEXT_CONTROL_VALUE         1100
+#define _APS_NEXT_CONTROL_VALUE         1104
 #define _APS_NEXT_SYMED_VALUE           318
 #endif
 #endif

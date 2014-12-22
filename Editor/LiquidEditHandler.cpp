@@ -50,7 +50,7 @@ void LiquidEditHandler::BeginEdit()
 		Ogre::Vector3 Scale(R, R, R);
 		Ogre::Plane Plane(Ogre::Vector3::UNIT_Y, 0);
 		Ogre::MeshManager::getSingleton().createPlane("<LiquidIndicatorPlane>",
-			"OgreSECore", Plane, Scale.x, Scale.z, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
+			"Core", Plane, Scale.x, Scale.z, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
 
 		Ogre::MovableObjectFactory *Factory = 
 			Ogre::Root::getSingleton().getMovableObjectFactory(Ogre::EntityFactory::FACTORY_TYPE_NAME);
@@ -144,7 +144,7 @@ void LiquidEditHandler::OnLButtonDown(Ogre::TerrainGroup::RayResult rayResult)
 	}
 
 	Ogre::ManualObject *LiquidObject = mOwner->getSceneManager()->createManualObject("LiquidObject");
-	LiquidObject->begin("Examples/FresnelReflectionRefraction", Ogre::RenderOperation::OT_TRIANGLE_LIST);
+	LiquidObject->begin("Ocean2_Cg", Ogre::RenderOperation::OT_TRIANGLE_LIST);
 
 	std::vector<std::vector<int> > Index(TerrainSize, std::vector<int>(TerrainSize, -1));
 	for(int N=0, y=1; y<TerrainSize-1; y++)
@@ -191,7 +191,7 @@ void LiquidEditHandler::OnLButtonDown(Ogre::TerrainGroup::RayResult rayResult)
 
 	LiquidObject->end();
 
-	Ogre::String LiquidName = "Liquid_" + Ogre::StringConverter::toString(mOwner->getNameID());
+	Ogre::String LiquidName = Ogre::StringConverter::toString(mOwner->getNameID());
 	Ogre::MeshPtr LiquidMesh = LiquidObject->convertToMesh(LiquidName);
 	liquid->create(LiquidMesh->getName(), LiquidMesh->getName());
 	mOwner->getSceneManager()->destroyManualObject(LiquidObject);

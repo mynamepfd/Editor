@@ -28,6 +28,6 @@ BOOL MaterialDoc::OnSaveDocument(LPCTSTR lpszPathName)
 {
 	if(!Scintilla::CScintillaDoc::OnSaveDocument(lpszPathName))
 		return FALSE;
-	// ((MaterialView*)activeView)->SetEdited(FALSE);
+	
 	return TRUE;
 }

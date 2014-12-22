@@ -6,6 +6,7 @@ namespace Ogre
 {
 	class RenderWindow;
 	class Viewport;
+	class Camera;
 }
 
 namespace OIS
@@ -21,11 +22,11 @@ public:
 	RenderView();
 	virtual ~RenderView();
 
-	CameraManager *getCameraManager();
-	void setCameraManager(CameraManager *cameraManager);
+	Ogre::RenderWindow *getRenderWindow() { return renderWindow; }
+	Ogre::Viewport *getViewport() { return viewport; }
 
-	Ogre::RenderWindow *getRenderWindow();
-	Ogre::Viewport *getViewport();
+	void setCameraManager(CameraManager *cameraManager);
+	void _setCamera(Ogre::Camera *camera);
 
 	virtual void roaming(OIS::Keyboard *keyboard, OIS::Mouse *mouse, float elapsed);
 
@@ -41,7 +42,8 @@ public:
 	virtual void OnDraw(CDC* pDC);
 	virtual void setupView();
 
-	CameraManager *cameraManager;
 	Ogre::RenderWindow *renderWindow;
 	Ogre::Viewport *viewport;
+
+	Ogre::Camera *camera; CameraManager *cameraManager;
 };

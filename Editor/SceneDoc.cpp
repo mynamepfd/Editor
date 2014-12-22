@@ -231,6 +231,10 @@ void SceneDoc::initialize(NewSceneDlg *dlg)
 	//knotLight->setSpotlightRange(Ogre::Degree(25), Ogre::Degree(45), 1);
 	//knotLight->setAttenuation(6, 1, 0.2, 0);
 
+	OnShowDebugOverlay();
+	CBCGPToolBar *ToolBar = ((MainFrame*)AfxGetMainWnd())->getObjectEditToolBar();
+	ToolBar->OnUpdateCmdUI((CFrameWnd*)ToolBar->GetOwner(), FALSE);
+
 	initialized = TRUE;
 }
 
