@@ -116,7 +116,7 @@ void CRibbonBarEx::ClearImages()
 
 void CRibbonBarEx::FillPropertyWnd()
 {
-	CBCGPPropList *PropList = PropertyWnd::Current->GetPropList();
+	CBCGPPropList *PropList = PropertyWnd::current->getPropList();
 	PropList->RemoveAll();
 
 	const CString &Filename = mPaletteButton->m_arToolTips.GetAt(mPaletteButton->GetSelectedItem());

@@ -7,21 +7,21 @@
 
 IMPLEMENT_DYNAMIC(PropertyWnd, CBCGPDockingControlBar)
 
-PropertyWnd *PropertyWnd::Current = NULL;
+PropertyWnd *PropertyWnd::current = NULL;
 PropertyWnd::PropertyWnd()
 {
-	Current = this;
-	mListener = NULL;
+	current = this;
+	listener = NULL;
 }
 
 PropertyWnd::~PropertyWnd()
 {
 }
 
-void PropertyWnd::FirePropertyChanged()
+void PropertyWnd::firePropertyChanged()
 {
-	if(mListener != NULL)
-		mListener->FirePropertyChanged();
+	if(listener != NULL)
+		listener->firePropertyChanged();
 }
 
 BEGIN_MESSAGE_MAP(PropertyWnd, CBCGPDockingControlBar)
@@ -38,10 +38,9 @@ int PropertyWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CRect rectDummy;
 	rectDummy.SetRectEmpty();
 
-	mPropList.Create(WS_CHILD|WS_VISIBLE|WS_TABSTOP|WS_BORDER, rectDummy, this, 0);
-	mPropList.EnableHeaderCtrl(FALSE);
-	mPropList.SetVSDotNetLook();
-	AdjustLayout();
+	propList.Create(WS_CHILD|WS_VISIBLE|WS_TABSTOP|WS_BORDER, rectDummy, this, 0);
+	propList.EnableHeaderCtrl(FALSE);
+	propList.SetVSDotNetLook();
 
 	return 0;
 }
@@ -49,19 +48,15 @@ int PropertyWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 void PropertyWnd::OnSize(UINT nType, int cx, int cy)
 {
 	CBCGPDockingControlBar::OnSize(nType, cx, cy);
-	AdjustLayout();
-}
-
-void PropertyWnd::AdjustLayout()
-{
+	
 	CRect rectClient;
 	GetClientRect(rectClient);
-	mPropList.SetWindowPos(NULL, rectClient.left, rectClient.top, rectClient.Width(), rectClient.Height(), SWP_NOACTIVATE | SWP_NOZORDER);
+	propList.SetWindowPos(NULL, rectClient.left, rectClient.top, rectClient.Width(), rectClient.Height(), SWP_NOACTIVATE | SWP_NOZORDER);
 }
 
 LRESULT PropertyWnd::OnPropertyChanged(WPARAM wparam, LPARAM lparam)
 {
-	if(mListener != NULL)
-		mListener->OnPropertyChanged((CBCGPProp*)lparam);
+	if(listener != NULL)
+		listener->onPropertyChanged((CBCGPProp*)lparam);
 	return 0;
 }

@@ -30,8 +30,8 @@ int SceneResource::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	const DWORD dwViewStyle = WS_CHILD | WS_VISIBLE | TVS_HASLINES | TVS_LINESATROOT | TVS_HASBUTTONS;
 	mSceneResourceTree.Create(dwViewStyle, rectDummy, this, ID_SCENE_RESOURCE_TREE);
 
-	mSceneResourceTree.ResetImageList();
-	mSceneResourceTree.RebuildTree();
+	mSceneResourceTree.resetImageList();
+	mSceneResourceTree.rebuildTree();
 	AdjustLayout();
 
 	return 0;

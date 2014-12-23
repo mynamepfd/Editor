@@ -112,7 +112,7 @@ void CMaterialPreviewPage::update(float Elapsed)
 	mView->Invalidate(FALSE);
 }
 
-void CMaterialPreviewPage::OnPropertyChanged(CBCGPProp *Prop)
+void CMaterialPreviewPage::onPropertyChanged(CBCGPProp *Prop)
 {
 	if(Prop->GetData() == MPP_BACKGROUND_COLOUR)
 	{
@@ -184,7 +184,7 @@ void CMaterialPreviewPage::OnPropertyChanged(CBCGPProp *Prop)
 			{
 				Ogre::Vector3 Position;
 
-				CBCGPPropList *PropList = PropertyWnd::Current->GetPropList();
+				CBCGPPropList *PropList = PropertyWnd::current->getPropList();
 				Position.x = PropList->FindItemByData(MPP_LIGHT_POSITION_X)->GetValue();
 				Position.y = PropList->FindItemByData(MPP_LIGHT_POSITION_Y)->GetValue();
 				Position.z = PropList->FindItemByData(MPP_LIGHT_POSITION_Z)->GetValue();
@@ -199,7 +199,7 @@ void CMaterialPreviewPage::OnPropertyChanged(CBCGPProp *Prop)
 			{
 				Ogre::Vector3 Direction;
 
-				CBCGPPropList *PropList = PropertyWnd::Current->GetPropList();
+				CBCGPPropList *PropList = PropertyWnd::current->getPropList();
 				Direction.x = PropList->FindItemByData(MPP_LIGHT_DIRECTION_X)->GetValue();
 				Direction.y = PropList->FindItemByData(MPP_LIGHT_DIRECTION_Y)->GetValue();
 				Direction.z = PropList->FindItemByData(MPP_LIGHT_DIRECTION_Z)->GetValue();
@@ -309,9 +309,9 @@ void CMaterialPreviewPage::OnLbnSelchangeLights()
 	int CurSel = mLights.GetCurSel();
 	if(CurSel != LB_ERR)
 	{
-		PropertyWnd::Current->SetListener(this);
+		PropertyWnd::current->setListener(this);
 
-		CBCGPPropList *PropList = PropertyWnd::Current->GetPropList();
+		CBCGPPropList *PropList = PropertyWnd::current->getPropList();
 		PropList->RemoveAll();
 
 		CBCGPProp *Prop = NULL, *SubProp = NULL;

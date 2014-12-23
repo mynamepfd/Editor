@@ -12,208 +12,213 @@
 
 IMPLEMENT_DYNAMIC(SceneResourceTree, CTreeCtrl)
 
-SceneResourceTree *SceneResourceTree::Current = NULL;
+SceneResourceTree *SceneResourceTree::current = NULL;
 SceneResourceTree::SceneResourceTree()
 {
-	Current = this;
+	current = this;
 }
 
 SceneResourceTree::~SceneResourceTree()
 {
 }
 
-void SceneResourceTree::ResetImageList()
+void SceneResourceTree::resetImageList()
 {
-	CBitmap Bmp;
-	if (!Bmp.LoadBitmap(IDB_SCENE_RESOURCE_TREE))
-	{
-		TRACE("无法加载位图: %x\n", IDB_SCENE_RESOURCE_TREE);
-		return;
-	}
+	CBitmap bitmap;
+	bitmap.LoadBitmap(IDB_SCENE_RESOURCE_TREE);
 
-	BITMAP BmpObj;
-	Bmp.GetBitmap(&BmpObj);
+	BITMAP _bitmap;
+	bitmap.GetBitmap(&_bitmap);
 
-	UINT nFlags = ILC_MASK | ILC_COLOR24;
-	mImageList.Create(16, BmpObj.bmHeight, nFlags, 0, 0);
-	mImageList.Add(&Bmp, RGB(255, 0, 255));
+	imageList.Create(16, _bitmap.bmHeight, ILC_MASK | ILC_COLOR24, 0, 0);
+	imageList.Add(&bitmap, RGB(255, 0, 255));
 
-	SetImageList(&mImageList, TVSIL_NORMAL);
+	SetImageList(&imageList, TVSIL_NORMAL);
 }
 
-void SceneResourceTree::RebuildTree()
+void SceneResourceTree::rebuildTree()
 {
-	mTreeItems[SRTI_SCENE]			= InsertItem("Scene",			SRTI_SCENE,			SRTI_SCENE);
-	mTreeItems[SRTI_SKY]			= InsertItem("Sky",			SRTI_SKY,			SRTI_SKY,			mTreeItems[SRTI_SCENE]);
-	mTreeItems[SRTI_TERRAIN]		= InsertItem("Terrain",			SRTI_TERRAIN,		SRTI_TERRAIN,		mTreeItems[SRTI_SCENE]);
-	mTreeItems[SRTI_LIGHT_SET]		= InsertItem("Lights",		SRTI_LIGHT_SET,		SRTI_LIGHT_SET,		mTreeItems[SRTI_SCENE]);
-	mTreeItems[SRTI_MODEL_SET]		= InsertItem("Models",	SRTI_MODEL_SET,		SRTI_MODEL_SET,		mTreeItems[SRTI_SCENE]);
-	mTreeItems[SRTI_MESH_SET]		= InsertItem("Meshs",	SRTI_MESH_SET,		SRTI_MESH_SET,		mTreeItems[SRTI_SCENE]);
-	mTreeItems[SRTI_LIQUID_SET]		= InsertItem("Liquids",		SRTI_LIQUID_SET,	SRTI_LIQUID_SET,	mTreeItems[SRTI_SCENE]);
-	mTreeItems[SRTI_PARTICLE_SET]	= InsertItem("Particles",		SRTI_PARTICLE_SET,	SRTI_PARTICLE_SET,	mTreeItems[SRTI_SCENE]);
+	treeItems[SCENE] = InsertItem("Scene", SCENE, SCENE);
+	treeItems[SKY] = InsertItem("Sky", SKY, SKY, treeItems[SCENE]);
+	treeItems[TERRAIN] = InsertItem("Terrain", TERRAIN, TERRAIN, treeItems[SCENE]);
+	treeItems[LIGHT_SET] = InsertItem("Lights", LIGHT_SET, LIGHT_SET, treeItems[SCENE]);
+	treeItems[MODEL_SET] = InsertItem("Models",	MODEL_SET, MODEL_SET, treeItems[SCENE]);
+	treeItems[MESH_SET] = InsertItem("Meshs", MESH_SET, MESH_SET, treeItems[SCENE]);
+	treeItems[LIQUID_SET] = InsertItem("Liquids", LIQUID_SET, LIQUID_SET, treeItems[SCENE]);
+	treeItems[PARTICLE_SET]	= InsertItem("Particles", PARTICLE_SET,	PARTICLE_SET, treeItems[SCENE]);
 }
 
-void SceneResourceTree::FirePropertyChanged()
+void SceneResourceTree::firePropertyChanged()
 {
-	HTREEITEM SelectedItem = GetSelectedItem();
+	HTREEITEM selectedItem = GetSelectedItem();
 
-	KSceneResourceTreeImages nImage; int nSelectedImage;
-	SceneResourceTree::Current->GetItemImage(SelectedItem, (int&)nImage, nSelectedImage);
+	int image, selectedImage;
+	SceneResourceTree::current->GetItemImage(selectedItem, image, selectedImage);
 
-	CBCGPPropList *PropList = PropertyWnd::Current->GetPropList(); CBCGPProp *Prop = NULL;
-	switch(nImage)
+	CBCGPPropList *propList = PropertyWnd::current->getPropList(); CBCGPProp *prop = NULL;
+	switch(image)
 	{
-	case SRTI_LIGHT:
+	//////////////////////////////////////////////////
+	// Light
+	//////////////////////////////////////////////////
+	case LIGHT:
 		{
-			Light *Object = (Light*)SceneResourceTree::Current->GetItemData(SelectedItem);
+			Light *light = (Light*)SceneResourceTree::current->GetItemData(selectedItem);
 
 			//////////////////////////////////////////////////
 			// Position
 			//////////////////////////////////////////////////
 
-			const Ogre::Vector3 &Position = Object->getSceneNode()->getPosition();
+			const Ogre::Vector3 &position = light->getSceneNode()->getPosition();
 			
-			Prop = PropList->FindItemByData(SRTI_LIGHT_POSITION_X);
-			Prop->SetValue((_variant_t)Position.x);
+			prop = propList->FindItemByData(LIGHT_POSITION_X);
+			prop->SetValue((_variant_t)position.x);
 
-			Prop = PropList->FindItemByData(SRTI_LIGHT_POSITION_Y);
-			Prop->SetValue((_variant_t)Position.y);
+			prop = propList->FindItemByData(LIGHT_POSITION_Y);
+			prop->SetValue((_variant_t)position.y);
 
-			Prop = PropList->FindItemByData(SRTI_LIGHT_POSITION_Z);
-			Prop->SetValue((_variant_t)Position.z);
+			prop = propList->FindItemByData(LIGHT_POSITION_Z);
+			prop->SetValue((_variant_t)position.z);
 
 			//////////////////////////////////////////////////
 			// Direction
 			//////////////////////////////////////////////////
 
-			const Ogre::Vector3 &Direction = Object->getLight()->getDirection();
+			const Ogre::Vector3 &direction = light->getLight()->getDirection();
 			
-			Prop = PropList->FindItemByData(SRTI_LIGHT_DIRECTION_X);
-			Prop->SetValue((_variant_t)Direction.x);
+			prop = propList->FindItemByData(LIGHT_DIRECTION_X);
+			prop->SetValue((_variant_t)direction.x);
 
-			Prop = PropList->FindItemByData(SRTI_LIGHT_DIRECTION_Y);
-			Prop->SetValue((_variant_t)Direction.y);
+			prop = propList->FindItemByData(LIGHT_DIRECTION_Y);
+			prop->SetValue((_variant_t)direction.y);
 
-			Prop = PropList->FindItemByData(SRTI_LIGHT_DIRECTION_Z);
-			Prop->SetValue((_variant_t)Direction.z);
+			prop = propList->FindItemByData(LIGHT_DIRECTION_Z);
+			prop->SetValue((_variant_t)direction.z);
 		}
 		break;
 
-	case SRTI_MODEL:
-	case SRTI_MESH:
+	//////////////////////////////////////////////////
+	// Model & Mesh
+	//////////////////////////////////////////////////
+	case MODEL:
+	case MESH:
 		{
-			SceneObject *Object = (SceneObject*)SceneResourceTree::Current->GetItemData(SelectedItem);
+			SceneObject *sceneObject = (SceneObject*)SceneResourceTree::current->GetItemData(selectedItem);
 
 			//////////////////////////////////////////////////
 			// Position
 			//////////////////////////////////////////////////
 
-			const Ogre::Vector3 &Position = Object->getSceneNode()->getPosition();
+			const Ogre::Vector3 &position = sceneObject->getSceneNode()->getPosition();
 			
-			Prop = PropList->FindItemByData(SRTI_MESH_POSITION_X);
-			Prop->SetValue((_variant_t)Position.x);
+			prop = propList->FindItemByData(MESH_POSITION_X);
+			prop->SetValue((_variant_t)position.x);
 
-			Prop = PropList->FindItemByData(SRTI_MESH_POSITION_Y);
-			Prop->SetValue((_variant_t)Position.y);
+			prop = propList->FindItemByData(MESH_POSITION_Y);
+			prop->SetValue((_variant_t)position.y);
 
-			Prop = PropList->FindItemByData(SRTI_MESH_POSITION_Z);
-			Prop->SetValue((_variant_t)Position.z);
+			prop = propList->FindItemByData(MESH_POSITION_Z);
+			prop->SetValue((_variant_t)position.z);
 
 			//////////////////////////////////////////////////
 			// Scale
 			//////////////////////////////////////////////////
 
-			const Ogre::Vector3 &Scale = Object->getSceneNode()->getScale();
+			const Ogre::Vector3 &scale = sceneObject->getSceneNode()->getScale();
 			
-			Prop = PropList->FindItemByData(SRTI_MESH_SCALE_X);
-			Prop->SetValue((_variant_t)Scale.x);
+			prop = propList->FindItemByData(MESH_SCALE_X);
+			prop->SetValue((_variant_t)scale.x);
 
-			Prop = PropList->FindItemByData(SRTI_MESH_SCALE_Y);
-			Prop->SetValue((_variant_t)Scale.y);
+			prop = propList->FindItemByData(MESH_SCALE_Y);
+			prop->SetValue((_variant_t)scale.y);
 
-			Prop = PropList->FindItemByData(SRTI_MESH_SCALE_Z);
-			Prop->SetValue((_variant_t)Scale.z);
+			prop = propList->FindItemByData(MESH_SCALE_Z);
+			prop->SetValue((_variant_t)scale.z);
 
 			//////////////////////////////////////////////////
 			// Direction
 			//////////////////////////////////////////////////
 
-			const Ogre::Quaternion &Direction = Object->getSceneNode()->getOrientation();
+			const Ogre::Quaternion &Orientation = sceneObject->getSceneNode()->getOrientation();
 			
-			Prop = PropList->FindItemByData(SRTI_MESH_DIRECTION_X);
-			Prop->SetValue((_variant_t)Direction.x);
+			prop = propList->FindItemByData(MESH_DIRECTION_X);
+			prop->SetValue((_variant_t)Orientation.x);
 
-			Prop = PropList->FindItemByData(SRTI_MESH_DIRECTION_Y);
-			Prop->SetValue((_variant_t)Direction.y);
+			prop = propList->FindItemByData(MESH_DIRECTION_Y);
+			prop->SetValue((_variant_t)Orientation.y);
 
-			Prop = PropList->FindItemByData(SRTI_MESH_DIRECTION_Z);
-			Prop->SetValue((_variant_t)Direction.z);
+			prop = propList->FindItemByData(MESH_DIRECTION_Z);
+			prop->SetValue((_variant_t)Orientation.z);
 		}
 		break;
-
-	case SRTI_LIQUID:
+	
+	//////////////////////////////////////////////////
+	// Liquid
+	//////////////////////////////////////////////////
+	case LIQUID:
 		{
-			SceneObject *Object = (SceneObject*)SceneResourceTree::Current->GetItemData(SelectedItem);
+			SceneObject *sceneObject = (SceneObject*)SceneResourceTree::current->GetItemData(selectedItem);
 
 			//////////////////////////////////////////////////
 			// Position
 			//////////////////////////////////////////////////
 
-			const Ogre::Vector3 &Position = Object->getSceneNode()->getPosition();
+			const Ogre::Vector3 &position = sceneObject->getSceneNode()->getPosition();
 			
-			Prop = PropList->FindItemByData(SRTI_LIQUID_POSITION_X);
-			Prop->SetValue((_variant_t)Position.x);
+			prop = propList->FindItemByData(LIQUID_POSITION_X);
+			prop->SetValue((_variant_t)position.x);
 
-			Prop = PropList->FindItemByData(SRTI_LIQUID_POSITION_Y);
-			Prop->SetValue((_variant_t)Position.y);
+			prop = propList->FindItemByData(LIQUID_POSITION_Y);
+			prop->SetValue((_variant_t)position.y);
 
-			Prop = PropList->FindItemByData(SRTI_LIQUID_POSITION_Z);
-			Prop->SetValue((_variant_t)Position.z);
+			prop = propList->FindItemByData(LIQUID_POSITION_Z);
+			prop->SetValue((_variant_t)position.z);
 		}
 	}
 }
 
-void SceneResourceTree::OnPropertyChanged(CBCGPProp *Prop)
+void SceneResourceTree::onPropertyChanged(CBCGPProp *prop)
 {
 	if(!SceneDoc::current)
 		return;
-	CBCGPPropList *PropList = PropertyWnd::Current->GetPropList();
-	switch(Prop->GetData())
+
+	CBCGPPropList *propList = PropertyWnd::current->getPropList();
+	switch(prop->GetData())
 	{
-	case SRTI_SCENE_NAME:
+	case SCENE_NAME:
 		{
-			CString SceneName = Prop->GetValue();
+			CString SceneName = prop->GetValue();
 			SceneDoc::current->setSceneName(SceneName);
 		}
 		break;
 
-	case SRTI_SCENE_AMBIENT_LIGHT:
+	case SCENE_AMBIENT_LIGHT:
 		{
-			COLORREF AmbientLight = Prop->GetValue();
+			COLORREF AmbientLight = prop->GetValue();
 			SceneDoc::current->getSceneManager()->setAmbientLight(
 				Ogre::ColourValue(GetRValue(AmbientLight)/255.0f, GetGValue(AmbientLight)/255.0f, GetBValue(AmbientLight)/255.0f));
 		}
 		break;
 
-	case SRTI_SCENE_SHADOW_TECHNIQUE:
+	case SCENE_SHADOW_TECHNIQUE:
 		{
-			CString ShadowTechnique = Prop->GetValue();
+			CString ShadowTechnique = prop->GetValue();
 			SceneDoc::current->configureShadows(ShadowTechnique != "None", ShadowTechnique == "Depth Shadows");
 		}
 		break;
 
-	case SRTI_SCENE_FOG_MODE:
-	case SRTI_SCENE_FOG_COLOR:
-	case SRTI_SCENE_FOG_DENSITY:
-	case SRTI_SCENE_FOG_START:
-	case SRTI_SCENE_FOG_END:
+	case SCENE_FOG_MODE:
+	case SCENE_FOG_COLOR:
+	case SCENE_FOG_DENSITY:
+	case SCENE_FOG_START:
+	case SCENE_FOG_END:
 		{
-			COLORREF FogColor =PropList->FindItemByData(SRTI_SCENE_FOG_COLOR)->GetValue();
-			float FogDensity = PropList->FindItemByData(SRTI_SCENE_FOG_DENSITY)->GetValue();
-			float FogStart = PropList->FindItemByData(SRTI_SCENE_FOG_START)->GetValue();
-			float FogEnd = PropList->FindItemByData(SRTI_SCENE_FOG_END)->GetValue();
+			COLORREF FogColor =propList->FindItemByData(SCENE_FOG_COLOR)->GetValue();
+			float FogDensity = propList->FindItemByData(SCENE_FOG_DENSITY)->GetValue();
+			float FogStart = propList->FindItemByData(SCENE_FOG_START)->GetValue();
+			float FogEnd = propList->FindItemByData(SCENE_FOG_END)->GetValue();
 
-			CString FogMode = PropList->FindItemByData(SRTI_SCENE_FOG_MODE)->GetValue();
+			CString FogMode = propList->FindItemByData(SCENE_FOG_MODE)->GetValue();
 			if(FogMode == "None")
 			{
 				SceneDoc::current->getSceneManager()->setFog(
@@ -237,26 +242,26 @@ void SceneResourceTree::OnPropertyChanged(CBCGPProp *Prop)
 		}
 		break;
 
-	case SRTI_LIGHT_TYPE:
-	case SRTI_LIGHT_DIFFUSE_COLOUR:
-	case SRTI_LIGHT_SPECULAR_COLOUR:
-	case SRTI_LIGHT_POSITION_X:
-	case SRTI_LIGHT_POSITION_Y:
-	case SRTI_LIGHT_POSITION_Z:
-	case SRTI_LIGHT_DIRECTION_X:
-	case SRTI_LIGHT_DIRECTION_Y:
-	case SRTI_LIGHT_DIRECTION_Z:
-	case SRTI_LIGHT_ATTENUATION_RANGE:
-	case SRTI_LIGHT_ATTENUATION_CONSTANT:
-	case SRTI_LIGHT_ATTENUATION_LINEAR:
-	case SRTI_LIGHT_ATTENUATION_QUADRATIC:
-	case SRTI_LIGHT_SPOTLIGHT_RANGE_INNER_ANGLE:
-	case SRTI_LIGHT_SPOTLIGHT_RANGE_OUTER_ANGLE:
-	case SRTI_LIGHT_SPOTLIGHT_RANGE_FALLOFF:
+	case LIGHT_TYPE:
+	case LIGHT_DIFFUSE_COLOUR:
+	case LIGHT_SPECULAR_COLOUR:
+	case LIGHT_POSITION_X:
+	case LIGHT_POSITION_Y:
+	case LIGHT_POSITION_Z:
+	case LIGHT_DIRECTION_X:
+	case LIGHT_DIRECTION_Y:
+	case LIGHT_DIRECTION_Z:
+	case LIGHT_ATTENUATION_RANGE:
+	case LIGHT_ATTENUATION_CONSTANT:
+	case LIGHT_ATTENUATION_LINEAR:
+	case LIGHT_ATTENUATION_QUADRATIC:
+	case LIGHT_SPOTLIGHT_RANGE_INNER_ANGLE:
+	case LIGHT_SPOTLIGHT_RANGE_OUTER_ANGLE:
+	case LIGHT_SPOTLIGHT_RANGE_FALLOFF:
 		{
-			Light *light = (Light*)SceneResourceTree::Current->GetItemData(GetSelectedItem());
+			Light *light = (Light*)SceneResourceTree::current->GetItemData(GetSelectedItem());
 			
-			CString Type = PropList->FindItemByData(SRTI_LIGHT_TYPE)->GetValue();
+			CString Type = propList->FindItemByData(LIGHT_TYPE)->GetValue();
 			if(Type == "Point")
 			{
 				light->getLight()->setType(Ogre::Light::LT_POINT);
@@ -270,33 +275,33 @@ void SceneResourceTree::OnPropertyChanged(CBCGPProp *Prop)
 				light->getLight()->setType(Ogre::Light::LT_SPOTLIGHT);
 			}
 
-			COLORREF DiffuseColour = PropList->FindItemByData(SRTI_LIGHT_DIFFUSE_COLOUR)->GetValue();
+			COLORREF DiffuseColour = propList->FindItemByData(LIGHT_DIFFUSE_COLOUR)->GetValue();
 			light->getLight()->setDiffuseColour(
 				Ogre::ColourValue(GetRValue(DiffuseColour)/255.0f, GetGValue(DiffuseColour)/255.0f, GetBValue(DiffuseColour)/255.0f));
 
-			COLORREF SpecularColour = PropList->FindItemByData(SRTI_LIGHT_SPECULAR_COLOUR)->GetValue();
+			COLORREF SpecularColour = propList->FindItemByData(LIGHT_SPECULAR_COLOUR)->GetValue();
 			light->getLight()->setSpecularColour(
 				Ogre::ColourValue(GetRValue(SpecularColour)/255.0f, GetGValue(SpecularColour)/255.0f, GetBValue(SpecularColour)/255.0f));
 
-			float PositionX = PropList->FindItemByData(SRTI_LIGHT_POSITION_X)->GetValue();
-			float PositionY = PropList->FindItemByData(SRTI_LIGHT_POSITION_Y)->GetValue();
-			float PositionZ = PropList->FindItemByData(SRTI_LIGHT_POSITION_Z)->GetValue();
+			float PositionX = propList->FindItemByData(LIGHT_POSITION_X)->GetValue();
+			float PositionY = propList->FindItemByData(LIGHT_POSITION_Y)->GetValue();
+			float PositionZ = propList->FindItemByData(LIGHT_POSITION_Z)->GetValue();
 			light->getSceneNode()->setPosition(Ogre::Vector3(PositionX, PositionY, PositionZ));
 
-			float DirectionX = PropList->FindItemByData(SRTI_LIGHT_DIRECTION_X)->GetValue();
-			float DirectionY = PropList->FindItemByData(SRTI_LIGHT_DIRECTION_Y)->GetValue();
-			float DirectionZ = PropList->FindItemByData(SRTI_LIGHT_DIRECTION_Z)->GetValue();
+			float DirectionX = propList->FindItemByData(LIGHT_DIRECTION_X)->GetValue();
+			float DirectionY = propList->FindItemByData(LIGHT_DIRECTION_Y)->GetValue();
+			float DirectionZ = propList->FindItemByData(LIGHT_DIRECTION_Z)->GetValue();
 			light->getLight()->setDirection(Ogre::Vector3(DirectionX, DirectionY, DirectionZ));
 
-			float AttenuationRange = PropList->FindItemByData(SRTI_LIGHT_ATTENUATION_RANGE)->GetValue();
-			float AttenuationConstant = PropList->FindItemByData(SRTI_LIGHT_ATTENUATION_CONSTANT)->GetValue();
-			float AttenuationLinear = PropList->FindItemByData(SRTI_LIGHT_ATTENUATION_LINEAR)->GetValue();
-			float AttenuationQuadratic = PropList->FindItemByData(SRTI_LIGHT_ATTENUATION_QUADRATIC)->GetValue();
+			float AttenuationRange = propList->FindItemByData(LIGHT_ATTENUATION_RANGE)->GetValue();
+			float AttenuationConstant = propList->FindItemByData(LIGHT_ATTENUATION_CONSTANT)->GetValue();
+			float AttenuationLinear = propList->FindItemByData(LIGHT_ATTENUATION_LINEAR)->GetValue();
+			float AttenuationQuadratic = propList->FindItemByData(LIGHT_ATTENUATION_QUADRATIC)->GetValue();
 			light->getLight()->setAttenuation(AttenuationRange, AttenuationConstant, AttenuationLinear, AttenuationQuadratic);
 
-			float SpotlightInnerAngle = PropList->FindItemByData(SRTI_LIGHT_SPOTLIGHT_RANGE_INNER_ANGLE)->GetValue();
-			float SpotlightOuterAngle = PropList->FindItemByData(SRTI_LIGHT_SPOTLIGHT_RANGE_OUTER_ANGLE)->GetValue();
-			float SpotlightFalloff = PropList->FindItemByData(SRTI_LIGHT_SPOTLIGHT_RANGE_FALLOFF)->GetValue();
+			float SpotlightInnerAngle = propList->FindItemByData(LIGHT_SPOTLIGHT_RANGE_INNER_ANGLE)->GetValue();
+			float SpotlightOuterAngle = propList->FindItemByData(LIGHT_SPOTLIGHT_RANGE_OUTER_ANGLE)->GetValue();
+			float SpotlightFalloff = propList->FindItemByData(LIGHT_SPOTLIGHT_RANGE_FALLOFF)->GetValue();
 			light->getLight()->setSpotlightRange(Ogre::Radian(SpotlightInnerAngle),  Ogre::Radian(SpotlightOuterAngle), SpotlightFalloff);
 		}
 	}
@@ -322,364 +327,382 @@ void SceneResourceTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 		Object = (SceneObject*)GetItemData(hItem);
 
 		SetItemState(hItem, TVIS_SELECTED, TVIS_SELECTED);
-		AfterSelectTreeItem(hItem);
+		afterSelectTreeItem(hItem);
 	}
 	SceneDoc::current->selectObject(Object);
 }
 
-void SceneResourceTree::AfterSelectTreeItem(HTREEITEM hItem)
+void SceneResourceTree::afterSelectTreeItem(HTREEITEM treeItem)
 {
-	CBCGPPropList *PropList = PropertyWnd::Current->GetPropList();
-	PropList->RemoveAll();
+	CBCGPPropList *propList = PropertyWnd::current->getPropList();
+	propList->RemoveAll();
 
 	if(!SceneDoc::current || !SceneDoc::current->isInitialized())
 		return;
 
-	PropertyWnd::Current->SetListener(this);
+	PropertyWnd::current->setListener(this);
 
-	KSceneResourceTreeImages nImage; int nSelectedImage;
-	GetItemImage(hItem, (int&)nImage, nSelectedImage);
+	int image, selectedImage;
+	GetItemImage(treeItem, (int&)image, selectedImage);
 
-	CBCGPProp *Prop = NULL, *SubProp = NULL;
-	switch(nImage)
+	CBCGPProp *prop = NULL, *subProp = NULL;
+	switch(image)
 	{
-	case SRTI_SCENE:
+	//////////////////////////////////////////////////
+	// Scene
+	//////////////////////////////////////////////////
+	case SCENE:
 		{
 			//////////////////////////////////////////////////
 			// Scene name
 			//////////////////////////////////////////////////
 
-			CString SceneName = SceneDoc::current->getSceneName();
-			Prop = new CBCGPProp("Scene name", (_variant_t)SceneName, "", SRTI_SCENE_NAME);
-			PropList->AddProperty(Prop);
+			CString sceneName = SceneDoc::current->getSceneName();
+			prop = new CBCGPProp("Scene name", (_variant_t)sceneName, "", SCENE_NAME);
+			propList->AddProperty(prop);
 
 			//////////////////////////////////////////////////
 			// Ambient light
 			//////////////////////////////////////////////////
 
-			Ogre::ColourValue AmbientLight = 
+			Ogre::ColourValue ambientLight = 
 				SceneDoc::current->getSceneManager()->getAmbientLight();
-			Prop = new CBCGPColorProp("Ambient Light", RGB(AmbientLight.r*255, AmbientLight.g*255, AmbientLight.b*255), NULL, NULL, SRTI_SCENE_AMBIENT_LIGHT);
-			((CBCGPColorProp*)Prop)->EnableOtherButton("Other");
-			PropList->AddProperty(Prop);
+			prop = new CBCGPColorProp("Ambient Light", RGB(ambientLight.r*255, ambientLight.g*255, ambientLight.b*255), NULL, NULL, SCENE_AMBIENT_LIGHT);
+			((CBCGPColorProp*)prop)->EnableOtherButton("Other");
+			propList->AddProperty(prop);
 
 			//////////////////////////////////////////////////
 			// Shadow technique
 			//////////////////////////////////////////////////
 
-			Prop = new CBCGPProp("Shadow technique", (_variant_t)"None", "", SRTI_SCENE_SHADOW_TECHNIQUE);
-			Prop->AllowEdit(FALSE);
-			Prop->AddOption("None");
-			Prop->AddOption("Colour Shadows");
-			Prop->AddOption("Depth Shadows");
-			PropList->AddProperty(Prop);
+			//prop = new CBCGPProp("Shadow technique", (_variant_t)"None", "", SCENE_SHADOW_TECHNIQUE);
+			//prop->AllowEdit(FALSE);
+			//prop->AddOption("None");
+			//prop->AddOption("Colour Shadows");
+			//prop->AddOption("Depth Shadows");
+			//propList->AddProperty(prop);
 
 			//////////////////////////////////////////////////
 			// Fog
 			//////////////////////////////////////////////////
 
-			Prop = new CBCGPProp("Fog");
+			prop = new CBCGPProp("Fog");
 
-			Ogre::FogMode FogMode = SceneDoc::current->getSceneManager()->getFogMode();
-			switch(FogMode)
+			Ogre::FogMode fogMode = SceneDoc::current->getSceneManager()->getFogMode();
+			switch(fogMode)
 			{
 			case Ogre::FOG_NONE:
-				SubProp = new CBCGPProp("Mode", (_variant_t)"None", NULL, SRTI_SCENE_FOG_MODE);
+				subProp = new CBCGPProp("Mode", (_variant_t)"None", NULL, SCENE_FOG_MODE);
 				break;
 
 			case Ogre::FOG_LINEAR:
-				SubProp = new CBCGPProp("Mode", (_variant_t)"Linear", NULL, SRTI_SCENE_FOG_MODE);
+				subProp = new CBCGPProp("Mode", (_variant_t)"Linear", NULL, SCENE_FOG_MODE);
 				break;
 
 			case Ogre::FOG_EXP:
-				SubProp = new CBCGPProp("Mode", (_variant_t)"Exp", NULL, SRTI_SCENE_FOG_MODE);
+				subProp = new CBCGPProp("Mode", (_variant_t)"Exp", NULL, SCENE_FOG_MODE);
 				break;
 
 			case Ogre::FOG_EXP2:
-				SubProp = new CBCGPProp("Mode", (_variant_t)"Exp2", NULL, SRTI_SCENE_FOG_MODE);
+				subProp = new CBCGPProp("Mode", (_variant_t)"Exp2", NULL, SCENE_FOG_MODE);
 			}
-			SubProp->AllowEdit(FALSE);
-			SubProp->AddOption("None");
-			SubProp->AddOption("Linear");
-			SubProp->AddOption("Exp");
-			SubProp->AddOption("Exp2");
-			Prop->AddSubItem(SubProp);
+			subProp->AllowEdit(FALSE);
+			subProp->AddOption("None");
+			subProp->AddOption("Linear");
+			subProp->AddOption("Exp");
+			subProp->AddOption("Exp2");
+			prop->AddSubItem(subProp);
 
-			Ogre::ColourValue FogColor = 
+			Ogre::ColourValue fogColor = 
 				SceneDoc::current->getSceneManager()->getFogColour();
-			SubProp = new CBCGPColorProp("Color", RGB(FogColor.r*255, FogColor.g*255, FogColor.b*255), NULL, NULL, SRTI_SCENE_FOG_COLOR);
-			((CBCGPColorProp*)SubProp)->EnableOtherButton("Other");
-			Prop->AddSubItem(SubProp);
+			subProp = new CBCGPColorProp("Color", RGB(fogColor.r*255, fogColor.g*255, fogColor.b*255), NULL, NULL, SCENE_FOG_COLOR);
+			((CBCGPColorProp*)subProp)->EnableOtherButton("Other");
+			prop->AddSubItem(subProp);
 
-			float Density = SceneDoc::current->getSceneManager()->getFogDensity();
-			SubProp = new CBCGPProp("Density", Density, NULL, SRTI_SCENE_FOG_DENSITY);
-			Prop->AddSubItem(SubProp);
+			float fogDensity = SceneDoc::current->getSceneManager()->getFogDensity();
+			subProp = new CBCGPProp("Density", fogDensity, NULL, SCENE_FOG_DENSITY);
+			prop->AddSubItem(subProp);
 
-			float Start = SceneDoc::current->getSceneManager()->getFogStart();
-			SubProp = new CBCGPProp("Start", Start, NULL, SRTI_SCENE_FOG_START);
-			Prop->AddSubItem(SubProp);
+			float fogStart = SceneDoc::current->getSceneManager()->getFogStart();
+			subProp = new CBCGPProp("Start", fogStart, NULL, SCENE_FOG_START);
+			prop->AddSubItem(subProp);
 
-			float End = SceneDoc::current->getSceneManager()->getFogEnd();
-			SubProp =  new CBCGPProp("End", End, NULL, SRTI_SCENE_FOG_END);
-			Prop->AddSubItem(SubProp);
+			float fogEnd = SceneDoc::current->getSceneManager()->getFogEnd();
+			subProp =  new CBCGPProp("End", fogEnd, NULL, SCENE_FOG_END);
+			prop->AddSubItem(subProp);
 
-			PropList->AddProperty(Prop);
+			propList->AddProperty(prop);
 
 			//////////////////////////////////////////////////
-			// Fog
+			// Sky
 			//////////////////////////////////////////////////
 
-			Prop = new CBCGPProp("Sky");
+			//prop = new CBCGPProp("Sky");
 
-			SubProp = new CBCGPProp("Type", (_variant_t)SceneDoc::current->getSkyType(), "", SRTI_SCENE_SKY_TYPE);
-			SubProp->AllowEdit(FALSE);
-			SubProp->AddOption("None");
-			SubProp->AddOption("Box");
-			SubProp->AddOption("Dome");
-			SubProp->AddOption("Plane");
-			Prop->AddSubItem(SubProp);
+			//subProp = new CBCGPProp("Type", (_variant_t)SceneDoc::current->getSkyType(), "", SCENE_SKY_TYPE);
+			//subProp->AllowEdit(FALSE);
+			//subProp->AddOption("None");
+			//subProp->AddOption("Box");
+			//subProp->AddOption("Dome");
+			//subProp->AddOption("Plane");
+			//prop->AddSubItem(subProp);
 
-			PropList->AddProperty(Prop);
-			// SubProp = new CBCGPProp("Material", (_variant_t)
+			//propList->AddProperty(prop);
+			// subProp = new CBCGPProp("Material", (_variant_t)
 
 		}
 		break;
 
-	case SRTI_SKY:
+	//////////////////////////////////////////////////
+	// Sky
+	//////////////////////////////////////////////////
+	case SKY:
 		{
 		}
 		break;
 
-	case SRTI_TERRAIN:
+	//////////////////////////////////////////////////
+	// Terrain
+	//////////////////////////////////////////////////
+	case TERRAIN:
 		{
 		}
 		break;
 
-	case SRTI_LIGHT:
+	//////////////////////////////////////////////////
+	// Light
+	//////////////////////////////////////////////////
+	case LIGHT:
 		{
-			Light *Object = (Light*)GetItemData(hItem);
-			Ogre::Light *light = ((Light*)Object)->getLight();
+			Light *light = (Light*)GetItemData(treeItem);
+			Ogre::Light *_light = light->getLight();
 
 			//////////////////////////////////////////////////
 			// Name
 			//////////////////////////////////////////////////
 
-			const char *Name = Object->getSceneNode()->getName().c_str();
-			Prop = new CBCGPProp("Name", (_variant_t)Name, "");
-			Prop->AllowEdit(FALSE);
-			PropList->AddProperty(Prop);
+			CString lightName = _light->getName().c_str();
+			prop = new CBCGPProp("Name", (_variant_t)lightName, "");
+			prop->AllowEdit(FALSE);
+			propList->AddProperty(prop);
 
 			//////////////////////////////////////////////////
 			// Type
 			//////////////////////////////////////////////////
 
-			Ogre::Light::LightTypes Type = light->getType();
-			switch(Type)
+			Ogre::Light::LightTypes lightType = _light->getType();
+			switch(lightType)
 			{
 			case Ogre::Light::LT_POINT:
 				{
-					Prop = new CBCGPProp("Type", (_variant_t)"Point", "", SRTI_LIGHT_TYPE);
+					prop = new CBCGPProp("Type", (_variant_t)"Point", "", LIGHT_TYPE);
 				}
 				break;
 
 			case Ogre::Light::LT_DIRECTIONAL:
 				{
-					Prop = new CBCGPProp("Type", (_variant_t)"Directional", "", SRTI_LIGHT_TYPE);
+					prop = new CBCGPProp("Type", (_variant_t)"Directional", "", LIGHT_TYPE);
 				}
 				break;
 
 			case Ogre::Light::LT_SPOTLIGHT:
 				{
-					Prop = new CBCGPProp("Type", (_variant_t)"Spotlight", "", SRTI_LIGHT_TYPE);
+					prop = new CBCGPProp("Type", (_variant_t)"Spotlight", "", LIGHT_TYPE);
 				}
 			}
-			Prop->AddOption("Point");
-			Prop->AddOption("Directional");
-			Prop->AddOption("Spotlight");
-			PropList->AddProperty(Prop);
+			prop->AddOption("Point");
+			prop->AddOption("Directional");
+			prop->AddOption("Spotlight");
+			propList->AddProperty(prop);
 
 			//////////////////////////////////////////////////
 			// Diffuse colour
 			//////////////////////////////////////////////////
 
-			Ogre::ColourValue DiffuseColour = light->getDiffuseColour();
-			Prop = new CBCGPColorProp("Diffuse colour", RGB(DiffuseColour.r*255, DiffuseColour.g*255, DiffuseColour.b*255), NULL, "", SRTI_LIGHT_DIFFUSE_COLOUR);
-			((CBCGPColorProp*)Prop)->EnableOtherButton("Other");
-			PropList->AddProperty(Prop);
+			Ogre::ColourValue diffuseColour = _light->getDiffuseColour();
+			prop = new CBCGPColorProp("Diffuse colour", RGB(diffuseColour.r*255, diffuseColour.g*255, diffuseColour.b*255), NULL, "", LIGHT_DIFFUSE_COLOUR);
+			((CBCGPColorProp*)prop)->EnableOtherButton("Other");
+			propList->AddProperty(prop);
 
 			//////////////////////////////////////////////////
 			// Specular colour
 			//////////////////////////////////////////////////
 
-			Ogre::ColourValue SpecularColour = light->getSpecularColour();
-			Prop = new CBCGPColorProp("Specular colour", RGB(SpecularColour.r*255, SpecularColour.g*255, SpecularColour.b*255), NULL, "", SRTI_LIGHT_SPECULAR_COLOUR);
-			((CBCGPColorProp*)Prop)->EnableOtherButton("Other");
-			PropList->AddProperty(Prop);
+			Ogre::ColourValue specularColour = _light->getSpecularColour();
+			prop = new CBCGPColorProp("Specular colour", RGB(specularColour.r*255, specularColour.g*255, specularColour.b*255), NULL, "", LIGHT_SPECULAR_COLOUR);
+			((CBCGPColorProp*)prop)->EnableOtherButton("Other");
+			propList->AddProperty(prop);
 
 			//////////////////////////////////////////////////
 			// Position
 			//////////////////////////////////////////////////
 
-			Prop = new CBCGPProp("Position");
-			Ogre::Vector3 Position = Object->getSceneNode()->getPosition();
-			SubProp = new CBCGPProp("X", (_variant_t)Position.x, "", SRTI_LIGHT_POSITION_X);
-			Prop->AddSubItem(SubProp);
-			SubProp = new CBCGPProp("Y", (_variant_t)Position.y, "", SRTI_LIGHT_POSITION_Y);
-			Prop->AddSubItem(SubProp);
-			SubProp = new CBCGPProp("Z", (_variant_t)Position.z, "", SRTI_LIGHT_POSITION_Z);
-			Prop->AddSubItem(SubProp);
-			PropList->AddProperty(Prop);
+			prop = new CBCGPProp("Position");
+			Ogre::Vector3 position = light->getSceneNode()->getPosition();
+			subProp = new CBCGPProp("X", (_variant_t)position.x, "", LIGHT_POSITION_X);
+			prop->AddSubItem(subProp);
+			subProp = new CBCGPProp("Y", (_variant_t)position.y, "", LIGHT_POSITION_Y);
+			prop->AddSubItem(subProp);
+			subProp = new CBCGPProp("Z", (_variant_t)position.z, "", LIGHT_POSITION_Z);
+			prop->AddSubItem(subProp);
+			propList->AddProperty(prop);
 
 			//////////////////////////////////////////////////
 			// Direction
 			//////////////////////////////////////////////////
 
-			Prop = new CBCGPProp("Direction");
-			Ogre::Vector3 Direction = Object->getLight()->getDirection();
-			SubProp = new CBCGPProp("X", (_variant_t)Direction.x, "", SRTI_LIGHT_DIRECTION_X);
-			Prop->AddSubItem(SubProp);
-			SubProp = new CBCGPProp("Y", (_variant_t)Direction.y, "", SRTI_LIGHT_DIRECTION_Y);
-			Prop->AddSubItem(SubProp);
-			SubProp = new CBCGPProp("Z", (_variant_t)Direction.z, "", SRTI_LIGHT_DIRECTION_Z);
-			Prop->AddSubItem(SubProp);
-			PropList->AddProperty(Prop);
+			prop = new CBCGPProp("Direction");
+			Ogre::Vector3 direction = light->getLight()->getDirection();
+			subProp = new CBCGPProp("X", (_variant_t)direction.x, "", LIGHT_DIRECTION_X);
+			prop->AddSubItem(subProp);
+			subProp = new CBCGPProp("Y", (_variant_t)direction.y, "", LIGHT_DIRECTION_Y);
+			prop->AddSubItem(subProp);
+			subProp = new CBCGPProp("Z", (_variant_t)direction.z, "", LIGHT_DIRECTION_Z);
+			prop->AddSubItem(subProp);
+			propList->AddProperty(prop);
 
 			//////////////////////////////////////////////////
 			// Attenuation
 			//////////////////////////////////////////////////
 
-			Prop = new CBCGPProp("Attenuation");
-			SubProp = new CBCGPProp("Range", (_variant_t)light->getAttenuationRange(), "", SRTI_LIGHT_ATTENUATION_RANGE);
-			Prop->AddSubItem(SubProp);
-			SubProp = new CBCGPProp("Constant", (_variant_t)light->getAttenuationConstant(), "", SRTI_LIGHT_ATTENUATION_CONSTANT);
-			Prop->AddSubItem(SubProp);
-			SubProp = new CBCGPProp("Linear", (_variant_t)light->getAttenuationLinear(), "", SRTI_LIGHT_ATTENUATION_LINEAR);
-			Prop->AddSubItem(SubProp);
-			SubProp = new CBCGPProp("Quadratic", (_variant_t)light->getAttenuationQuadric(), "", SRTI_LIGHT_ATTENUATION_QUADRATIC);
-			Prop->AddSubItem(SubProp);
-			PropList->AddProperty(Prop);
+			prop = new CBCGPProp("Attenuation");
+			subProp = new CBCGPProp("Range", (_variant_t)_light->getAttenuationRange(), "", LIGHT_ATTENUATION_RANGE);
+			prop->AddSubItem(subProp);
+			subProp = new CBCGPProp("Constant", (_variant_t)_light->getAttenuationConstant(), "", LIGHT_ATTENUATION_CONSTANT);
+			prop->AddSubItem(subProp);
+			subProp = new CBCGPProp("Linear", (_variant_t)_light->getAttenuationLinear(), "", LIGHT_ATTENUATION_LINEAR);
+			prop->AddSubItem(subProp);
+			subProp = new CBCGPProp("Quadratic", (_variant_t)_light->getAttenuationQuadric(), "", LIGHT_ATTENUATION_QUADRATIC);
+			prop->AddSubItem(subProp);
+			propList->AddProperty(prop);
 
 			//////////////////////////////////////////////////
 			// Spotlight range
 			//////////////////////////////////////////////////
 
-			Prop = new CBCGPProp("Spotlight range");
-			SubProp = new CBCGPProp("Inner angle", (_variant_t)light->getSpotlightInnerAngle().valueRadians(), "", SRTI_LIGHT_SPOTLIGHT_RANGE_INNER_ANGLE);
-			Prop->AddSubItem(SubProp); // 弧度
-			SubProp = new CBCGPProp("Outer angle", (_variant_t)light->getSpotlightOuterAngle().valueRadians(), "", SRTI_LIGHT_SPOTLIGHT_RANGE_OUTER_ANGLE);
-			Prop->AddSubItem(SubProp);
-			SubProp = new CBCGPProp("Falloff", (_variant_t)light->getSpotlightFalloff(), "", SRTI_LIGHT_SPOTLIGHT_RANGE_FALLOFF);
-			Prop->AddSubItem(SubProp);
-			PropList->AddProperty(Prop);
+			prop = new CBCGPProp("Spotlight range");
+			subProp = new CBCGPProp("Inner angle", (_variant_t)_light->getSpotlightInnerAngle().valueRadians(), "", LIGHT_SPOTLIGHT_RANGE_INNER_ANGLE);
+			prop->AddSubItem(subProp); // 弧度
+			subProp = new CBCGPProp("Outer angle", (_variant_t)_light->getSpotlightOuterAngle().valueRadians(), "", LIGHT_SPOTLIGHT_RANGE_OUTER_ANGLE);
+			prop->AddSubItem(subProp);
+			subProp = new CBCGPProp("Falloff", (_variant_t)_light->getSpotlightFalloff(), "", LIGHT_SPOTLIGHT_RANGE_FALLOFF);
+			prop->AddSubItem(subProp);
+			propList->AddProperty(prop);
 		}
 		break;
 
-	case SRTI_MODEL:
-	case SRTI_MESH:
+	//////////////////////////////////////////////////
+	// Model & Mesh
+	//////////////////////////////////////////////////
+	case MODEL:
+	case MESH:
 		{
-			SceneObject *Object = (SceneObject*)GetItemData(hItem);
+			SceneObject *sceneObject = (SceneObject*)GetItemData(treeItem);
 
-			CString Name = Object->getSceneNode()->getName().c_str();
-			Prop = new CBCGPProp("Name", (_variant_t)Name);
-			Prop->AllowEdit(FALSE);
-			PropList->AddProperty(Prop);
+			CString objectName = sceneObject->getSceneNode()->getName().c_str();
+			prop = new CBCGPProp("Name", (_variant_t)sceneObject);
+			prop->AllowEdit(FALSE);
+			propList->AddProperty(prop);
 
-			Prop = new CBCGPProp("Shadow", (_variant_t)"FALSE", "", SRTI_MESH_SHADOW);
-			Prop->AllowEdit(FALSE);
-			Prop->AddOption("TRUE");
-			Prop->AddOption("FALSE");
-			PropList->AddProperty(Prop);
+			//prop = new CBCGPProp("Shadow", (_variant_t)"FALSE", "", MESH_SHADOW);
+			//prop->AllowEdit(FALSE);
+			//prop->AddOption("TRUE");
+			//prop->AddOption("FALSE");
+			//propList->AddProperty(prop);
 
 			//////////////////////////////////////////////////
 			// Position
 			//////////////////////////////////////////////////
 
-			Prop = new CBCGPProp("Position");
+			prop = new CBCGPProp("Position");
 
-			Ogre::Vector3 Position = Object->getSceneNode()->getPosition();
+			const Ogre::Vector3 &position = sceneObject->getSceneNode()->getPosition();
 			
-			SubProp = new CBCGPProp("X", (_variant_t)Position.x, "", SRTI_MESH_POSITION_X);
-			Prop->AddSubItem(SubProp);
+			subProp = new CBCGPProp("X", (_variant_t)position.x, "", MESH_POSITION_X);
+			prop->AddSubItem(subProp);
 
-			SubProp = new CBCGPProp("Y", (_variant_t)Position.y, "", SRTI_MESH_POSITION_Y);
-			Prop->AddSubItem(SubProp);
+			subProp = new CBCGPProp("Y", (_variant_t)position.y, "", MESH_POSITION_Y);
+			prop->AddSubItem(subProp);
 
-			SubProp = new CBCGPProp("Z", (_variant_t)Position.z, "", SRTI_MESH_POSITION_Z);
-			Prop->AddSubItem(SubProp);
+			subProp = new CBCGPProp("Z", (_variant_t)position.z, "", MESH_POSITION_Z);
+			prop->AddSubItem(subProp);
 
-			PropList->AddProperty(Prop);
+			propList->AddProperty(prop);
 
 			//////////////////////////////////////////////////
 			// Scale
 			//////////////////////////////////////////////////
 
-			Prop = new CBCGPProp("Scale");
+			prop = new CBCGPProp("Scale");
 
-			Ogre::Vector3 Scale = Object->getSceneNode()->getScale();
+			const Ogre::Vector3 &scale = sceneObject->getSceneNode()->getScale();
 			
-			SubProp = new CBCGPProp("X", (_variant_t)Scale.x, "", SRTI_MESH_SCALE_X);
-			Prop->AddSubItem(SubProp);
+			subProp = new CBCGPProp("X", (_variant_t)scale.x, "", MESH_SCALE_X);
+			prop->AddSubItem(subProp);
 
-			SubProp = new CBCGPProp("Y", (_variant_t)Scale.y, "", SRTI_MESH_SCALE_Y);
-			Prop->AddSubItem(SubProp);
+			subProp = new CBCGPProp("Y", (_variant_t)scale.y, "", MESH_SCALE_Y);
+			prop->AddSubItem(subProp);
 
-			SubProp = new CBCGPProp("Z", (_variant_t)Scale.z, "", SRTI_MESH_SCALE_Z);
-			Prop->AddSubItem(SubProp);
+			subProp = new CBCGPProp("Z", (_variant_t)scale.z, "", MESH_SCALE_Z);
+			prop->AddSubItem(subProp);
 
-			PropList->AddProperty(Prop);
+			propList->AddProperty(prop);
 
 			//////////////////////////////////////////////////
 			// Direction
 			//////////////////////////////////////////////////
 
-			Prop = new CBCGPProp("Direction");
+			prop = new CBCGPProp("Direction");
 
-			Ogre::Quaternion Direction = Object->getSceneNode()->getOrientation();
+			const Ogre::Quaternion &orientation = sceneObject->getSceneNode()->getOrientation();
 			
-			SubProp = new CBCGPProp("X", (_variant_t)Direction.x, "", SRTI_MESH_DIRECTION_X);
-			Prop->AddSubItem(SubProp);
+			subProp = new CBCGPProp("X", (_variant_t)orientation.x, "", MESH_DIRECTION_X);
+			prop->AddSubItem(subProp);
 
-			SubProp = new CBCGPProp("Y", (_variant_t)Direction.y, "", SRTI_MESH_DIRECTION_Y);
-			Prop->AddSubItem(SubProp);
+			subProp = new CBCGPProp("Y", (_variant_t)orientation.y, "", MESH_DIRECTION_Y);
+			prop->AddSubItem(subProp);
 
-			SubProp = new CBCGPProp("Z", (_variant_t)Direction.z, "", SRTI_MESH_DIRECTION_Z);
-			Prop->AddSubItem(SubProp);
+			subProp = new CBCGPProp("Z", (_variant_t)orientation.z, "", MESH_DIRECTION_Z);
+			prop->AddSubItem(subProp);
 
-			PropList->AddProperty(Prop);
+			propList->AddProperty(prop);
 		}
 		break;
 
-	case SRTI_LIQUID:
+	//////////////////////////////////////////////////
+	// Liquid
+	//////////////////////////////////////////////////
+	case LIQUID:
 		{
-			SceneObject *Object = (SceneObject*)GetItemData(hItem);
+			SceneObject *sceneObject = (SceneObject*)GetItemData(treeItem);
 
-			CString Name = Object->getSceneNode()->getName().c_str();
-			Prop = new CBCGPProp("Name", (_variant_t)Name);
-			Prop->AllowEdit(FALSE);
-			PropList->AddProperty(Prop);
+			CString liquidName = sceneObject->getSceneNode()->getName().c_str();
+			prop = new CBCGPProp("Name", (_variant_t)liquidName);
+			prop->AllowEdit(FALSE);
+			propList->AddProperty(prop);
 
 			//////////////////////////////////////////////////
 			// Position
 			//////////////////////////////////////////////////
 
-			Prop = new CBCGPProp("Position");
+			prop = new CBCGPProp("Position");
 
-			Ogre::Vector3 Position = Object->getSceneNode()->getPosition();
+			const Ogre::Vector3 &position = sceneObject->getSceneNode()->getPosition();
 			
-			SubProp = new CBCGPProp("X", (_variant_t)Position.x, "", SRTI_LIQUID_POSITION_X);
-			Prop->AddSubItem(SubProp);
+			subProp = new CBCGPProp("X", (_variant_t)position.x, "", LIQUID_POSITION_X);
+			prop->AddSubItem(subProp);
 
-			SubProp = new CBCGPProp("Y", (_variant_t)Position.y, "", SRTI_LIQUID_POSITION_Y);
-			Prop->AddSubItem(SubProp);
+			subProp = new CBCGPProp("Y", (_variant_t)position.y, "", LIQUID_POSITION_Y);
+			prop->AddSubItem(subProp);
 
-			SubProp = new CBCGPProp("Z", (_variant_t)Position.z, "", SRTI_LIQUID_POSITION_Z);
-			Prop->AddSubItem(SubProp);
+			subProp = new CBCGPProp("Z", (_variant_t)position.z, "", LIQUID_POSITION_Z);
+			prop->AddSubItem(subProp);
 
-			PropList->AddProperty(Prop);
+			propList->AddProperty(prop);
 		}
 		break;
 
-	case SRTI_PARTICLE:
+	case PARTICLE:
 		{
 		}
 	}

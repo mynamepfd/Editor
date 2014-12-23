@@ -1,37 +1,16 @@
-vertex_program TestVP cg
-{
-	source Test.cg
-    entry_point main_vp
-    profiles vs_1_1 arbvp1
-}
-
-fragment_program TestFP cg
-{
-	source Test.cg
-    entry_point main_fp
-    profiles ps_1_1 arbfp1
-}
-
 material Test
 {
 	technique
     {
 		pass
         {
-			// lighting off
+			diffuse 1.0 1.0 1.0 0.1
+			scene_blend alpha_blend
+            depth_write off
             
-            vertex_program_ref TestVP
-			{
-				param_named_auto worldViewProj worldviewproj_matrix
-			}
-			
-			fragment_program_ref TestFP
-			{
-			}
-        
 			texture_unit
             {
-				texture nskingr.jpg
+				texture checker.png
             }
         }
     }

@@ -33,7 +33,7 @@ enum KMaterialPreviewPage
 	MPP_LIGHT_VISIBLE
 };
 
-class CMaterialPreviewPage : public CBCGPDialog, public CPropertyListener
+class CMaterialPreviewPage : public CBCGPDialog, public PropertyListener
 {
 	DECLARE_DYNAMIC(CMaterialPreviewPage)
 public:
@@ -52,8 +52,8 @@ public:
 	void AfterSelectResource(TiXmlElement *Elmt);
 	
 	void update(float Elapsed);
-	void FirePropertyChanged() {}
-	void OnPropertyChanged(CBCGPProp *Prop);
+	void firePropertyChanged() {}
+	void onPropertyChanged(CBCGPProp *Prop);
 
 	static CMaterialPreviewPage *Current;
 

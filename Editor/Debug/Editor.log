@@ -1,8 +1,55 @@
-﻿生成启动时间为 2014/12/22 21:24:27。
+﻿生成启动时间为 2014/12/23 23:45:25。
      1>项目“C:\Projects\Editor\Editor\Editor.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         C:\Software\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\Projects\Editor\Editor\ /IC:\Projects\Editor\Editor\TinyXML /IC:\Projects\Editor\Editor\OgreXMLConverter /IC:\Projects\Editor\Dependencies\BCG\include /IC:\Projects\Editor\Dependencies\Scintilla\include /IC:\Projects\Editor\Dependencies\OGRE\include /IC:\Projects\Editor\Dependencies\OGRE\include\OGRE /IC:\Projects\Editor\Dependencies\OGRE\include\OGRE\Overlay /IC:\Projects\Editor\Dependencies\OGRE\include\OGRE\Terrain /IC:\Projects\Editor\Dependencies\OGRE\boost /IC:\Projects\Editor\Dependencies\OgreOpCode\include /IC:\Projects\Editor\Dependencies\DirectX\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D FREEIMAGE_LIB /D TIXML_USE_STL /D _MBCS /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\Editor.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt RenderView.cpp
-         RenderView.cpp
+         C:\Software\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\Projects\Editor\Editor\ /IC:\Projects\Editor\Editor\TinyXML /IC:\Projects\Editor\Editor\OgreXMLConverter /IC:\Projects\Editor\Dependencies\BCG\include /IC:\Projects\Editor\Dependencies\Scintilla\include /IC:\Projects\Editor\Dependencies\OGRE\include /IC:\Projects\Editor\Dependencies\OGRE\include\OGRE /IC:\Projects\Editor\Dependencies\OGRE\include\OGRE\Overlay /IC:\Projects\Editor\Dependencies\OGRE\include\OGRE\Terrain /IC:\Projects\Editor\Dependencies\OGRE\boost /IC:\Projects\Editor\Dependencies\OgreOpCode\include /IC:\Projects\Editor\Dependencies\DirectX\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D FREEIMAGE_LIB /D TIXML_USE_STL /D _MBCS /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\Editor.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Editor.cpp LiquidEditHandler.cpp MainFrm.cpp MaterialPreviewPage.cpp MaterialView.cpp MiscEditSheet.cpp ObjectEditHandler.cpp ParticleView.cpp PropertyWnd.cpp RenderPump.cpp ResourceManager.cpp RibbonBarEx.cpp SceneDoc.cpp SceneResource.cpp SceneResourceTree.cpp TerrainEditHandler.cpp
+         TerrainEditHandler.cpp
+     1>c:\projects\editor\editor\terrainedithandler.cpp(62): warning C4244: “初始化”: 从“int”转换到“Ogre::Real”，可能丢失数据
+     1>c:\projects\editor\editor\terrainedithandler.cpp(63): warning C4244: “初始化”: 从“Ogre::Real”转换到“long”，可能丢失数据
+     1>c:\projects\editor\editor\terrainedithandler.cpp(64): warning C4244: “初始化”: 从“Ogre::Real”转换到“long”，可能丢失数据
+     1>c:\projects\editor\editor\terrainedithandler.cpp(65): warning C4244: “初始化”: 从“Ogre::Real”转换到“long”，可能丢失数据
+     1>c:\projects\editor\editor\terrainedithandler.cpp(66): warning C4244: “初始化”: 从“Ogre::Real”转换到“long”，可能丢失数据
+     1>c:\projects\editor\editor\terrainedithandler.cpp(95): warning C4244: “初始化”: 从“Ogre::Real”转换到“long”，可能丢失数据
+     1>c:\projects\editor\editor\terrainedithandler.cpp(96): warning C4244: “初始化”: 从“Ogre::Real”转换到“long”，可能丢失数据
+     1>c:\projects\editor\editor\terrainedithandler.cpp(97): warning C4244: “初始化”: 从“Ogre::Real”转换到“long”，可能丢失数据
+     1>c:\projects\editor\editor\terrainedithandler.cpp(98): warning C4244: “初始化”: 从“Ogre::Real”转换到“long”，可能丢失数据
+     1>c:\projects\editor\editor\terrainedithandler.cpp(111): warning C4244: “初始化”: 从“Ogre::Real”转换到“size_t”，可能丢失数据
+         SceneResourceTree.cpp
+     1>c:\projects\editor\editor\sceneresourcetree.cpp(603): warning C4800: “SceneObject *”: 将值强制为布尔值“true”或“false”(性能警告)
+         SceneResource.cpp
+         SceneDoc.cpp
+     1>c:\projects\editor\editor\scenedoc.cpp(550): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\projects\editor\editor\scenedoc.cpp(641): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\projects\editor\editor\scenedoc.cpp(658): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\projects\editor\editor\scenedoc.cpp(961): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\projects\editor\editor\scenedoc.cpp(1428): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\projects\editor\editor\scenedoc.cpp(1435): warning C4018: “<”: 有符号/无符号不匹配
+         RibbonBarEx.cpp
+         ResourceManager.cpp
+         RenderPump.cpp
+         PropertyWnd.cpp
+         ParticleView.cpp
+         ObjectEditHandler.cpp
+     1>c:\projects\editor\dependencies\ogreopcode\include\opcode\ice\icefpu.h(103): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+     1>c:\projects\editor\dependencies\ogreopcode\include\ogreopcodecharactercontroller.h(39): warning C4305: “参数”: 从“double”到“const Ogre::Real”截断
+     1>c:\projects\editor\editor\objectedithandler.cpp(435): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+     1>c:\projects\editor\editor\objectedithandler.cpp(436): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+     1>c:\projects\editor\editor\objectedithandler.cpp(443): warning C4244: “=”: 从“LONG”转换到“Ogre::Real”，可能丢失数据
+     1>c:\projects\editor\editor\objectedithandler.cpp(449): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+     1>c:\projects\editor\editor\objectedithandler.cpp(456): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+     1>c:\projects\editor\editor\objectedithandler.cpp(457): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+     1>c:\projects\editor\editor\objectedithandler.cpp(460): warning C4244: “=”: 从“LONG”转换到“Ogre::Real”，可能丢失数据
+         MiscEditSheet.cpp
+         MaterialView.cpp
+         MaterialPreviewPage.cpp
+         MainFrm.cpp
+         LiquidEditHandler.cpp
+     1>c:\projects\editor\editor\liquidedithandler.cpp(84): warning C4244: “参数”: 从“Ogre::Real”转换到“int”，可能丢失数据
+     1>c:\projects\editor\editor\liquidedithandler.cpp(222): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\projects\editor\editor\liquidedithandler.cpp(234): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\projects\editor\editor\liquidedithandler.cpp(243): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\projects\editor\editor\liquidedithandler.cpp(253): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\projects\editor\editor\liquidedithandler.cpp(270): warning C4244: “参数”: 从“double”转换到“Ogre::Real”，可能丢失数据
+         Editor.cpp
        Link:
          C:\Software\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Projects\Editor\Debug\Editor.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:C:\Projects\Editor\Dependencies\BCG\lib /LIBPATH:C:\Projects\Editor\Dependencies\OGRE\lib\Debug /LIBPATH:C:\Projects\Editor\Dependencies\OGRE\boost\lib /LIBPATH:C:\Projects\Editor\Dependencies\OgreOpcode\lib /LIBPATH:C:\Projects\Editor\Dependencies\DirectX\lib\x86 OgreMain_d.lib OgreOverlay_d.lib OgreTerrain_d.lib OgreOpcode_d.lib OIS_d.lib d3dx9.lib /NODEFAULTLIB:libcmtd.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Software\Microsoft Visual Studio 11.0\VC\Include\Manifest\dpiaware.manifest" /DEBUG /PDB:"C:\Projects\Editor\Debug\Editor.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Projects\Editor\Debug\Editor.lib" /MACHINE:X86 Debug\Editor.res
          Debug\Action.obj
@@ -99,4 +146,4 @@
 
 生成成功。
 
-已用时间 00:00:29.54
+已用时间 00:03:53.29

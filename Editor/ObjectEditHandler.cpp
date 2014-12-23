@@ -261,7 +261,7 @@ void ObjectEditHandler::SetMode(KObjectEditMode Mode)
 		{
 			//if(mTarget)
 			//	mTarget->getSceneNode()->showBoundingBox(false);
-			SceneResourceTree::Current->SelectItem(NULL);
+			SceneResourceTree::current->SelectItem(NULL);
 			if(mTransScaleNode->getParentSceneNode())
 				mObjectEditNode->removeChild(mTransScaleNode);
 			if(mRotateNode->getParentSceneNode())
@@ -382,14 +382,14 @@ void ObjectEditHandler::OnLButtonUp(CPoint point)
 			HTREEITEM hItem = Object->getUserAny().operator()<HTREEITEM>();
 			if(mMode == OEM_DELETE)
 			{
-				SceneResourceTree::Current->DeleteItem(hItem);
-				SceneResourceTree::Current->SelectItem(NULL);
+				SceneResourceTree::current->DeleteItem(hItem);
+				SceneResourceTree::current->SelectItem(NULL);
 				SceneDoc::current->removeObject(Object);
 			} else 
 			if(mTarget != Object)
 			{
-				SceneResourceTree::Current->SelectItem(NULL);
-				SceneResourceTree::Current->SelectItem(hItem);
+				SceneResourceTree::current->SelectItem(NULL);
+				SceneResourceTree::current->SelectItem(hItem);
 			}
 			break;
 		}
@@ -410,7 +410,7 @@ void ObjectEditHandler::Roaming(CPoint Point, Ogre::TerrainGroup::RayResult rayR
 			if(mOwner->isPaste())
 				newPosition.y = rayResult.position.y;
 			mTarget->getSceneNode()->setPosition(newPosition);
-			PropertyWnd::Current->FirePropertyChanged();
+			PropertyWnd::current->firePropertyChanged();
 		}
 		mObjectEditNode->setPosition(newPosition);
 	} else
@@ -463,7 +463,7 @@ void ObjectEditHandler::Roaming(CPoint Point, Ogre::TerrainGroup::RayResult rayR
 			if(!(GetKeyState(VK_LCONTROL) & 0x8000))
 			{
 				mTarget->getSceneNode()->translate(vTrans);
-				PropertyWnd::Current->FirePropertyChanged();
+				PropertyWnd::current->firePropertyChanged();
 			}
 			mObjectEditNode->translate(vTrans);
 		} else 
@@ -506,7 +506,7 @@ void ObjectEditHandler::Roaming(CPoint Point, Ogre::TerrainGroup::RayResult rayR
 				}
 				mTarget->getSceneNode()->setScale(
 					mTarget->getSceneNode()->getScale() + vScaleInc);
-				PropertyWnd::Current->FirePropertyChanged();
+				PropertyWnd::current->firePropertyChanged();
 			}
 		} else
 
@@ -528,7 +528,7 @@ void ObjectEditHandler::Roaming(CPoint Point, Ogre::TerrainGroup::RayResult rayR
 			if (!(GetKeyState(VK_LCONTROL) & 0x8000))
 			{
 				mTarget->getSceneNode()->rotate(qRotate, Ogre::Node::TS_PARENT);
-				PropertyWnd::Current->FirePropertyChanged();
+				PropertyWnd::current->firePropertyChanged();
 			}
 			mRotateNode->rotate(qRotate, Ogre::Node::TS_PARENT);
 		}

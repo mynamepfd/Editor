@@ -565,13 +565,13 @@ StaticMesh *SceneDoc::addStaticMesh(CString Path)
 	staticMesh->create(Name.GetString(), Path.GetString());
 	objects.push_back(staticMesh);
 
-	HTREEITEM hItem = SceneResourceTree::Current->InsertItem(
+	HTREEITEM hItem = SceneResourceTree::current->InsertItem(
 		TVIF_IMAGE|TVIF_SELECTEDIMAGE|TVIF_TEXT|TVIF_PARAM, 
-		Name, SRTI_MESH, SRTI_MESH, 0, 0, LPARAM(staticMesh), 
-		SceneResourceTree::Current->GetTreeItem(SRTI_MESH_SET), TVI_LAST);
+		Name, SceneResourceTree::MESH, SceneResourceTree::MESH, 0, 0, LPARAM(staticMesh), 
+		SceneResourceTree::current->getTreeItem(SceneResourceTree::MESH_SET), TVI_LAST);
 	staticMesh->setUserAny(Ogre::Any(hItem));
 
-	SceneResourceTree::Current->SelectItem(hItem);
+	SceneResourceTree::current->SelectItem(hItem);
 	objectEditHandler->SetFreeTransform(TRUE);
 
 	return staticMesh;
@@ -585,13 +585,13 @@ DynamicModel *SceneDoc::addDynamicModel(CString Path)
 	dynamicModel->create(Name.GetString(), Path.GetString());
 	objects.push_back(dynamicModel);
 	
-	HTREEITEM hItem = SceneResourceTree::Current->InsertItem(
+	HTREEITEM hItem = SceneResourceTree::current->InsertItem(
 		TVIF_IMAGE|TVIF_SELECTEDIMAGE|TVIF_TEXT|TVIF_PARAM, 
-		Name, SRTI_MODEL, SRTI_MODEL, 0, 0, LPARAM(dynamicModel), 
-		SceneResourceTree::Current->GetTreeItem(SRTI_MESH_SET), TVI_LAST);
+		Name, SceneResourceTree::MODEL, SceneResourceTree::MODEL, 0, 0, LPARAM(dynamicModel), 
+		SceneResourceTree::current->getTreeItem(SceneResourceTree::MESH_SET), TVI_LAST);
 	dynamicModel->setUserAny(Ogre::Any(hItem));
 
-	SceneResourceTree::Current->SelectItem(hItem);
+	SceneResourceTree::current->SelectItem(hItem);
 	objectEditHandler->SetFreeTransform(TRUE);
 
 	return dynamicModel;
@@ -606,14 +606,14 @@ Light *SceneDoc::addLight()
 	light->create(Name.GetString(), "");
 	objects.push_back(light);
 
-	HTREEITEM hItem = SceneResourceTree::Current->InsertItem(
+	HTREEITEM hItem = SceneResourceTree::current->InsertItem(
 		TVIF_IMAGE|TVIF_SELECTEDIMAGE|TVIF_TEXT|TVIF_PARAM, 
-		Name, SRTI_LIGHT, SRTI_LIGHT, 0, 0, LPARAM(light), 
-		SceneResourceTree::Current->GetTreeItem(SRTI_LIGHT_SET), TVI_LAST);
+		Name, SceneResourceTree::LIGHT, SceneResourceTree::LIGHT, 0, 0, LPARAM(light), 
+		SceneResourceTree::current->getTreeItem(SceneResourceTree::LIGHT_SET), TVI_LAST);
 	light->setUserAny(Ogre::Any(hItem));
 	if(hItem != NULL)
 	{
-		SceneResourceTree::Current->SelectItem(hItem);
+		SceneResourceTree::current->SelectItem(hItem);
 		objectEditHandler->SetFreeTransform(TRUE);
 	}
 
