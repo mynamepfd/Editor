@@ -21,6 +21,31 @@ material FakeWater
 	}
 }
 
+material MeshWater
+{
+	technique
+	{
+		pass
+		{
+			scene_blend colour_blend
+			depth_write off
+
+			texture_unit
+			{
+				texture BeachStones.jpg
+				scale 0.25 0.25
+			}
+
+			texture_unit
+			{
+				texture Water01.jpg
+				env_map spherical
+				scroll_anim 0.01 0.01
+			}
+		}
+	}
+}
+
 vertex_program Cg/Ocean2VS cg
 {
 	source Ocean2HLSL_Cg.vert
@@ -73,8 +98,8 @@ material Ocean2_Cg
 			}
             
             // diffuse 1.0 1.0 1.0 0.3
-            // scene_blend alpha_blend
-            // depth_write off
+            scene_blend colour_blend
+            depth_write off
             
 			texture_unit
 			{
@@ -93,6 +118,11 @@ material Ocean2_Cg
 				filtering linear linear linear
 			}
 
+			texture_unit
+			{
+				texture BeachStones.jpg
+				scale 0.25 0.25
+			}
 		}
 
 	}

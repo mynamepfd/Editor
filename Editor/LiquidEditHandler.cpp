@@ -5,6 +5,7 @@
 #include "SceneDoc.h"
 #include "SceneResourceTree.h"
 #include "TerrainManager.h"
+#include "LiquidControls.h"
 
 #include "OgreCamera.h"
 #include "OgreEntity.h"
@@ -90,7 +91,15 @@ void LiquidEditHandler::OnLButtonDown(Ogre::TerrainGroup::RayResult rayResult)
 		LiquidMark = mLiquidMap[rayResult.terrain];
 		if((*LiquidMark)[S.x][S.y] != NULL) // ¼ðÑ¡Á÷Ìå
 		{
-			// Liquid *Liquid = (*LiquidMark)[S.x][S.y];
+			/*Liquid *liquid = (*LiquidMark)[S.x][S.y];
+			std::string material = liquid->getMaterial();
+
+			std::vector<ShaderControl> controls = LiquidControls::shared()->getControls(material);
+			for(int i=0; i<controls.size(); i++)
+			{
+				ShaderControl shaderControl = 
+			}*/
+
 			return;
 		}
 	}
@@ -194,6 +203,7 @@ void LiquidEditHandler::OnLButtonDown(Ogre::TerrainGroup::RayResult rayResult)
 	Ogre::String LiquidName = Ogre::StringConverter::toString(mOwner->getNameID());
 	Ogre::MeshPtr LiquidMesh = LiquidObject->convertToMesh(LiquidName);
 	liquid->create(LiquidMesh->getName(), LiquidMesh->getName());
+	liquid->setMaterial("Ocean2_Cg");
 	mOwner->getSceneManager()->destroyManualObject(LiquidObject);
 	mOwner->setNameID(mOwner->getNameID()+1);
 

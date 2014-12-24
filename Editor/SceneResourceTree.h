@@ -7,41 +7,7 @@ namespace Ogre
 	class SceneManager;
 }
 
-class SceneResourceTree : public CTreeCtrl, public PropertyListener
-{
-	DECLARE_DYNAMIC(SceneResourceTree)
-public:
-	SceneResourceTree();
-	virtual ~SceneResourceTree();
-
-	HTREEITEM getTreeItem(int type) { return treeItems[type]; }
-
-	void firePropertyChanged();
-	void onPropertyChanged(CBCGPProp *prop);
-
-	void resetImageList();
-	void rebuildTree();
-
-	enum
-	{
-		SCENE,
-		SKY,
-		TERRAIN_SET,
-		TERRAIN,
-		LIGHT_SET,
-		LIGHT,
-		MODEL_SET,
-		MODEL,
-		MESH_SET,
-		MESH,
-		LIQUID_SET,
-		LIQUID,
-		PARTICLE_SET,
-		PARTICLE,
-		_COUNT
-	};
-
-	enum
+	/*enum
 	{
 		// Scene
 		SCENE_NAME,
@@ -85,6 +51,40 @@ public:
 		LIQUID_POSITION_X,
 		LIQUID_POSITION_Y,
 		LIQUID_POSITION_Z,
+	};*/
+
+class SceneResourceTree : public CTreeCtrl, public PropertyListener
+{
+	DECLARE_DYNAMIC(SceneResourceTree)
+public:
+	SceneResourceTree();
+	virtual ~SceneResourceTree();
+
+	HTREEITEM getTreeItem(int type) { return treeItems[type]; }
+
+	void firePropertyChanged();
+	void onPropertyChanged(CBCGPProp *prop);
+
+	void resetImageList();
+	void rebuildTree();
+
+	enum
+	{
+		SCENE,
+		SKY,
+		TERRAIN_SET,
+		TERRAIN,
+		LIGHT_SET,
+		LIGHT,
+		MODEL_SET,
+		MODEL,
+		MESH_SET,
+		MESH,
+		LIQUID_SET,
+		LIQUID,
+		PARTICLE_SET,
+		PARTICLE,
+		_COUNT
 	};
 
 	static SceneResourceTree *current;
@@ -92,6 +92,20 @@ public:
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult);
 	void afterSelectTreeItem(HTREEITEM treeItem);
+	void onSelectScene(HTREEITEM treeItem);
+	void onSelectSky(HTREEITEM treeItem);
+	void onSelectTerrainSet();
+	void onSelectTerrain();
+	void onSelectLightSet();
+	void onSelectLight();
+	void onSelectModelSet();
+	void onSelectModel();
+	void onSelectMeshSet();
+	void onSelectMesh();
+	void onSelectLiquidSet();
+	void onSelectLiquid();
+	void onSelectParticleSet();
+	void onSelectParticle();
 
 	CImageList imageList;
 	HTREEITEM treeItems[_COUNT];

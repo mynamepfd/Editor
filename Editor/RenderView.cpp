@@ -4,6 +4,7 @@
 #include "RenderView.h"
 #include "CameraManager.h"
 #include "CustomWindowMessage.h"
+#include "LiquidControls.h"
 
 #include "OgreRoot.h"
 #include "OgreCamera.h"
@@ -140,6 +141,7 @@ void RenderView::setupView()
 	if(renderWindow->isPrimary())
 	{
 		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+		LiquidControls::shared()->initialize();
 
 		IDirect3DDevice9 *device = NULL;
 		renderWindow->getCustomAttribute("D3DDEVICE", &device);

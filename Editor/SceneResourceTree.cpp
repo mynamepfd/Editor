@@ -2,6 +2,8 @@
 #include "Editor.h"
 #include "SceneDoc.h"
 
+#include "Liquid.h"
+#include "LiquidControls.h"
 #include "DynamicModel.h"
 #include "PropertyWnd.h"
 #include "SceneResourceTree.h"
@@ -674,9 +676,21 @@ void SceneResourceTree::afterSelectTreeItem(HTREEITEM treeItem)
 	//////////////////////////////////////////////////
 	case LIQUID:
 		{
-			SceneObject *sceneObject = (SceneObject*)GetItemData(treeItem);
+			Liquid *liquid = (Liquid*)GetItemData(treeItem);
+			
+			std::string materialName = liquid->getMaterial();
+			Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName(materialName, "General");
+			
+			Ogre::Technique *technique = material->getSupportedTechnique(0);
+			Ogre::Pass *pass = technique->getPass(0);
+			
+			Ogre::GpuProgramPtr vertexProgram = pass->getVertexProgram();
+			Ogre::GpuProgramParametersSharedPtr vertexParams = pass->getVertexProgramParameters();
 
-			CString liquidName = sceneObject->getSceneNode()->getName().c_str();
+			Ogre::GpuProgramPtr fragmentProgram = pass->getFragmentProgram();
+			Ogre::GpuProgramParametersSharedPtr fragmentParams = pass->getFragmentProgramParameters();
+
+			CString liquidName = liquid->getSceneNode()->getName().c_str();
 			prop = new CBCGPProp("Name", (_variant_t)liquidName);
 			prop->AllowEdit(FALSE);
 			propList->AddProperty(prop);
@@ -687,7 +701,7 @@ void SceneResourceTree::afterSelectTreeItem(HTREEITEM treeItem)
 
 			prop = new CBCGPProp("Position");
 
-			const Ogre::Vector3 &position = sceneObject->getSceneNode()->getPosition();
+			const Ogre::Vector3 &position = liquid->getSceneNode()->getPosition();
 			
 			subProp = new CBCGPProp("X", (_variant_t)position.x, "", LIQUID_POSITION_X);
 			prop->AddSubItem(subProp);
@@ -697,6 +711,33 @@ void SceneResourceTree::afterSelectTreeItem(HTREEITEM treeItem)
 
 			subProp = new CBCGPProp("Z", (_variant_t)position.z, "", LIQUID_POSITION_Z);
 			prop->AddSubItem(subProp);
+
+			propList->AddProperty(prop);
+
+			//////////////////////////////////////////////////
+			// Controls
+			//////////////////////////////////////////////////
+
+			prop = new CBCGPProp("Controls");
+
+			std::vector<ShaderControl> controls = LiquidControls::shared()->getControls(materialName);
+			for(int i=0; i<controls.size(); i++)
+			{
+				ShaderControl shaderControl = controls[i];
+				switch(shaderControl.valueType)
+				{
+				case GPU_VERTEX:
+				case GPU_FRAGMENT:
+					{
+						Ogre::GpuProgramParametersSharedPtr activeParams = 
+							(shaderControl.valueType == GPU_VERTEX) ? vertexParams : fragmentParams;
+						const Ogre::GpuConstantDefinition def = activeParams->getConstantDefinition(shaderControl.paramName);
+						float *values = activeParams->getFloatPointer(def.physicalIndex);
+						subProp = new CBCGPProp(shaderControl.name.c_str(), (_variant_t)values[shaderControl.elementIndex], "");
+						prop->AddSubItem(subProp);
+					}
+				}
+			}
 
 			propList->AddProperty(prop);
 		}

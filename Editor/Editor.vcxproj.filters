@@ -108,6 +108,9 @@
     <Filter Include="DockingWindow\MiscEditWnd\ParticlePreviewPage">
       <UniqueIdentifier>{92060067-dfe6-4075-9aab-30e73e57b42c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Entity\Liquid">
+      <UniqueIdentifier>{2db5f676-99b0-402d-9872-9e7814015a84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h">
@@ -220,9 +223,6 @@
     </ClInclude>
     <ClInclude Include="MaterialPreviewPage.h">
       <Filter>DockingWindow\MiscEditWnd\MaterialPreviewPage</Filter>
-    </ClInclude>
-    <ClInclude Include="Liquid.h">
-      <Filter>Core\Entity</Filter>
     </ClInclude>
     <ClInclude Include="LiquidEditHandler.h">
       <Filter>Core\Scene</Filter>
@@ -371,6 +371,12 @@
     <ClInclude Include="ParticleView.h">
       <Filter>DockingWindow\MiscEditWnd\ParticlePreviewPage</Filter>
     </ClInclude>
+    <ClInclude Include="Liquid.h">
+      <Filter>Core\Entity\Liquid</Filter>
+    </ClInclude>
+    <ClInclude Include="LiquidControls.h">
+      <Filter>Core\Entity\Liquid</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DynamicModel.cpp">
@@ -465,9 +471,6 @@
     </ClCompile>
     <ClCompile Include="MaterialPreviewPage.cpp">
       <Filter>DockingWindow\MiscEditWnd\MaterialPreviewPage</Filter>
-    </ClCompile>
-    <ClCompile Include="Liquid.cpp">
-      <Filter>Core\Entity</Filter>
     </ClCompile>
     <ClCompile Include="LiquidEditHandler.cpp">
       <Filter>Core\Scene</Filter>
@@ -636,6 +639,12 @@
     </ClCompile>
     <ClCompile Include="ParticleView.cpp">
       <Filter>DockingWindow\MiscEditWnd\ParticlePreviewPage</Filter>
+    </ClCompile>
+    <ClCompile Include="Liquid.cpp">
+      <Filter>Core\Entity\Liquid</Filter>
+    </ClCompile>
+    <ClCompile Include="LiquidControls.cpp">
+      <Filter>Core\Entity\Liquid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

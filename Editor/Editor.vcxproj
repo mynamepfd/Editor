@@ -126,6 +126,7 @@
     <ClInclude Include="LiquidEditHandler.h" />
     <ClInclude Include="ListenerFactoryLogic.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="LiquidControls.h" />
     <ClInclude Include="MaterialDoc.h" />
     <ClInclude Include="MaterialGenerator.h" />
     <ClInclude Include="MaterialPreviewPage.h" />
@@ -215,6 +216,7 @@
     <ClCompile Include="Liquid.cpp" />
     <ClCompile Include="LiquidEditHandler.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="LiquidControls.cpp" />
     <ClCompile Include="MaterialDoc.cpp" />
     <ClCompile Include="MaterialGenerator.cpp" />
     <ClCompile Include="MaterialPreviewPage.cpp" />
