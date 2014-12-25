@@ -163,12 +163,10 @@ END_MESSAGE_MAP()
 void SceneResourceTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	*pResult = 0;
-
-	if(!SceneDoc::current)
-		return;
-
-	HTREEITEM treeItem = ((LPNMTREEVIEW)pNMHDR)->itemNew.hItem;
+	 
 	SceneObject *sceneObject = NULL;
+
+	HTREEITEM treeItem = GetSelectedItem();
 	if(treeItem != NULL)
 	{
 		sceneObject = (SceneObject*)GetItemData(treeItem);
@@ -176,6 +174,7 @@ void SceneResourceTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 		SetItemState(treeItem, TVIS_SELECTED, TVIS_SELECTED);
 		afterSelectTreeItem(treeItem);
 	}
+
 	SceneDoc::current->selectObject(sceneObject);
 }
 
@@ -184,8 +183,10 @@ void SceneResourceTree::afterSelectTreeItem(HTREEITEM treeItem)
 	if(!SceneDoc::current || !SceneDoc::current->isInitialized())
 		return;
 
-	SceneObject *sceneObject = (SceneObject*)GetItemData(treeItem);
 	PropertyWnd::current->setListener(this);
+	PropertyWnd::current->getPropList()->RemoveAll();
+
+	SceneObject *sceneObject = (SceneObject*)GetItemData(treeItem);
 
 	int image, selectedImage;
 	GetItemImage(treeItem, (int&)image, selectedImage);
@@ -280,7 +281,6 @@ void SceneResourceTree::afterSelectTreeItem(HTREEITEM treeItem)
 void SceneResourceTree::onSelectScene()
 {
 	CBCGPPropList *propList = PropertyWnd::current->getPropList(); CBCGPProp *prop = NULL, *subProp = NULL;
-	propList->RemoveAll();
 
 	//////////////////////////////////////////////////
 	// Scene name
@@ -371,7 +371,6 @@ void SceneResourceTree::onSelectLightSet()
 void SceneResourceTree::onSelectLight(SceneObject *sceneObject)
 {
 	CBCGPPropList *propList = PropertyWnd::current->getPropList(); CBCGPProp *prop = NULL, *subProp = NULL;
-	propList->RemoveAll();
 
 	Light *light = (Light*)sceneObject;
 	Ogre::Light *_light = light->getLight();
@@ -504,8 +503,7 @@ void SceneResourceTree::onSelectMeshSet()
 void SceneResourceTree::onSelectMesh(SceneObject *sceneObject)
 {
 	CBCGPPropList *propList = PropertyWnd::current->getPropList(); CBCGPProp *prop = NULL, *subProp = NULL;
-	propList->RemoveAll();
-
+	
 	CString objectName = sceneObject->getSceneNode()->getName().c_str();
 	prop = new CBCGPProp("Name", (_variant_t)objectName, "", MESH);
 	prop->AllowEdit(FALSE);
@@ -576,8 +574,7 @@ void SceneResourceTree::onSelectLiquidSet()
 void SceneResourceTree::onSelectLiquid(SceneObject *sceneObject)	
 {
 	CBCGPPropList *propList = PropertyWnd::current->getPropList(); CBCGPProp *prop = NULL, *subProp = NULL;
-	propList->RemoveAll();
-
+	
 	Liquid *liquid = (Liquid*)sceneObject;
 			
 	std::string materialName = liquid->getMaterial();
