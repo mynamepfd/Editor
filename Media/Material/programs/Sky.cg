@@ -1,0 +1,34 @@
+void main_vp(
+		float4	position	: POSITION,
+		float2	uv1   		: TEXCOORD0,
+
+		out float4	oPosition 	: POSITION,
+		out float2	oUv1		: TEXCOORD0,
+		out float4	oColor		: COLOR,
+		uniform float4x4 	worldViewProj,
+		uniform float3		skyColor,
+		uniform float3		skylineColor,
+		uniform	float		timeVal		//[0,1]
+	    )
+{
+	oPosition = mul(worldViewProj, position);
+	oUv1 = float2(uv1.x + timeVal,  uv1.y);
+	
+	// 计算地平线淡出
+	float alpha = smoothstep(0,4000, position.y);
+	oColor = float4( lerp(skylineColor, skyColor, alpha), 1.0);
+}
+
+void main_fp
+(
+	float2 iTexCoord0 		: TEXCOORD0,
+	float4 iColor 			: COLOR,
+	
+	out float4 oColor 		: COLOR,
+ 	uniform sampler2D	covMap1	:TEXUNIT0,
+	uniform float3		cloudColor
+) 
+{
+	float alpha = tex2D(covMap1, iTexCoord0).a;
+	oColor = float4( lerp(iColor.xyz, cloudColor, alpha), 1.0 );
+}

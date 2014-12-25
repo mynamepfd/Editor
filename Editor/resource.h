@@ -78,6 +78,7 @@
 #define ID_LAYER1_ADD_LAYER_PREV        337
 #define IDD_PARTICLE_PREVIEW            337
 #define ID_LAYER1_DEL_LAYER             338
+#define IDD_DDSCONVERTER                338
 #define ID_LAYER2                       339
 #define ID_LAYER2_LOAD_DIFFUSE_SPECULAR 340
 #define ID_LAYER2_LOAD_NORMAL_HEIGHT    341
@@ -203,6 +204,9 @@
 #define IDC_CLEAR_PARTICLE              1103
 #define IDC_APPLY_PARTICLE2             1104
 #define IDC_APPLY_PARTICLE              1104
+#define IDC_LOAD_INPUT                  1104
+#define IDC_SAVE_OUTPUT                 1105
+#define IDC_CONVERT                     1106
 #define ID_BRUSH_BAR                    10000
 #define ID_LOAD_BRUSH                   10001
 #define ID_CLEAR_BRUSH                  10002
@@ -275,14 +279,16 @@
 #define ID_SHADOW_MATERIAL_DEPTHSHADOWMAP 32847
 #define ID_SHADOW_MATERIAL_DEPTHSHADOWMAP_PCF 32848
 #define ID_DEFERREDSHADING_SHADOW       32849
+#define ID_TOOLS_DDSCONVERTER           32850
+#define ID_DDSCONVERTER                 32851
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        338
-#define _APS_NEXT_COMMAND_VALUE         32850
-#define _APS_NEXT_CONTROL_VALUE         1104
+#define _APS_NEXT_RESOURCE_VALUE        339
+#define _APS_NEXT_COMMAND_VALUE         32852
+#define _APS_NEXT_CONTROL_VALUE         1107
 #define _APS_NEXT_SYMED_VALUE           318
 #endif
 #endif

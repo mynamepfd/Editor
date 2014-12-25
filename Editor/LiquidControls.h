@@ -24,6 +24,7 @@ public:
 	float minValue;
 	float maxValue;
 	int elementIndex;
+	int physicalIndex; // For update
 };
 
 class LiquidControls
@@ -32,7 +33,7 @@ public:
 	static LiquidControls *shared();
 
 	void initialize();
-	std::vector<ShaderControl> &getControls(std::string materialName) { return controls[materialName]; }
+	std::vector<ShaderControl> *getControls(std::string materialName) { return &controls[materialName]; }
 
 private:
 	LiquidControls() {}

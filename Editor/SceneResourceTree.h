@@ -2,6 +2,8 @@
 
 #include "PropertyWnd.h"
 
+class SceneObject;
+
 namespace Ogre
 {
 	class SceneManager;
@@ -91,21 +93,37 @@ public:
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult);
+
 	void afterSelectTreeItem(HTREEITEM treeItem);
-	void onSelectScene(HTREEITEM treeItem);
-	void onSelectSky(HTREEITEM treeItem);
+	void onSelectScene();
+	void onSelectSky();
 	void onSelectTerrainSet();
-	void onSelectTerrain();
+	void onSelectTerrain(SceneObject *sceneObject);
 	void onSelectLightSet();
-	void onSelectLight();
+	void onSelectLight(SceneObject *sceneObject);
 	void onSelectModelSet();
-	void onSelectModel();
+	void onSelectModel(SceneObject *sceneObject);
 	void onSelectMeshSet();
-	void onSelectMesh();
+	void onSelectMesh(SceneObject *sceneObject);
 	void onSelectLiquidSet();
-	void onSelectLiquid();
+	void onSelectLiquid(SceneObject *sceneObject);
 	void onSelectParticleSet();
-	void onSelectParticle();
+	void onSelectParticle(SceneObject *sceneObject);
+
+	void onUpdateScene(CBCGPProp *prop);
+	void onUpdateSky(CBCGPProp *prop);
+	void onUpdateTerrainSet(CBCGPProp *prop);
+	void onUpdateTerrain(CBCGPProp *prop, SceneObject *sceneObject);
+	void onUpdateLightSet(CBCGPProp *prop);
+	void onUpdateLight(CBCGPProp *prop, SceneObject *sceneObject);
+	void onUpdateModelSet(CBCGPProp *prop);
+	void onUpdateModel(CBCGPProp *prop, SceneObject *sceneObject);
+	void onUpdateMeshSet(CBCGPProp *prop);
+	void onUpdateMesh(CBCGPProp *prop, SceneObject *sceneObject);
+	void onUpdateLiquidSet(CBCGPProp *prop);
+	void onUpdateLiquid(CBCGPProp *prop, SceneObject *sceneObject);
+	void onUpdateParticleSet(CBCGPProp *prop);
+	void onUpdateParticle(CBCGPProp *prop, SceneObject *sceneObject);
 
 	CImageList imageList;
 	HTREEITEM treeItems[_COUNT];

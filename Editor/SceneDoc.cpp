@@ -55,7 +55,7 @@ SceneDoc::SceneDoc()
 
 	// Deferred Shading
 	deferredShadingSystem = NULL;
-	active = true; shadow = true; ssao = false;
+	active = false; shadow = false; ssao = false;
 	deferredShadingMode = ID_DEFERREDSHADING_REGULARVIEW;
 
 	activeView = NULL;
@@ -115,7 +115,7 @@ void SceneDoc::initialize(NewSceneDlg *dlg)
 		} else 
 		if(skyType == "Dome")
 		{
-			sceneManager->setSkyDome(true, Ogre::String(skyMaterial), 5, 8, 500);
+			sceneManager->setSkyDome(true, Ogre::String(skyMaterial));
 		} else 
 		if(skyType == "Plane")
 		{
@@ -633,7 +633,7 @@ void SceneDoc::selectObject(SceneObject *pObject)
 	}
 
 	objectEditHandler->SetTarget(pObject);
-	objectEditHandler->SetMode(OEM_TRANS);
+	objectEditHandler->SetMode(OEM_NONE);
 }
 
 void SceneDoc::removeObject(SceneObject *Object)

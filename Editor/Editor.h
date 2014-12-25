@@ -42,6 +42,7 @@ public:
 	IDirect3DDevice9 *device;
 
 	afx_msg void OnImageCombinator();
+	afx_msg void OnDDSConverter();
 };
 
 class CAboutDlg : public CDialogEx

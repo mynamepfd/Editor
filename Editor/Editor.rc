@@ -169,6 +169,7 @@ BEGIN
     END
     POPUP "Tools"
     BEGIN
+        MENUITEM "DDS Converter",               ID_DDSCONVERTER
         MENUITEM "Terrain Texture Generator",   ID_IMAGE_COMBINATOR
         MENUITEM "OGRE XML Converter",          ID_XML_CONVERTER
         MENUITEM "Script Editor",               ID_SCRIPT_EDITOR
@@ -443,6 +444,18 @@ BEGIN
     LTEXT           "NB Particle's material can be modified by Material Preview.",IDC_STATIC,6,252,222,12
 END
 
+IDD_DDSCONVERTER DIALOGEX 0, 0, 309, 62
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "DDS Converter"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT1,6,6,240,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_LOAD_INPUT,252,6,50,14
+    PUSHBUTTON      "=>",IDC_CONVERT,6,24,294,14
+    PUSHBUTTON      "...",IDC_SAVE_OUTPUT,252,42,50,14
+    EDITTEXT        IDC_EDIT2,6,42,240,14,ES_AUTOHSCROLL
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -595,6 +608,14 @@ BEGIN
         RIGHTMARGIN, 241
         TOPMARGIN, 7
         BOTTOMMARGIN, 265
+    END
+
+    IDD_DDSCONVERTER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
     END
 END
 #endif    // APSTUDIO_INVOKED

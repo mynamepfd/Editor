@@ -1,14 +1,9 @@
-﻿  SceneResourceTree.cpp
-d:\neweditor\editor\sceneresourcetree.cpp(605): warning C4800: “SceneObject *”: 将值强制为布尔值“true”或“false”(性能警告)
-d:\neweditor\editor\sceneresourcetree.cpp(724): warning C4018: “<”: 有符号/无符号不匹配
-  RenderView.cpp
-  LiquidEditHandler.cpp
-d:\neweditor\editor\liquidedithandler.cpp(85): warning C4244: “参数”: 从“Ogre::Real”转换到“int”，可能丢失数据
-d:\neweditor\editor\liquidedithandler.cpp(232): warning C4018: “<”: 有符号/无符号不匹配
-d:\neweditor\editor\liquidedithandler.cpp(244): warning C4018: “<”: 有符号/无符号不匹配
-d:\neweditor\editor\liquidedithandler.cpp(253): warning C4018: “<”: 有符号/无符号不匹配
-d:\neweditor\editor\liquidedithandler.cpp(263): warning C4018: “<”: 有符号/无符号不匹配
-d:\neweditor\editor\liquidedithandler.cpp(280): warning C4244: “参数”: 从“double”转换到“Ogre::Real”，可能丢失数据
-  LiquidControls.cpp
+﻿  SceneDoc.cpp
+d:\neweditor\editor\scenedoc.cpp(550): warning C4018: “<”: 有符号/无符号不匹配
+d:\neweditor\editor\scenedoc.cpp(641): warning C4018: “<”: 有符号/无符号不匹配
+d:\neweditor\editor\scenedoc.cpp(658): warning C4018: “<”: 有符号/无符号不匹配
+d:\neweditor\editor\scenedoc.cpp(961): warning C4018: “<”: 有符号/无符号不匹配
+d:\neweditor\editor\scenedoc.cpp(1428): warning C4018: “<”: 有符号/无符号不匹配
+d:\neweditor\editor\scenedoc.cpp(1435): warning C4018: “<”: 有符号/无符号不匹配
 Action.obj : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/OPT:LBR”规范)
   Editor.vcxproj -> D:\NewEditor\Debug\Editor.exe

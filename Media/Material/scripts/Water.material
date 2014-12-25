@@ -103,26 +103,28 @@ material Ocean2_Cg
             
 			texture_unit
 			{
-				texture waves2.dds
-				tex_coord_set 0
+				// texture waves2.dds
+                texture Water01NM.png
+				//tex_coord_set 0
 				filtering linear linear linear
 			}
 
 			texture_unit
 			{
-				cubic_texture cloudy_noon.jpg combinedUVW
+				//cubic_texture cloudy_noon.jpg combinedUVW
+                cubic_texture Water01.jpg combinedUVW
 				//texture Water01.jpg
 				//env_map spherical
-				tex_address_mode clamp
-				tex_coord_set 1
+				// tex_address_mode clamp
+				//tex_coord_set 1
 				filtering linear linear linear
 			}
 
-			texture_unit
-			{
-				texture BeachStones.jpg
-				scale 0.25 0.25
-			}
+			//texture_unit
+			//{
+			//	texture BeachStones.jpg
+			//	scale 0.25 0.25
+			//}
 		}
 
 	}

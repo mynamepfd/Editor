@@ -14,6 +14,7 @@
 #include "ParticleView.h"
 
 #include "NewSceneDlg.h"
+#include "DDSConverter.h"
 #include "ImageCombinator.h"
 #include "OgreXMLConverterDlg.h"
 #include "ScriptEditorDlg.h"
@@ -121,6 +122,7 @@ BEGIN_MESSAGE_MAP(CEditorApp, CBCGPWinApp)
 	ON_COMMAND(ID_APP_ABOUT, &CEditorApp::OnAppAbout)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_LOAD_TEXTURE, ID_RESIZE_TEXTURE, OnUpdateTextureMenu)
 	ON_COMMAND(ID_IMAGE_COMBINATOR, &CEditorApp::OnImageCombinator)
+	ON_COMMAND(ID_DDSCONVERTER, &CEditorApp::OnDDSConverter)
 END_MESSAGE_MAP()
 
 void CEditorApp::OnNewScene()
@@ -206,4 +208,11 @@ IDirect3DDevice9 *CEditorApp::getDevice()
 void CEditorApp::setDevice(IDirect3DDevice9 *device)
 {
 	this->device = device;
+}
+
+
+void CEditorApp::OnDDSConverter()
+{
+	DDSConverter ddsConverter;
+	ddsConverter.DoModal();
 }

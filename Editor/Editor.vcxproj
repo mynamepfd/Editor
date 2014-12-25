@@ -109,6 +109,7 @@
     <ClInclude Include="CameraWnd.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="CustomWindowMessage.h" />
+    <ClInclude Include="DDSConverter.h" />
     <ClInclude Include="DeferredLightCP.h" />
     <ClInclude Include="DeferredShading.h" />
     <ClInclude Include="DLight.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="CharacterController.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="CustomWindowMessage.cpp" />
+    <ClCompile Include="DDSConverter.cpp" />
     <ClCompile Include="DeferredLightCP.cpp" />
     <ClCompile Include="DeferredShading.cpp" />
     <ClCompile Include="DLight.cpp" />

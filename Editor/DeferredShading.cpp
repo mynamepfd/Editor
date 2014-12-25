@@ -32,7 +32,7 @@ DeferredShadingSystem::DeferredShadingSystem(
 	):
 	mViewport(vp), mSceneMgr(sm), mCamera(cam)
 {
-	sm->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE);
+	sm->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
 	sm->setShadowTextureCasterMaterial("DeferredShading/Shadows/Caster");
 	mSceneMgr->setShadowTextureCount(1);
 	mSceneMgr->setShadowFarDistance(150);
@@ -52,7 +52,7 @@ void DeferredShadingSystem::initialize()
 	
 	mSSAO = false;
 	mCurrentMode = DSM_SHOWLIT;
-	setActive(true);
+	// setActive(true);
 }
 
 DeferredShadingSystem::~DeferredShadingSystem()

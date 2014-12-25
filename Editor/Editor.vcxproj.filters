@@ -377,6 +377,9 @@
     <ClInclude Include="LiquidControls.h">
       <Filter>Core\Entity\Liquid</Filter>
     </ClInclude>
+    <ClInclude Include="DDSConverter.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DynamicModel.cpp">
@@ -646,6 +649,7 @@
     <ClCompile Include="LiquidControls.cpp">
       <Filter>Core\Entity\Liquid</Filter>
     </ClCompile>
+    <ClCompile Include="DDSConverter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Editor.rc">

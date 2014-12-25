@@ -15,3 +15,49 @@ material CloudyNoonSkyBox
         }
     }
 }
+
+
+vertex_program SkyVP cg
+{
+  source Sky.cg
+  entry_point main_vp
+  profiles vs_1_1 arbfp1
+}
+
+fragment_program SkyFP cg
+{
+  source Sky.cg
+  entry_point main_fp
+  profiles ps_1_1 arbfp1
+}
+
+material CloudsSkyDome
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_write off
+			fog_override true	// Îí²»Ó°ÏìÌì¿Õ
+
+			vertex_program_ref SkyVP
+			{
+				param_named_auto 	worldViewProj	worldviewproj_matrix
+				param_named_auto 	timeVal		time_0_1 60
+				param_named 		skyColor	float3	0.0 0.2745 0.753
+				param_named 		skylineColor 	float3	1.0 1.0 1.0				
+			}
+
+      			fragment_program_ref SkyFP
+     			{
+				param_named cloudColor	float3	1.0 1.0 1.0
+			}
+
+			texture_unit
+			{
+				texture clouds.png  PF_A8 
+			}
+		}
+	}
+}
