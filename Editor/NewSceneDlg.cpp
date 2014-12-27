@@ -150,7 +150,7 @@ BOOL NewSceneDlg::OnInitDialog()
 	props[TERRAIN_SIZE] = new CBCGPProp("Terrain size", (_variant_t)129, "", TERRAIN_SIZE);
 	prop->AddSubItem(props[TERRAIN_SIZE]);
 	
-	props[WORLD_SIZE] = new CBCGPProp("World size", (_variant_t)512.0f, "", WORLD_SIZE);
+	props[WORLD_SIZE] = new CBCGPProp("World size", (_variant_t)6400.0f, "", WORLD_SIZE);
 	prop->AddSubItem(props[WORLD_SIZE]);
 	
 	props[INPUT_SCALE] = new CBCGPProp("Input scale", (_variant_t)600, "", INPUT_SCALE);

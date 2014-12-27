@@ -185,6 +185,7 @@ void SceneResourceTree::afterSelectTreeItem(HTREEITEM treeItem)
 
 	PropertyWnd::current->setListener(this);
 	PropertyWnd::current->getPropList()->RemoveAll();
+	PropertyWnd::current->getPropList()->RedrawWindow();
 
 	SceneObject *sceneObject = (SceneObject*)GetItemData(treeItem);
 
@@ -298,6 +299,20 @@ void SceneResourceTree::onSelectScene()
 		SceneDoc::current->getSceneManager()->getAmbientLight();
 	prop = new CBCGPColorProp("Ambient light", RGB(ambientLight.r*255, ambientLight.g*255, ambientLight.b*255), NULL, NULL, SCENE);
 	((CBCGPColorProp*)prop)->EnableOtherButton("Other");
+	propList->AddProperty(prop);
+
+	//////////////////////////////////////////////////
+	// Shadow technique
+	//////////////////////////////////////////////////
+
+	CString shadowTechnique = SceneDoc::current->getShadowTechnique();
+	if(shadowTechnique.IsEmpty())
+		shadowTechnique = "None";
+	prop = new CBCGPProp("Shadow technique", (_variant_t)shadowTechnique, "", SCENE);
+	prop->AllowEdit(FALSE);
+	prop->AddOption("None");
+	prop->AddOption("Colour Shadows");
+	prop->AddOption("Depth Shadows");
 	propList->AddProperty(prop);
 
 	//////////////////////////////////////////////////
@@ -666,6 +681,11 @@ void SceneResourceTree::onUpdateScene(CBCGPProp *prop)
 		COLORREF ambientLight = prop->GetValue();
 		SceneDoc::current->getSceneManager()->setAmbientLight(
 			Ogre::ColourValue(GetRValue(ambientLight)/255.0f, GetGValue(ambientLight)/255.0f, GetBValue(ambientLight)/255.0f));
+	} else
+	if(propName == "Shadow technique")
+	{
+		CString shadowTechnique = prop->GetValue();
+		SceneDoc::current->configureShadows(shadowTechnique);
 	} else
 	//////////////////////////////////////////////////
 	// Fog

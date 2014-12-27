@@ -137,9 +137,12 @@ void ImageCombinator::OnBnClickedGenerate()
 	image.save(Ogre::String(diffuseSpecularPath));
 
 	// => DDS
-	IDirect3DDevice9 *device = theApp.getDevice(); IDirect3DTexture9 *texture = NULL;
+	IDirect3DDevice9 *device = theApp.getDevice(); 
+	IDirect3DTexture9 *texture = NULL;
+	
 	D3DXCreateTextureFromFile(device, diffuseSpecularPath, &texture);
 	D3DXSaveTextureToFile((StringUtils::filename(std::string(diffuseSpecularPath))+".dds").c_str(), D3DXIFF_DDS, texture, NULL);
+	texture->Release();
 
 	ifs.close(); ifs.clear(); _ifs.close(); _ifs.clear();
 	ifs.open(normalPath, std::ios::binary|std::ios::in);
@@ -156,6 +159,7 @@ void ImageCombinator::OnBnClickedGenerate()
 	// => DDS
 	D3DXCreateTextureFromFile(device, normalHeightPath, &texture);
 	D3DXSaveTextureToFile((StringUtils::filename(std::string(normalHeightPath))+".dds").c_str(), D3DXIFF_DDS, texture, NULL);
+	texture->Release();
 
 	AfxMessageBox("生成成功");
 }

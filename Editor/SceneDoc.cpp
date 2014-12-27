@@ -46,12 +46,6 @@ SceneDoc::SceneDoc()
 	paste = false;
 	showDebugOverlay = false;
 	initialized = false;
-	
-	// Shadow
-	shadowTechnique = ID_SHADOW_TECHNIQUE_NONE;
-	shadowLighting = ID_SHADOW_LIGHTING_ADDITIVE;
-	shadowProjection = ID_SHADOW_PROJECTION_UNIFORM;
-	shadowMaterial = ID_SHADOW_MATERIAL_STANDARD;
 
 	// Deferred Shading
 	deferredShadingSystem = NULL;
@@ -633,7 +627,7 @@ void SceneDoc::selectObject(SceneObject *pObject)
 	}
 
 	objectEditHandler->SetTarget(pObject);
-	objectEditHandler->SetMode(OEM_NONE);
+	objectEditHandler->SetMode(OEM_TRANS);
 }
 
 void SceneDoc::removeObject(SceneObject *Object)
@@ -675,81 +669,88 @@ void buildDepthShadowMaterial(SceneObject *SceneObject)
 	}
 }
 
-void SceneDoc::configureShadows(bool enabled, bool depthShadows)
+void SceneDoc::configureShadows(CString shadowTechnique)
 {
-//	Ogre::TerrainMaterialGeneratorC::SM2Profile* matProfile = 
-//		static_cast<Ogre::TerrainMaterialGeneratorC::SM2Profile*>(terrainManager->GetTerrainGlobals()->getDefaultMaterialGenerator()->getActiveProfile());
-//	matProfile->setReceiveDynamicShadowsEnabled(enabled);
-//#ifdef SHADOWS_IN_LOW_LOD_MATERIAL
-//	matProfile->setReceiveDynamicShadowsLowLod(true);
-//#else
-//	matProfile->setReceiveDynamicShadowsLowLod(false);
-//#endif
-//
-//	if(enabled)
-//	{
-//		sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE_INTEGRATED);
-//		/** 在此距离上，显示Composite map并消除阴影
-//		*/
-//		sceneManager->setShadowFarDistance(12800.0f);
-//
-//		sceneManager->setShadowTextureCountPerLightType(Ogre::Light::LT_DIRECTIONAL, 3);
-//		if(shadowCameraSetup.isNull())
-//		{
-//			Ogre::PSSMShadowCameraSetup* pssmSetup = new Ogre::PSSMShadowCameraSetup();
-//			pssmSetup->setSplitPadding(camera->getNearClipDistance());
-//			pssmSetup->calculateSplitPoints(3, camera->getNearClipDistance(), sceneManager->getShadowFarDistance());
-//			pssmSetup->setOptimalAdjustFactor(0, 2);
-//			pssmSetup->setOptimalAdjustFactor(1, 1);
-//			pssmSetup->setOptimalAdjustFactor(2, 0.5);
-//
-//			shadowCameraSetup.bind(pssmSetup);
-//
-//		}
-//		sceneManager->setShadowCameraSetup(shadowCameraSetup);
-//
-//		if(depthShadows)
-//		{
-//			sceneManager->setShadowTextureCount(3);
-//			sceneManager->setShadowTextureConfig(0, 2048, 2048, Ogre::PF_FLOAT32_R);
-//			sceneManager->setShadowTextureConfig(1, 1024, 1024, Ogre::PF_FLOAT32_R);
-//			sceneManager->setShadowTextureConfig(2, 1024, 1024, Ogre::PF_FLOAT32_R);
-//			sceneManager->setShadowTextureSelfShadow(true);
-//			sceneManager->setShadowCasterRenderBackFaces(true);
-//
-//			Ogre::Vector4 splitPoints;
-//			const Ogre::PSSMShadowCameraSetup::SplitPointList& splitPointList = 
-//				static_cast<Ogre::PSSMShadowCameraSetup*>(shadowCameraSetup.get())->getSplitPoints();
-//			for(int i = 0; i < 3; ++i)
-//			{
-//				splitPoints[i] = splitPointList[i];
-//			}
-//			Ogre::GpuSharedParametersPtr p = Ogre::GpuProgramManager::getSingleton().getSharedParameters("pssm_params");
-//			p->setNamedConstant("pssmSplitPoints", splitPoints);
-//
-//			for(int i=0; i<objects.size(); i++)
-//			{
-//				buildDepthShadowMaterial(objects[i]);
-//			}
-//		}
-//		else
-//		{
-//			sceneManager->setShadowTextureCount(3);
-//			sceneManager->setShadowTextureConfig(0, 2048, 2048, Ogre::PF_X8B8G8R8);
-//			sceneManager->setShadowTextureConfig(1, 1024, 1024, Ogre::PF_X8B8G8R8);
-//			sceneManager->setShadowTextureConfig(2, 1024, 1024, Ogre::PF_X8B8G8R8);
-//			sceneManager->setShadowTextureSelfShadow(false);
-//			sceneManager->setShadowCasterRenderBackFaces(false);
-//			sceneManager->setShadowTextureCasterMaterial(Ogre::StringUtil::BLANK);
-//		}
-//
-//		matProfile->setReceiveDynamicShadowsDepth(depthShadows);
-//		matProfile->setReceiveDynamicShadowsPSSM(static_cast<Ogre::PSSMShadowCameraSetup*>(shadowCameraSetup.get()));
-//	}
-//	else
-//	{
-//		sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
-//	}
+	bool enabled = shadowTechnique != "None";
+	bool depthShadows = shadowTechnique == "Depth Shadows";
+
+	Ogre::TerrainMaterialGeneratorA::SM2Profile* matProfile = 
+		static_cast<Ogre::TerrainMaterialGeneratorA::SM2Profile*>(terrainManager->GetTerrainGlobals()->getDefaultMaterialGenerator()->getActiveProfile());
+	matProfile->setReceiveDynamicShadowsEnabled(enabled);
+#ifdef SHADOWS_IN_LOW_LOD_MATERIAL
+	matProfile->setReceiveDynamicShadowsLowLod(true);
+#else
+	matProfile->setReceiveDynamicShadowsLowLod(false);
+#endif
+
+	resetMaterials();
+
+	if(enabled)
+	{
+		sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE_INTEGRATED);
+		/** 在此距离上，显示Composite map并消除阴影
+		*/
+		sceneManager->setShadowFarDistance(12800.0f);
+
+		sceneManager->setShadowTextureCountPerLightType(Ogre::Light::LT_DIRECTIONAL, 3);
+		if(shadowCameraSetup.isNull())
+		{
+			Ogre::PSSMShadowCameraSetup* pssmSetup = new Ogre::PSSMShadowCameraSetup();
+			pssmSetup->setSplitPadding(camera->getNearClipDistance());
+			pssmSetup->calculateSplitPoints(3, camera->getNearClipDistance(), sceneManager->getShadowFarDistance());
+			pssmSetup->setOptimalAdjustFactor(0, 2);
+			pssmSetup->setOptimalAdjustFactor(1, 1);
+			pssmSetup->setOptimalAdjustFactor(2, 0.5);
+
+			shadowCameraSetup.bind(pssmSetup);
+
+		}
+		sceneManager->setShadowCameraSetup(shadowCameraSetup);
+
+		if(depthShadows)
+		{
+			sceneManager->setShadowTextureCount(3);
+			sceneManager->setShadowTextureConfig(0, 2048, 2048, Ogre::PF_FLOAT32_R);
+			sceneManager->setShadowTextureConfig(1, 1024, 1024, Ogre::PF_FLOAT32_R);
+			sceneManager->setShadowTextureConfig(2, 1024, 1024, Ogre::PF_FLOAT32_R);
+			sceneManager->setShadowTextureSelfShadow(true);
+			sceneManager->setShadowCasterRenderBackFaces(true);
+
+			Ogre::Vector4 splitPoints;
+			const Ogre::PSSMShadowCameraSetup::SplitPointList& splitPointList = 
+				static_cast<Ogre::PSSMShadowCameraSetup*>(shadowCameraSetup.get())->getSplitPoints();
+			for(int i = 0; i < 3; ++i)
+			{
+				splitPoints[i] = splitPointList[i];
+			}
+			Ogre::GpuSharedParametersPtr p = Ogre::GpuProgramManager::getSingleton().getSharedParameters("pssm_params");
+			p->setNamedConstant("pssmSplitPoints", splitPoints);
+
+			for(int i=0; i<objects.size(); i++)
+			{
+				buildDepthShadowMaterial(objects[i]);
+			}
+		}
+		else
+		{
+			sceneManager->setShadowTextureCount(3);
+			sceneManager->setShadowTextureConfig(0, 2048, 2048, Ogre::PF_X8B8G8R8);
+			sceneManager->setShadowTextureConfig(1, 1024, 1024, Ogre::PF_X8B8G8R8);
+			sceneManager->setShadowTextureConfig(2, 1024, 1024, Ogre::PF_X8B8G8R8);
+			sceneManager->setShadowTextureSelfShadow(false);
+			sceneManager->setShadowCasterRenderBackFaces(false);
+			sceneManager->setShadowTextureCasterMaterial(Ogre::StringUtil::BLANK);
+		}
+
+		matProfile->setReceiveDynamicShadowsDepth(depthShadows);
+		matProfile->setReceiveDynamicShadowsPSSM(static_cast<Ogre::PSSMShadowCameraSetup*>(shadowCameraSetup.get()));
+	}
+	else
+	{
+		sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
+	}
+
+	this->shadowTechnique = shadowTechnique;
 }
 
 BEGIN_MESSAGE_MAP(SceneDoc, CDocument)
@@ -766,27 +767,6 @@ BEGIN_MESSAGE_MAP(SceneDoc, CDocument)
 
 	/** Technique
 	*/
-
-	// Shadow
-	ON_COMMAND(ID_SHADOW_TECHNIQUE_NONE, &SceneDoc::OnShadowTechniqueNone)
-	ON_COMMAND(ID_SHADOW_TECHNIQUE_STENCIL, &SceneDoc::OnShadowTechniqueStencil)
-	ON_COMMAND(ID_SHADOW_TECHNIQUE_TEXTURE, &SceneDoc::OnShadowTechniqueTexture)
-	ON_UPDATE_COMMAND_UI_RANGE(ID_SHADOW_TECHNIQUE_NONE, ID_SHADOW_TECHNIQUE_TEXTURE, OnUpdateShadowTechnique)
-
-	ON_COMMAND(ID_SHADOW_LIGHTING_ADDITIVE, &SceneDoc::OnShadowLightingAdditive)
-	ON_COMMAND(ID_SHADOW_LIGHTING_MODULATIVE, &SceneDoc::OnShadowLightingModulative)
-	ON_UPDATE_COMMAND_UI_RANGE(ID_SHADOW_LIGHTING_ADDITIVE, ID_SHADOW_LIGHTING_MODULATIVE, OnUpdateShadowLighting)
-
-	ON_COMMAND(ID_SHADOW_PROJECTION_UNIFORM, &SceneDoc::OnShadowProjectionUniform)
-	ON_COMMAND(ID_SHADOW_PROJECTION_UNIFORMFOCUSED, &SceneDoc::OnShadowProjectionUniformfocused)
-	ON_COMMAND(ID_SHADOW_PROJECTION_LISPSM, &SceneDoc::OnShadowProjectionLispsm)
-	ON_COMMAND(ID_SHADOW_PROJECTION_PLANEOPTIMAL, &SceneDoc::OnShadowProjectionPlaneoptimal)
-	ON_UPDATE_COMMAND_UI_RANGE(ID_SHADOW_PROJECTION_UNIFORM, ID_SHADOW_PROJECTION_PLANEOPTIMAL, OnUpdateShadowProjection)
-
-	ON_COMMAND(ID_SHADOW_MATERIAL_STANDARD, &SceneDoc::OnShadowMaterialStandard)
-	ON_COMMAND(ID_SHADOW_MATERIAL_DEPTHSHADOWMAP, &SceneDoc::OnShadowMaterialDepthshadowmap)
-	ON_COMMAND(ID_SHADOW_MATERIAL_DEPTHSHADOWMAP_PCF, &SceneDoc::OnShadowMaterialDepthshadowmapPcf)
-	ON_UPDATE_COMMAND_UI_RANGE(ID_SHADOW_MATERIAL_STANDARD, ID_SHADOW_MATERIAL_DEPTHSHADOWMAP_PCF, OnUpdateShadowMaterial)
 
 	// Deferred Shading
 	ON_COMMAND(ID_DEFERREDSHADING_ACTIVE, &SceneDoc::OnDeferredshadingActive)
@@ -1231,97 +1211,6 @@ void SceneDoc::OnUpdateShowDebugOverlay(CCmdUI *pCmdUI)
 	pCmdUI->SetCheck(showDebugOverlay);
 }
 
-void SceneDoc::OnShadowTechniqueNone()
-{
-	shadowTechnique = ID_SHADOW_TECHNIQUE_NONE;
-	handleShadowTypeChanged();
-}
-
-void SceneDoc::OnShadowTechniqueStencil()
-{
-	shadowTechnique = ID_SHADOW_TECHNIQUE_STENCIL;
-	handleShadowTypeChanged();
-}
-
-
-void SceneDoc::OnShadowTechniqueTexture()
-{
-	shadowTechnique = ID_SHADOW_TECHNIQUE_TEXTURE;
-	handleShadowTypeChanged();
-}
-
-void SceneDoc::OnUpdateShadowTechnique(CCmdUI *pCmdUI)
-{
-	pCmdUI->SetCheck(pCmdUI->m_nID == shadowTechnique);
-}
-
-void SceneDoc::OnShadowLightingAdditive()
-{
-	shadowLighting = ID_SHADOW_LIGHTING_ADDITIVE;
-	handleShadowTypeChanged();
-}
-
-
-void SceneDoc::OnShadowLightingModulative()
-{
-	shadowLighting = ID_SHADOW_LIGHTING_MODULATIVE;
-	handleShadowTypeChanged();
-}
-
-void SceneDoc::OnUpdateShadowLighting(CCmdUI *pCmdUI)
-{
-	pCmdUI->SetCheck(pCmdUI->m_nID == shadowLighting);
-}
-
-void SceneDoc::OnShadowProjectionUniform()
-{
-	// TODO: 在此添加命令处理程序代码
-}
-
-
-void SceneDoc::OnShadowProjectionUniformfocused()
-{
-	// TODO: 在此添加命令处理程序代码
-}
-
-
-void SceneDoc::OnShadowProjectionLispsm()
-{
-	// TODO: 在此添加命令处理程序代码
-}
-
-
-void SceneDoc::OnShadowProjectionPlaneoptimal()
-{
-	// TODO: 在此添加命令处理程序代码
-}
-
-void SceneDoc::OnUpdateShadowProjection(CCmdUI *pCmdUI)
-{
-	pCmdUI->SetCheck(pCmdUI->m_nID == shadowProjection);
-}
-
-void SceneDoc::OnShadowMaterialStandard()
-{
-	// TODO: 在此添加命令处理程序代码
-}
-
-
-void SceneDoc::OnShadowMaterialDepthshadowmap()
-{
-	// TODO: 在此添加命令处理程序代码
-}
-
-void SceneDoc::OnShadowMaterialDepthshadowmapPcf()
-{
-	// TODO: 在此添加命令处理程序代码
-}
-
-void SceneDoc::OnUpdateShadowMaterial(CCmdUI *pCmdUI)
-{
-	pCmdUI->SetCheck(pCmdUI->m_nID == shadowMaterial);
-}
-
 void SceneDoc::OnDeferredshadingActive()
 {
 	active = !active;
@@ -1383,44 +1272,22 @@ void SceneDoc::OnUpdateTextureMenu(CCmdUI* pCmdUI)
 	pCmdUI->Enable(TRUE);
 }
 
-void SceneDoc::handleShadowTypeChanged()
+void SceneDoc::OnDeferredshadingShadow()
 {
-	bool isStencil = shadowTechnique == ID_SHADOW_TECHNIQUE_STENCIL;
-	bool isAdditive = shadowLighting == ID_SHADOW_LIGHTING_ADDITIVE;
-	Ogre::ShadowTechnique newTech = sceneManager->getShadowTechnique();
-
-	if (isStencil)
-	{
-		newTech = static_cast<Ogre::ShadowTechnique>(
-			(newTech & ~Ogre::SHADOWDETAILTYPE_TEXTURE) | Ogre::SHADOWDETAILTYPE_STENCIL);
-		resetMaterials();
-	}
-	else
-	{
-		newTech = static_cast<Ogre::ShadowTechnique>(
-			(newTech & ~Ogre::SHADOWDETAILTYPE_STENCIL) | Ogre::SHADOWDETAILTYPE_TEXTURE);
-	}
-		
-	if (isAdditive)
-	{
-		newTech = static_cast<Ogre::ShadowTechnique>(
-			(newTech & ~Ogre::SHADOWDETAILTYPE_MODULATIVE) | Ogre::SHADOWDETAILTYPE_ADDITIVE);
-	}
-	else
-	{
-		newTech = static_cast<Ogre::ShadowTechnique>(
-			(newTech & ~Ogre::SHADOWDETAILTYPE_ADDITIVE) | Ogre::SHADOWDETAILTYPE_MODULATIVE);
-	}
-
-	sceneManager->setShadowTechnique(newTech);
+	shadow = !shadow;
+	sceneManager->setShadowTechnique(shadow ? Ogre::SHADOWTYPE_TEXTURE_ADDITIVE : Ogre::SHADOWTYPE_NONE);
 }
 
-void SceneDoc::handleProjectionChanged()
+void SceneDoc::OnUpdateDeferredshadingShadow(CCmdUI *pCmdUI)
 {
+	pCmdUI->SetCheck(shadow);
 }
 
-void SceneDoc::handleMaterialChanged()
+void SceneDoc::OnStatusBarCameraSpeedSlider()
 {
+	CBCGPRibbonSlider *cameraSpeedSlider =
+		(CBCGPRibbonSlider*)(((MainFrame*)AfxGetMainWnd())->getStatusBar()->FindElement(ID_STATUSBAR_CAMERA_SPEED_SLIDER));
+	cameraManager.setSpeed(cameraSpeedSlider->GetPos() * 10.0f);
 }
 
 void SceneDoc::resetMaterials()
@@ -1439,24 +1306,4 @@ void SceneDoc::resetMaterials()
 			}
 		}
 	}
-}
-
-
-void SceneDoc::OnDeferredshadingShadow()
-{
-	shadow = !shadow;
-	sceneManager->setShadowTechnique(shadow ? Ogre::SHADOWTYPE_TEXTURE_ADDITIVE : Ogre::SHADOWTYPE_NONE);
-}
-
-
-void SceneDoc::OnUpdateDeferredshadingShadow(CCmdUI *pCmdUI)
-{
-	pCmdUI->SetCheck(shadow);
-}
-
-void SceneDoc::OnStatusBarCameraSpeedSlider()
-{
-	CBCGPRibbonSlider *cameraSpeedSlider =
-		(CBCGPRibbonSlider*)(((MainFrame*)AfxGetMainWnd())->getStatusBar()->FindElement(ID_STATUSBAR_CAMERA_SPEED_SLIDER));
-	cameraManager.setSpeed(cameraSpeedSlider->GetPos() * 10.0f);
 }

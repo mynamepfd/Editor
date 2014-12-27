@@ -3,12 +3,12 @@
 class ImageCombinator : public CDialogEx
 {
 	DECLARE_DYNAMIC(ImageCombinator)
-public:
-	enum { IDD = IDD_IMAGE_COMBINATOR };
 
 public:
 	ImageCombinator(CWnd* pParent = NULL);
 	virtual ~ImageCombinator();
+
+	enum { IDD = IDD_IMAGE_COMBINATOR };
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnBnClickedLoadDiffuse();

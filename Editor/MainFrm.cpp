@@ -85,8 +85,8 @@ void MainFrame::createStatusBar()
 	CBCGPRibbonSlider *cameraSpeedSlider = new CBCGPRibbonSlider(ID_STATUSBAR_CAMERA_SPEED_SLIDER);
 	cameraSpeedSlider->SetZoomButtons();
 	cameraSpeedSlider->SetPageSize(1);
-	cameraSpeedSlider->SetRange(1, 100);
-	cameraSpeedSlider->SetPos(2);
+	cameraSpeedSlider->SetRange(0, 100);
+	cameraSpeedSlider->SetPos(CameraManager::defaultCameraSpeed / 10);
 	statusBar.AddExtendedElement(cameraSpeedSlider, "Adjust camera speed.");
 }
 

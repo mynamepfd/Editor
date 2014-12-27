@@ -111,6 +111,9 @@
     <Filter Include="Core\Entity\Liquid">
       <UniqueIdentifier>{2db5f676-99b0-402d-9872-9e7814015a84}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Dialog\DDSConverter">
+      <UniqueIdentifier>{f7240eda-cf9d-44aa-9e77-92d7a9a9d378}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h">
@@ -378,7 +381,7 @@
       <Filter>Core\Entity\Liquid</Filter>
     </ClInclude>
     <ClInclude Include="DDSConverter.h">
-      <Filter>Editor</Filter>
+      <Filter>Dialog\DDSConverter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -649,7 +652,9 @@
     <ClCompile Include="LiquidControls.cpp">
       <Filter>Core\Entity\Liquid</Filter>
     </ClCompile>
-    <ClCompile Include="DDSConverter.cpp" />
+    <ClCompile Include="DDSConverter.cpp">
+      <Filter>Dialog\DDSConverter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Editor.rc">

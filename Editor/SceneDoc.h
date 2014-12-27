@@ -32,6 +32,7 @@ public:
 
 	CString getSkyType() { return skyType; }
 	CString getSkyMaterial() { return skyMaterial; }
+	CString getShadowTechnique() { return shadowTechnique; }
 
 	SceneView *getActiveView() { return activeView; }
 	void setActiveView(SceneView *activeView) { this->activeView = activeView; }
@@ -63,7 +64,7 @@ public:
 
 	void selectObject(SceneObject *object);
 	void removeObject(SceneObject *object);
-	void configureShadows(bool enabled, bool depthShadows);
+	void configureShadows(CString shadowTechnique);
 
 	void roaming(CPoint point, float elapsed);
 	void leftDown(UINT nFlags, CPoint point);
@@ -86,24 +87,6 @@ public:
 	/** Technique
 	*/
 
-	// Shadow
-	afx_msg void OnShadowTechniqueNone();
-	afx_msg void OnShadowTechniqueStencil();
-	afx_msg void OnShadowTechniqueTexture();
-	afx_msg void OnUpdateShadowTechnique(CCmdUI *pCmdUI);
-	afx_msg void OnShadowLightingAdditive();
-	afx_msg void OnShadowLightingModulative();
-	afx_msg void OnUpdateShadowLighting(CCmdUI *pCmdUI);
-	afx_msg void OnShadowProjectionUniform();
-	afx_msg void OnShadowProjectionUniformfocused();
-	afx_msg void OnShadowProjectionLispsm();
-	afx_msg void OnShadowProjectionPlaneoptimal();
-	afx_msg void OnUpdateShadowProjection(CCmdUI *pCmdUI);
-	afx_msg void OnShadowMaterialStandard();
-	afx_msg void OnShadowMaterialDepthshadowmap();
-	afx_msg void OnShadowMaterialDepthshadowmapPcf();
-	afx_msg void OnUpdateShadowMaterial(CCmdUI *pCmdUI);
-
 	// Deferred Shading
 	afx_msg void OnDeferredshadingActive();
 	afx_msg void OnUpdateDeferredshadingActive(CCmdUI *pCmdUI);
@@ -121,10 +104,6 @@ public:
 	afx_msg void OnStatusBarCameraSpeedSlider();
 
 	DECLARE_MESSAGE_MAP()
-
-	void handleShadowTypeChanged();
-	void handleProjectionChanged();
-	void handleMaterialChanged();
 	void resetMaterials();
 
 	int editMode;
@@ -133,12 +112,7 @@ public:
 	bool initialized;
 	CString sceneName;
 	CString skyType; CString skyMaterial;
-
-	// Shadow
-	int shadowTechnique;
-	int shadowLighting;
-	int shadowProjection;
-	int shadowMaterial;
+	CString shadowTechnique;
 
 	// DeferredShading
 	DeferredShadingSystem *deferredShadingSystem;

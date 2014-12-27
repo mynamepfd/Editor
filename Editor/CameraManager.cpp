@@ -11,7 +11,7 @@
 #include "OIS\OISkeyboard.h"
 #include "OIS\OISmouse.h"
 
-float CameraManager::defaultCameraSpeed = 20.0f;
+float CameraManager::defaultCameraSpeed = 200.0f;
 CameraManager::CameraManager()
 {
 	mode = MANUAL;

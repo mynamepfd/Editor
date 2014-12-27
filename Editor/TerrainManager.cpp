@@ -15,7 +15,7 @@ TerrainManager::TerrainManager(SceneDoc *Owner, TerrainManagerConfig *Config)
 	//////////////////////////////////////////////////
 
 	mTerrainGlobals = OGRE_NEW Ogre::TerrainGlobalOptions();
-	mTerrainGlobals->setDefaultMaterialGenerator(Ogre::TerrainMaterialGeneratorPtr(new Ogre::TerrainMaterialGeneratorC));
+	// mTerrainGlobals->setDefaultMaterialGenerator(Ogre::TerrainMaterialGeneratorPtr(new Ogre::TerrainMaterialGeneratorC));
 
     mTerrainGlobals->setMaxPixelError(8);
 
