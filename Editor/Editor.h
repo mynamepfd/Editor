@@ -45,14 +45,16 @@ public:
 	afx_msg void OnDDSConverter();
 };
 
-class CAboutDlg : public CDialogEx
+class CAboutDlg : public CBCGPDialog
 {
 public:
 	CAboutDlg();
 
+	enum { IDD = IDD_ABOUTBOX };
+
 	DECLARE_MESSAGE_MAP()
 	void DoDataExchange(CDataExchange* pDX);
-	enum { IDD = IDD_ABOUTBOX };
+	BOOL OnInitDialog();
 };
 
 extern CEditorApp theApp;

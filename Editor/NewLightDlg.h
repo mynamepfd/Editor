@@ -1,6 +1,6 @@
 #pragma once
 
-class NewLightDlg : public CDialogEx
+class NewLightDlg : public CBCGPDialog
 {
 	DECLARE_DYNAMIC(NewLightDlg)
 
@@ -41,8 +41,8 @@ public:
 	afx_msg void OnBnClickedOk();
 	afx_msg LRESULT OnPropertyChanged(WPARAM wparam, LPARAM lparam);
 
-	BOOL OnInitDialog();
 	void DoDataExchange(CDataExchange* pDX);
+	BOOL OnInitDialog();
 
 	CStatic propListFrame; CBCGPPropList propList;
 	CBCGPProp *props[_COUNT]; COleVariant values[_COUNT];

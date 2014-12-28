@@ -50,7 +50,8 @@ int MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	createStatusBar();
 	createDockingWindows();
 
-	CBCGPVisualManager::SetDefaultManager(RUNTIME_CLASS(CBCGPVisualManagerXP));
+	//CBCGPVisualManager::SetDefaultManager(RUNTIME_CLASS(CBCGPVisualManagerXP));
+	CBCGPVisualManager::SetDefaultManager(RUNTIME_CLASS(CBCGPVisualManager2013));
 	CBCGPDockManager::SetDockMode(BCGP_DT_SMART);
 	SetTimer(1, 30, NULL);
 

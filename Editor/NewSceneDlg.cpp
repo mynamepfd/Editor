@@ -2,10 +2,10 @@
 #include "NewSceneDlg.h"
 #include "TextureProp.h"
 
-IMPLEMENT_DYNAMIC(NewSceneDlg, CDialog)
+IMPLEMENT_DYNAMIC(NewSceneDlg, CBCGPDialog)
 
 NewSceneDlg::NewSceneDlg(CWnd* pParent /*=NULL*/)
-	: CDialog(IDD_NEW_SCENE, pParent)
+	: CBCGPDialog(IDD_NEW_SCENE, pParent)
 {
 }
 
@@ -18,7 +18,7 @@ _variant_t NewSceneDlg::getProperty(int type)
 	return (_variant_t)values[type];
 }
 
-BEGIN_MESSAGE_MAP(NewSceneDlg, CDialog)
+BEGIN_MESSAGE_MAP(NewSceneDlg, CBCGPDialog)
 	ON_BN_CLICKED(IDOK, OnBnClickedOk)
 	ON_REGISTERED_MESSAGE(BCGM_PROPERTY_CHANGED, OnPropertyChanged)
 END_MESSAGE_MAP()
@@ -27,7 +27,7 @@ void NewSceneDlg::OnBnClickedOk()
 {
 	for(int i=0; i<_COUNT; i++)
 		values[i] = props[i]->GetValue();
-	CDialog::OnOK();
+	CBCGPDialog::OnOK();
 }
 
 LRESULT NewSceneDlg::OnPropertyChanged(WPARAM wparam, LPARAM lparam)
@@ -37,7 +37,8 @@ LRESULT NewSceneDlg::OnPropertyChanged(WPARAM wparam, LPARAM lparam)
 
 BOOL NewSceneDlg::OnInitDialog()
 {
-	CDialog::OnInitDialog();
+	CBCGPDialog::OnInitDialog();
+	EnableVisualManagerStyle();
 
 	CRect rectPropList;
 	propListFrame.GetClientRect(rectPropList);
@@ -181,6 +182,6 @@ BOOL NewSceneDlg::OnInitDialog()
 
 void NewSceneDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialog::DoDataExchange(pDX);
+	CBCGPDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_PROPLIST_FRAME, propListFrame);
 }

@@ -281,9 +281,6 @@
     <ClInclude Include="OgreXMLConverter\OgreXMLSkeletonSerializer.h">
       <Filter>OgreXMLConverter</Filter>
     </ClInclude>
-    <ClInclude Include="OgreXMLConverterDlg.h">
-      <Filter>Dialog\OgreXMLConverter</Filter>
-    </ClInclude>
     <ClInclude Include="StringUtils.h">
       <Filter>Core\Utils</Filter>
     </ClInclude>
@@ -382,6 +379,9 @@
     </ClInclude>
     <ClInclude Include="DDSConverter.h">
       <Filter>Dialog\DDSConverter</Filter>
+    </ClInclude>
+    <ClInclude Include="OgreXMLConverter.h">
+      <Filter>Dialog\OgreXMLConverter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -535,9 +535,6 @@
     <ClCompile Include="OgreXMLConverter\OgreXMLSkeletonSerializer.cpp">
       <Filter>OgreXMLConverter</Filter>
     </ClCompile>
-    <ClCompile Include="OgreXMLConverterDlg.cpp">
-      <Filter>Dialog\OgreXMLConverter</Filter>
-    </ClCompile>
     <ClCompile Include="StringUtils.cpp">
       <Filter>Core\Utils</Filter>
     </ClCompile>
@@ -654,6 +651,9 @@
     </ClCompile>
     <ClCompile Include="DDSConverter.cpp">
       <Filter>Dialog\DDSConverter</Filter>
+    </ClCompile>
+    <ClCompile Include="OgreXMLConverter.cpp">
+      <Filter>Dialog\OgreXMLConverter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

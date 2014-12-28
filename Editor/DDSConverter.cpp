@@ -24,6 +24,13 @@ void DDSConverter::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT2, outputPath);
 }
 
+BOOL DDSConverter::OnInitDialog()
+{
+	CBCGPDialog::OnInitDialog();
+	EnableVisualManagerStyle();
+	return TRUE;
+}
+
 BEGIN_MESSAGE_MAP(DDSConverter, CBCGPDialog)
 	ON_BN_CLICKED(IDC_LOAD_INPUT, &DDSConverter::OnBnClickedLoadInput)
 	ON_BN_CLICKED(IDC_SAVE_OUTPUT, &DDSConverter::OnBnClickedSaveOutput)

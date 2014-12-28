@@ -10,10 +10,10 @@
 #include "d3dx9.h"
 #include <fstream>
 
-IMPLEMENT_DYNAMIC(ImageCombinator, CDialogEx)
+IMPLEMENT_DYNAMIC(ImageCombinator, CBCGPDialog)
 
 ImageCombinator::ImageCombinator(CWnd* pParent /*=NULL*/)
-	: CDialogEx(ImageCombinator::IDD, pParent)
+	: CBCGPDialog(ImageCombinator::IDD, pParent)
 	, diffusePath(_T(""))
 	, specularPath(_T(""))
 	, diffuseSpecularPath(_T(""))
@@ -30,7 +30,7 @@ ImageCombinator::~ImageCombinator()
 
 void ImageCombinator::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);
+	CBCGPDialog::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_EDIT1, diffusePath);
 	DDX_Text(pDX, IDC_EDIT2, specularPath);
 	DDX_Text(pDX, IDC_EDIT3, diffuseSpecularPath);
@@ -39,7 +39,14 @@ void ImageCombinator::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT6, normalHeightPath);
 }
 
-BEGIN_MESSAGE_MAP(ImageCombinator, CDialogEx)
+BOOL ImageCombinator::OnInitDialog()
+{
+	CBCGPDialog::OnInitDialog();
+	EnableVisualManagerStyle();
+	return TRUE;
+}
+
+BEGIN_MESSAGE_MAP(ImageCombinator, CBCGPDialog)
 	ON_BN_CLICKED(IDC_LOAD_DIFFUSE, &ImageCombinator::OnBnClickedLoadDiffuse)
 	ON_BN_CLICKED(IDC_LOAD_SPECULAR, &ImageCombinator::OnBnClickedLoadSpecular)
 	ON_BN_CLICKED(IDC_SAVE_DIFFUSE_SPECULAR, &ImageCombinator::OnBnClickedSaveDiffuseSpecular)

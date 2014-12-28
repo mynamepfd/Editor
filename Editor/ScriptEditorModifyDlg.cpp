@@ -21,6 +21,7 @@ CScriptEditorModifyDlg::~CScriptEditorModifyDlg()
 BOOL CScriptEditorModifyDlg::OnInitDialog()
 {
 	CBCGPDialog::OnInitDialog();
+	EnableVisualManagerStyle();
 
 	mEntryNum = 0;
 	SetModifyDialogText();

@@ -16,7 +16,7 @@
 #include "NewSceneDlg.h"
 #include "DDSConverter.h"
 #include "ImageCombinator.h"
-#include "OgreXMLConverterDlg.h"
+#include "OgreXMLConverter.h"
 #include "ScriptEditorDlg.h"
 
 #include "OutputWnd.h"
@@ -155,8 +155,8 @@ void CEditorApp::OnNewGame()
 
 void CEditorApp::OnOgreXmlConverter()
 {
-	COgreXMLConverterDlg Dlg;
-	Dlg.DoModal();
+	OgreXMLConverter ogreXMLConverter;
+	ogreXMLConverter.DoModal();
 }
 
 void CEditorApp::OnScriptEditor()
@@ -181,18 +181,24 @@ void CEditorApp::OnUpdateTextureMenu(CCmdUI* pCmdUI)
 	pCmdUI->Enable(TRUE);
 }
 
-CAboutDlg::CAboutDlg() : CDialogEx(CAboutDlg::IDD)
+CAboutDlg::CAboutDlg() : CBCGPDialog(CAboutDlg::IDD)
 {
 }
 
-BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(CAboutDlg, CBCGPDialog)
 END_MESSAGE_MAP()
 
 void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);
+	CBCGPDialog::DoDataExchange(pDX);
 }
 
+BOOL CAboutDlg::OnInitDialog()
+{
+	CBCGPDialog::OnInitDialog();
+	EnableVisualManagerStyle();
+	return TRUE;
+}
 
 void CEditorApp::OnImageCombinator()
 {

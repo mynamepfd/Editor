@@ -14,8 +14,6 @@ public:
 	cActionTemplate *GetActionTemplate() { return &mActionTemplate; }
 	sScript *GetModifyScript() { return mModifyScript; }
 
-	void DoDataExchange(CDataExchange* pDX);
-
 	static CScriptEditorDlg *Current;
 
 	DECLARE_MESSAGE_MAP()
@@ -29,6 +27,9 @@ public:
 	afx_msg void OnBnClickedAddToScript();
 	afx_msg void OnBnClickedInsertToScript();
 	afx_msg void OnBnClickedLoadActions();
+
+	void DoDataExchange(CDataExchange* pDX);
+	BOOL OnInitDialog();
 
 	sScript *mScriptParent;
 	CListBox mScript, mScriptList;

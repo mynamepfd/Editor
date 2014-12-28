@@ -6,7 +6,7 @@
 
 #include "Box.h"
 
-IMPLEMENT_DYNAMIC(CTexturePreviewPage, CDialogEx)
+IMPLEMENT_DYNAMIC(CTexturePreviewPage, CBCGPDialog)
 
 CTexturePreviewPage::CTexturePreviewPage(CWnd* pParent /*=NULL*/)
 	: CBCGPDialog(CTexturePreviewPage::IDD, pParent)
@@ -117,4 +117,11 @@ void CTexturePreviewPage::OnClearTexture()
 void CTexturePreviewPage::DoDataExchange(CDataExchange* pDX)
 {
 	CBCGPDialog::DoDataExchange(pDX);
+}
+
+BOOL CTexturePreviewPage::OnInitDialog()
+{
+	CBCGPDialog::OnInitDialog();
+	EnableVisualManagerStyle();
+	return TRUE;
 }

@@ -139,7 +139,7 @@
     <ClInclude Include="NewSceneDlg.h" />
     <ClInclude Include="NullSchemeHandler.h" />
     <ClInclude Include="ObjectEditHandler.h" />
-    <ClInclude Include="OgreXMLConverterDlg.h" />
+    <ClInclude Include="OgreXMLConverter.h" />
     <ClInclude Include="OgreXMLConverter\OgreXMLMeshSerializer.h" />
     <ClInclude Include="OgreXMLConverter\OgreXMLPrerequisites.h" />
     <ClInclude Include="OgreXMLConverter\OgreXMLSkeletonSerializer.h" />
@@ -229,7 +229,7 @@
     <ClCompile Include="NewLightDlg.cpp" />
     <ClCompile Include="NewSceneDlg.cpp" />
     <ClCompile Include="ObjectEditHandler.cpp" />
-    <ClCompile Include="OgreXMLConverterDlg.cpp" />
+    <ClCompile Include="OgreXMLConverter.cpp" />
     <ClCompile Include="OgreXMLConverter\OgreXMLMeshSerializer.cpp" />
     <ClCompile Include="OgreXMLConverter\OgreXMLSkeletonSerializer.cpp" />
     <ClCompile Include="OutputWnd.cpp" />

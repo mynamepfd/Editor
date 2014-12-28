@@ -1253,6 +1253,7 @@ void CMaterialPreviewPage::DoDataExchange(CDataExchange* pDX)
 BOOL CMaterialPreviewPage::OnInitDialog()
 {
 	CBCGPDialog::OnInitDialog();
+	EnableVisualManagerStyle();
 
 	//////////////////////////////////////////////////
 	// Core

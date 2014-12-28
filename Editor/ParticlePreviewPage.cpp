@@ -46,6 +46,7 @@ void ParticlePreviewPage::DoDataExchange(CDataExchange* pDX)
 BOOL ParticlePreviewPage::OnInitDialog()
 {
 	CBCGPDialog::OnInitDialog(); // µ÷DoDataExchange
+	EnableVisualManagerStyle();
 
 	sceneManager = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC);
 	camera = sceneManager->createCamera(

@@ -19,6 +19,8 @@ public:
 	afx_msg void OnClearTexture();
 
 	void DoDataExchange(CDataExchange* pDX);
+	BOOL OnInitDialog();
+
 	CRibbonBarEx mTextureBar;
 	CBCGPHotSpotImageCtrl mImage;
 };

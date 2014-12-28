@@ -86,6 +86,8 @@ public:
 	enum { IDD = IDD_TERRAIN_EDIT };
 
 	void DoDataExchange(CDataExchange* pDX);
+	BOOL OnInitDialog();
+
 	void LoadDiffuseSpecular(int Layer);
 	void LoadNormalHeight(int Layer);
 	void AddLayerPrev(int Layer);

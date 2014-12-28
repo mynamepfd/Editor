@@ -28,6 +28,13 @@ void CScriptEditorDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_ACTIONS, mActions);
 }
 
+BOOL CScriptEditorDlg::OnInitDialog()
+{
+	CBCGPDialog::OnInitDialog();
+	EnableVisualManagerStyle();
+	return TRUE;
+}
+
 BEGIN_MESSAGE_MAP(CScriptEditorDlg, CBCGPDialog)
 	ON_BN_CLICKED(IDC_LOAD_SCRIPT, &CScriptEditorDlg::OnBnClickedLoadScript)
 	ON_BN_CLICKED(IDC_SAVE_SCRIPT, &CScriptEditorDlg::OnBnClickedSaveScript)

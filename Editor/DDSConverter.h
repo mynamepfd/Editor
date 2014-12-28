@@ -16,7 +16,8 @@ public:
 	afx_msg void OnBnClickedConvert();
 	
 	void DoDataExchange(CDataExchange* pDX);
-	
+	BOOL OnInitDialog();
+
 	CString inputPath;
 	CString outputPath;
 };

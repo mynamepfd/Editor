@@ -1,6 +1,6 @@
 #pragma once
 
-class ImageCombinator : public CDialogEx
+class ImageCombinator : public CBCGPDialog
 {
 	DECLARE_DYNAMIC(ImageCombinator)
 
@@ -20,6 +20,7 @@ public:
 	afx_msg void OnBnClickedGenerate();
 
 	void DoDataExchange(CDataExchange* pDX);
+	BOOL OnInitDialog();
 
 	CString diffusePath;
 	CString specularPath;

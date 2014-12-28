@@ -3,10 +3,10 @@
 #include "NewLightDlg.h"
 #include "OgreMath.h"
 
-IMPLEMENT_DYNAMIC(NewLightDlg, CDialogEx)
+IMPLEMENT_DYNAMIC(NewLightDlg, CBCGPDialog)
 
 NewLightDlg::NewLightDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(NewLightDlg::IDD, pParent)
+	: CBCGPDialog(NewLightDlg::IDD, pParent)
 {
 
 }
@@ -15,7 +15,7 @@ NewLightDlg::~NewLightDlg()
 {
 }
 
-BEGIN_MESSAGE_MAP(NewLightDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(NewLightDlg, CBCGPDialog)
 	ON_BN_CLICKED(IDOK, OnBnClickedOk)
 	ON_REGISTERED_MESSAGE(BCGM_PROPERTY_CHANGED, OnPropertyChanged)
 END_MESSAGE_MAP()
@@ -36,6 +36,7 @@ LRESULT NewLightDlg::OnPropertyChanged(WPARAM wparam, LPARAM lparam)
 BOOL NewLightDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+	EnableVisualManagerStyle();
 
 	CRect rectPropList;
 	propListFrame.GetClientRect(rectPropList);
@@ -105,6 +106,6 @@ BOOL NewLightDlg::OnInitDialog()
 
 void NewLightDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);
+	CBCGPDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_PROPLIST_FRAME, propListFrame);
 }

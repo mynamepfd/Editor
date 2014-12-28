@@ -26,7 +26,7 @@ int CMiscEditSheet::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if(CBCGPTabWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
-
+	
 	tabs[TEXTURE_PREVIEW] = new CTexturePreviewPage;
 	tabs[TEXTURE_PREVIEW]->Create(IDD_TEXTURE_PREVIEW, this);
 	InsertTab(tabs[TEXTURE_PREVIEW], "Texture Preview", TEXTURE_PREVIEW);

@@ -405,6 +405,13 @@ void CTerrainEditPage::DoDataExchange(CDataExchange* pDX)
 	CBCGPDialog::DoDataExchange(pDX);
 }
 
+BOOL CTerrainEditPage::OnInitDialog()
+{
+	CBCGPDialog::OnInitDialog();
+	EnableVisualManagerStyle();
+	return TRUE;
+}
+
 void CTerrainEditPage::OnLoadDiffuseSpecular()
 {
 	mResourceLayer.LoadDiffuseSpecular();
