@@ -281,13 +281,21 @@
 #define ID_DEFERREDSHADING_SHADOW       32849
 #define ID_TOOLS_DDSCONVERTER           32850
 #define ID_DDSCONVERTER                 32851
+#define ID_TEST_LOG                     32852
+#define ID_LOG_1                        32853
+#define ID_LOG_LEVEL                    32854
+#define ID_TEST_PRINTSCREEN             32855
+#define ID_PRINT_SCREEN                 32856
+#define ID_DETAIL_LOW                   32857
+#define ID_DETAIL_NORMAL                32858
+#define ID_DETAIL_BOREME                32859
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        339
-#define _APS_NEXT_COMMAND_VALUE         32852
+#define _APS_NEXT_COMMAND_VALUE         32860
 #define _APS_NEXT_CONTROL_VALUE         1107
 #define _APS_NEXT_SYMED_VALUE           318
 #endif

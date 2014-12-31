@@ -162,10 +162,22 @@ BEGIN
         END
         MENUITEM "SSAO",                        ID_SSAO
     END
-    POPUP "Test"
+    POPUP "Misc"
     BEGIN
         MENUITEM "New Game",                    ID_NEW_GAME
+        MENUITEM SEPARATOR
+        POPUP "Log"
+        BEGIN
+            POPUP "Detail"
+            BEGIN
+                MENUITEM "Low",                         ID_DETAIL_LOW
+                MENUITEM "Normal",                      ID_DETAIL_NORMAL
+                MENUITEM "Boreme",                      ID_DETAIL_BOREME
+            END
+            MENUITEM "Clear",                       ID_CLEAR_LOG
+        END
         MENUITEM "Game Mode",                   ID_GAME_MODE
+        MENUITEM "Print Screen",                ID_PRINT_SCREEN
     END
     POPUP "Tools"
     BEGIN
@@ -176,7 +188,6 @@ BEGIN
     END
     POPUP "Help"
     BEGIN
-        MENUITEM "Clear Log",                   ID_CLEAR_LOG
         MENUITEM SEPARATOR
         MENUITEM "About Editor",                ID_APP_ABOUT
     END

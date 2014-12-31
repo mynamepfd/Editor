@@ -1,106 +1,55 @@
-﻿生成启动时间为 2014/12/28 22:12:01。
-     1>项目“C:\Projects\Editor\Editor\Editor.vcxproj”在节点 2 上(Build 个目标)。
-     1>ClCompile:
-         C:\Software\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\Projects\Editor\Editor\ /IC:\Projects\Editor\Editor\TinyXML /IC:\Projects\Editor\Editor\OgreXMLConverter /IC:\Projects\Editor\Dependencies\BCG\include /IC:\Projects\Editor\Dependencies\Scintilla\include /IC:\Projects\Editor\Dependencies\OGRE\include /IC:\Projects\Editor\Dependencies\OGRE\include\OGRE /IC:\Projects\Editor\Dependencies\OGRE\include\OGRE\Overlay /IC:\Projects\Editor\Dependencies\OGRE\include\OGRE\Terrain /IC:\Projects\Editor\Dependencies\OGRE\boost /IC:\Projects\Editor\Dependencies\OgreOpCode\include /IC:\Projects\Editor\Dependencies\DirectX\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D FREEIMAGE_LIB /D TIXML_USE_STL /D _MBCS /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\Editor.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Editor.cpp ScriptEditorDlg.cpp ScriptEditorModifyDlg.cpp
-         ScriptEditorModifyDlg.cpp
-         ScriptEditorDlg.cpp
-         Editor.cpp
-       Link:
-         C:\Software\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Projects\Editor\Debug\Editor.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:C:\Projects\Editor\Dependencies\BCG\lib /LIBPATH:C:\Projects\Editor\Dependencies\OGRE\lib\Debug /LIBPATH:C:\Projects\Editor\Dependencies\OGRE\boost\lib /LIBPATH:C:\Projects\Editor\Dependencies\OgreOpcode\lib /LIBPATH:C:\Projects\Editor\Dependencies\DirectX\lib\x86 OgreMain_d.lib OgreOverlay_d.lib OgreTerrain_d.lib OgreOpcode_d.lib OIS_d.lib d3dx9.lib /NODEFAULTLIB:libcmtd.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Software\Microsoft Visual Studio 11.0\VC\Include\Manifest\dpiaware.manifest" /DEBUG /PDB:"C:\Projects\Editor\Debug\Editor.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Projects\Editor\Debug\Editor.lib" /MACHINE:X86 Debug\Editor.res
-         Debug\Action.obj
-         Debug\AmbientLight.obj
-         Debug\Box.obj
-         Debug\CameraManager.obj
-         Debug\CameraWnd.obj
-         Debug\CharacterController.obj
-         Debug\ChildFrm.obj
-         Debug\CustomWindowMessage.obj
-         Debug\DDSConverter.obj
-         Debug\DeferredLightCP.obj
-         Debug\DeferredShading.obj
-         Debug\DLight.obj
-         Debug\DynamicModel.obj
-         Debug\Editor.obj
-         Debug\GameDoc.obj
-         Debug\GameView.obj
-         Debug\GBufferMaterialGenerator.obj
-         Debug\GBufferSchemeHandler.obj
-         Debug\GeomUtils.obj
-         Debug\ImageCombinator.obj
-         Debug\Light.obj
-         Debug\LightMaterialGenerator.obj
-         Debug\Liquid.obj
-         Debug\LiquidEditHandler.obj
-         Debug\MainFrm.obj
-         Debug\LiquidControls.obj
-         Debug\MaterialDoc.obj
-         Debug\MaterialGenerator.obj
-         Debug\MaterialPreviewPage.obj
-         Debug\MaterialView.obj
-         Debug\MiscEditSheet.obj
-         Debug\MiscEditWnd.obj
-         Debug\MiscUtils.obj
-         Debug\NewLightDlg.obj
-         Debug\NewSceneDlg.obj
-         Debug\ObjectEditHandler.obj
-         Debug\OgreXMLConverter.obj
-         Debug\OgreXMLMeshSerializer.obj
-         Debug\OgreXMLSkeletonSerializer.obj
-         Debug\OutputWnd.obj
-         Debug\Particle.obj
-         Debug\ParticleDoc.obj
-         Debug\ParticlePreviewPage.obj
-         Debug\ParticleView.obj
-         Debug\PropertyWnd.obj
-         Debug\RenderPump.obj
-         Debug\RenderScene.obj
-         Debug\RenderView.obj
-         Debug\ResourceLayerWidget.obj
-         Debug\ResourceManager.obj
-         Debug\ResourceManagerTree.obj
-         Debug\ResourcePreview.obj
-         Debug\RibbonBarEx.obj
-         Debug\RibbonPaletteButtonEx.obj
-         Debug\RibbonPaletteIconEx.obj
-         Debug\Roaming.obj
-         Debug\SceneDoc.obj
-         Debug\SceneObject.obj
-         Debug\SceneResource.obj
-         Debug\SceneResourceTree.obj
-         Debug\SceneView.obj
-         Debug\ScintillaCtrl.obj
-         Debug\ScintillaDocView.obj
-         Debug\ScriptEditorDlg.obj
-         Debug\ScriptEditorModifyDlg.obj
-         Debug\SESkeletonEx.obj
-         Debug\SESkeletonManagerEx.obj
-         Debug\SESkeletonSerializerEx.obj
-         Debug\SSAOLogic.obj
-         Debug\StaticMesh.obj
-         Debug\stdafx.obj
-         Debug\StringUtils.obj
-         Debug\TerrainBrush.obj
-         Debug\TerrainEditHandler.obj
-         Debug\TerrainEditPage.obj
-         Debug\TerrainLayerWidget.obj
-         Debug\TerrainManager.obj
-         Debug\TerrainMaterialGeneratorB.obj
-         Debug\TerrainMaterialGeneratorC.obj
-         Debug\TerrainMaterialShaderHelperCg.obj
-         Debug\TerrainMaterialShaderHelperGLSL.obj
-         Debug\TerrainMaterialShaderHelperGLSLES.obj
-         Debug\TerrainMaterialShaderHelperHLSL.obj
-         Debug\TexturePopup.obj
-         Debug\TexturePreviewPage.obj
-         Debug\TextureProp.obj
-         Debug\tinystr.obj
-         Debug\tinyxml.obj
-         Debug\tinyxmlerror.obj
-         Debug\tinyxmlparser.obj
-     1>Action.obj : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/OPT:LBR”规范)
-         Editor.vcxproj -> C:\Projects\Editor\Debug\Editor.exe
-     1>已完成生成项目“C:\Projects\Editor\Editor\Editor.vcxproj”(Build 个目标)的操作。
-
-生成成功。
-
-已用时间 00:00:30.39
+﻿  TextureProp.cpp
+  TexturePreviewPage.cpp
+  TerrainLayerWidget.cpp
+  TerrainEditPage.cpp
+d:\neweditor\editor\terraineditpage.cpp(56): warning C4244: “参数”: 从“Ogre::Real”转换到“int”，可能丢失数据
+d:\neweditor\editor\terraineditpage.cpp(70): warning C4244: “参数”: 从“Ogre::Real”转换到“int”，可能丢失数据
+d:\neweditor\editor\terraineditpage.cpp(71): warning C4244: “参数”: 从“Ogre::Real”转换到“int”，可能丢失数据
+d:\neweditor\editor\terraineditpage.cpp(641): warning C4244: “参数”: 从“int”转换到“Ogre::Real”，可能丢失数据
+d:\neweditor\editor\terraineditpage.cpp(666): warning C4244: “参数”: 从“int”转换到“Ogre::Real”，可能丢失数据
+  TerrainBrush.cpp
+d:\neweditor\editor\terrainbrush.cpp(103): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(104): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(123): warning C4244: “初始化”: 从“Ogre::Real”转换到“int”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(127): warning C4244: “=”: 从“Ogre::Real”转换到“LONG”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(128): warning C4244: “=”: 从“Ogre::Real”转换到“LONG”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(163): warning C4244: “参数”: 从“LONG”转换到“Ogre::Real”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(166): warning C4244: “参数”: 从“LONG”转换到“Ogre::Real”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(169): warning C4244: “参数”: 从“LONG”转换到“Ogre::Real”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(172): warning C4244: “参数”: 从“LONG”转换到“Ogre::Real”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(188): warning C4244: “初始化”: 从“Ogre::Real”转换到“int”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(215): warning C4244: “参数”: 从“int”转换到“Ogre::Real”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(218): warning C4244: “参数”: 从“int”转换到“Ogre::Real”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(221): warning C4244: “参数”: 从“int”转换到“Ogre::Real”，可能丢失数据
+  ScriptEditorModifyDlg.cpp
+  ScriptEditorDlg.cpp
+  SceneResourceTree.cpp
+d:\neweditor\editor\sceneresourcetree.cpp(634): warning C4018: “<”: 有符号/无符号不匹配
+  SceneResource.cpp
+  RibbonBarEx.cpp
+  ResourceManagerTree.cpp
+  ResourceLayerWidget.cpp
+  RenderView.cpp
+  RenderPump.cpp
+  PropertyWnd.cpp
+  ParticleView.cpp
+  ParticlePreviewPage.cpp
+  ParticleDoc.cpp
+  OutputWnd.cpp
+d:\neweditor\editor\outputwnd.cpp(29): warning C4018: “<”: 有符号/无符号不匹配
+  OgreXMLConverter.cpp
+  MiscUtils.cpp
+  MiscEditWnd.cpp
+  MiscEditSheet.cpp
+  MaterialView.cpp
+  MaterialPreviewPage.cpp
+  MaterialDoc.cpp
+  ImageCombinator.cpp
+  GameDoc.cpp
+d:\neweditor\editor\gamedoc.cpp(45): warning C4305: “参数”: 从“double”到“float”截断
+d:\neweditor\editor\gamedoc.cpp(51): warning C4305: “参数”: 从“double”到“Ogre::Real”截断
+d:\neweditor\editor\gamedoc.cpp(89): warning C4305: “参数”: 从“double”到“Ogre::Real”截断
+  Editor.cpp
+  DDSConverter.cpp
+Action.obj : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/OPT:LBR”规范)
+  Editor.vcxproj -> D:\NewEditor\Debug\Editor.exe

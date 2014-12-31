@@ -20,6 +20,7 @@
 #include "ScriptEditorDlg.h"
 
 #include "OutputWnd.h"
+#include "OgreLogManager.h"
 
 CEditorApp theApp;
 
@@ -123,6 +124,12 @@ BEGIN_MESSAGE_MAP(CEditorApp, CBCGPWinApp)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_LOAD_TEXTURE, ID_RESIZE_TEXTURE, OnUpdateTextureMenu)
 	ON_COMMAND(ID_IMAGE_COMBINATOR, &CEditorApp::OnImageCombinator)
 	ON_COMMAND(ID_DDSCONVERTER, &CEditorApp::OnDDSConverter)
+	ON_COMMAND(ID_DETAIL_LOW, &CEditorApp::OnDetailLow)
+	ON_COMMAND(ID_DETAIL_NORMAL, &CEditorApp::OnDetailNormal)
+	ON_COMMAND(ID_DETAIL_BOREME, &CEditorApp::OnDetailBoreme)
+	ON_UPDATE_COMMAND_UI(ID_DETAIL_LOW, &CEditorApp::OnUpdateDetailLow)
+	ON_UPDATE_COMMAND_UI(ID_DETAIL_NORMAL, &CEditorApp::OnUpdateDetailNormal)
+	ON_UPDATE_COMMAND_UI(ID_DETAIL_BOREME, &CEditorApp::OnUpdateDetailBoreme)
 END_MESSAGE_MAP()
 
 void CEditorApp::OnNewScene()
@@ -221,4 +228,43 @@ void CEditorApp::OnDDSConverter()
 {
 	DDSConverter ddsConverter;
 	ddsConverter.DoModal();
+}
+
+
+void CEditorApp::OnDetailLow()
+{
+	Ogre::LogManager::getSingleton().getLog("tmp.log")->setLogDetail(Ogre::LL_LOW);
+}
+
+
+void CEditorApp::OnDetailNormal()
+{
+	Ogre::LogManager::getSingleton().getLog("tmp.log")->setLogDetail(Ogre::LL_NORMAL);
+}
+
+
+void CEditorApp::OnDetailBoreme()
+{
+	Ogre::LogManager::getSingleton().getLog("tmp.log")->setLogDetail(Ogre::LL_BOREME);
+}
+
+
+void CEditorApp::OnUpdateDetailLow(CCmdUI *pCmdUI)
+{
+	Ogre::LoggingLevel logDetail = Ogre::LogManager::getSingleton().getLog("tmp.log")->getLogDetail();
+	pCmdUI->SetCheck(logDetail == Ogre::LL_LOW);
+}
+
+
+void CEditorApp::OnUpdateDetailNormal(CCmdUI *pCmdUI)
+{
+	Ogre::LoggingLevel logDetail = Ogre::LogManager::getSingleton().getLog("tmp.log")->getLogDetail();
+	pCmdUI->SetCheck(logDetail == Ogre::LL_NORMAL);
+}
+
+
+void CEditorApp::OnUpdateDetailBoreme(CCmdUI *pCmdUI)
+{
+	Ogre::LoggingLevel logDetail = Ogre::LogManager::getSingleton().getLog("tmp.log")->getLogDetail();
+	pCmdUI->SetCheck(logDetail == Ogre::LL_BOREME);
 }

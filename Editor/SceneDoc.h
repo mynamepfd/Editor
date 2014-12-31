@@ -132,4 +132,5 @@ public:
 	std::vector<SceneObject*> objects;
 	afx_msg void OnDeferredshadingShadow();
 	afx_msg void OnUpdateDeferredshadingShadow(CCmdUI *pCmdUI);
+	afx_msg void OnPrintScreen();
 };
