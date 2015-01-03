@@ -91,15 +91,6 @@ void LiquidEditHandler::OnLButtonDown(Ogre::TerrainGroup::RayResult rayResult)
 		LiquidMark = mLiquidMap[rayResult.terrain];
 		if((*LiquidMark)[S.x][S.y] != NULL) // ¼ðÑ¡Á÷Ìå
 		{
-			/*Liquid *liquid = (*LiquidMark)[S.x][S.y];
-			std::string material = liquid->getMaterial();
-
-			std::vector<ShaderControl> controls = LiquidControls::shared()->getControls(material);
-			for(int i=0; i<controls.size(); i++)
-			{
-				ShaderControl shaderControl = 
-			}*/
-
 			return;
 		}
 	}
