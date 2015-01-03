@@ -43,6 +43,12 @@ public:
 
 	afx_msg void OnImageCombinator();
 	afx_msg void OnDDSConverter();
+	afx_msg void OnDetailLow();
+	afx_msg void OnDetailNormal();
+	afx_msg void OnDetailBoreme();
+	afx_msg void OnUpdateDetailLow(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateDetailNormal(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateDetailBoreme(CCmdUI *pCmdUI);
 };
 
 class CAboutDlg : public CBCGPDialog

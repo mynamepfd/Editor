@@ -20,17 +20,18 @@
 #include "DeferredShading.h"
 #include "TerrainManager.h"
 
-#include "OgreRoot.h"
 #include "OgreCamera.h"
-#include "OgreLight.h"
-#include "OgreRay.h"
 #include "OgreEntity.h"
-#include "OgreSubEntity.h"
-#include "OgreSceneManager.h"
-#include "OgreTerrainGroup.h"
-#include "OgreShadowCameraSetupPSSM.h"
 #include "OgreGpuProgramManager.h"
+#include "OgreLight.h"
 #include "OgreOverlaySystem.h"
+#include "OgreRay.h"
+#include "OgreRenderWindow.h"
+#include "OgreRoot.h"
+#include "OgreSceneManager.h"
+#include "OgreShadowCameraSetupPSSM.h"
+#include "OgreSubEntity.h"
+#include "OgreTerrainGroup.h"
 #include "OgreTerrainMaterialGeneratorA.h"
 #include "TerrainMaterialGeneratorB.h"
 #include "TerrainMaterialGeneratorC.h"
@@ -788,6 +789,7 @@ BEGIN_MESSAGE_MAP(SceneDoc, CDocument)
 	ON_COMMAND(ID_DEFERREDSHADING_SHADOW, &SceneDoc::OnDeferredshadingShadow)
 	ON_UPDATE_COMMAND_UI(ID_DEFERREDSHADING_SHADOW, &SceneDoc::OnUpdateDeferredshadingShadow)
 	ON_COMMAND(ID_STATUSBAR_CAMERA_SPEED_SLIDER, &SceneDoc::OnStatusBarCameraSpeedSlider)
+	ON_COMMAND(ID_PRINT_SCREEN, &SceneDoc::OnPrintScreen)
 END_MESSAGE_MAP()
 
 void SceneDoc::OnSaveScene()
@@ -1306,4 +1308,10 @@ void SceneDoc::resetMaterials()
 			}
 		}
 	}
+}
+
+void SceneDoc::OnPrintScreen()
+{
+	activeView->getRenderWindow()->writeContentsToTimestampedFile("PrintScreen", ".png");
+	AfxMessageBox("³É¹¦");
 }

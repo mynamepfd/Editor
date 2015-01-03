@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿生成启动时间为 2014/12/28 22:28:57。
      1>项目“C:\Projects\Editor\Editor\Editor.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
@@ -108,3 +109,60 @@
 生成成功。
 
 已用时间 00:00:33.75
+=======
+﻿  TextureProp.cpp
+  TexturePreviewPage.cpp
+  TerrainLayerWidget.cpp
+  TerrainEditPage.cpp
+d:\neweditor\editor\terraineditpage.cpp(56): warning C4244: “参数”: 从“Ogre::Real”转换到“int”，可能丢失数据
+d:\neweditor\editor\terraineditpage.cpp(70): warning C4244: “参数”: 从“Ogre::Real”转换到“int”，可能丢失数据
+d:\neweditor\editor\terraineditpage.cpp(71): warning C4244: “参数”: 从“Ogre::Real”转换到“int”，可能丢失数据
+d:\neweditor\editor\terraineditpage.cpp(641): warning C4244: “参数”: 从“int”转换到“Ogre::Real”，可能丢失数据
+d:\neweditor\editor\terraineditpage.cpp(666): warning C4244: “参数”: 从“int”转换到“Ogre::Real”，可能丢失数据
+  TerrainBrush.cpp
+d:\neweditor\editor\terrainbrush.cpp(103): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(104): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(123): warning C4244: “初始化”: 从“Ogre::Real”转换到“int”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(127): warning C4244: “=”: 从“Ogre::Real”转换到“LONG”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(128): warning C4244: “=”: 从“Ogre::Real”转换到“LONG”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(163): warning C4244: “参数”: 从“LONG”转换到“Ogre::Real”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(166): warning C4244: “参数”: 从“LONG”转换到“Ogre::Real”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(169): warning C4244: “参数”: 从“LONG”转换到“Ogre::Real”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(172): warning C4244: “参数”: 从“LONG”转换到“Ogre::Real”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(188): warning C4244: “初始化”: 从“Ogre::Real”转换到“int”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(215): warning C4244: “参数”: 从“int”转换到“Ogre::Real”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(218): warning C4244: “参数”: 从“int”转换到“Ogre::Real”，可能丢失数据
+d:\neweditor\editor\terrainbrush.cpp(221): warning C4244: “参数”: 从“int”转换到“Ogre::Real”，可能丢失数据
+  ScriptEditorModifyDlg.cpp
+  ScriptEditorDlg.cpp
+  SceneResourceTree.cpp
+d:\neweditor\editor\sceneresourcetree.cpp(634): warning C4018: “<”: 有符号/无符号不匹配
+  SceneResource.cpp
+  RibbonBarEx.cpp
+  ResourceManagerTree.cpp
+  ResourceLayerWidget.cpp
+  RenderView.cpp
+  RenderPump.cpp
+  PropertyWnd.cpp
+  ParticleView.cpp
+  ParticlePreviewPage.cpp
+  ParticleDoc.cpp
+  OutputWnd.cpp
+d:\neweditor\editor\outputwnd.cpp(29): warning C4018: “<”: 有符号/无符号不匹配
+  OgreXMLConverter.cpp
+  MiscUtils.cpp
+  MiscEditWnd.cpp
+  MiscEditSheet.cpp
+  MaterialView.cpp
+  MaterialPreviewPage.cpp
+  MaterialDoc.cpp
+  ImageCombinator.cpp
+  GameDoc.cpp
+d:\neweditor\editor\gamedoc.cpp(45): warning C4305: “参数”: 从“double”到“float”截断
+d:\neweditor\editor\gamedoc.cpp(51): warning C4305: “参数”: 从“double”到“Ogre::Real”截断
+d:\neweditor\editor\gamedoc.cpp(89): warning C4305: “参数”: 从“double”到“Ogre::Real”截断
+  Editor.cpp
+  DDSConverter.cpp
+Action.obj : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/OPT:LBR”规范)
+  Editor.vcxproj -> D:\NewEditor\Debug\Editor.exe
+>>>>>>> origin/master

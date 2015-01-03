@@ -41,6 +41,8 @@ private:
 	bool initialized;
 	Roaming roaming;
 
+	Ogre::LogManager *logManager;
+
 	Ogre::Root *root;
 	Ogre::OverlaySystem *overlaySystem;
 	Ogre::Overlay *debugOverlay;
